@@ -15,5 +15,8 @@ export default StyleSheet.create({
   },
   colorDarkBlue: {
     color: '#0C3363'
+  },
+  colorBlue: {
+    color: '#4396DC'
   }
 });
