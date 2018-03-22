@@ -2,30 +2,22 @@ import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Slider } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
+import Header from '../common/Header';
 
 const AgeScreen = ({ age, onAgeChange }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.textContainer}>
-        <Text
-          style={[
-            styles.infoText,
-            commonStyles.fontMontserratLight,
-            commonStyles.colorDarkBlue
-          ]}
-        >
-          We need to get some information about you to produce better
-          recommendation result. You can skip any questions at any time.
-        </Text>
-      </View>
-      <View style={styles.imageContainer}>
+    <View>
+      <Header
+        headerText="About you"
+        descriptionText="We need to get some information about you to produce better
+                      recommendation result. You can skip any questions at any time."
+      />
+      <View style={styles.container}>
         <Image
           style={styles.image}
           source={require('../../assets/images/logo_icon.png')}
         />
-      </View>
-      <View style={styles.ageContainer}>
-        <View style={{ justifyContent: 'flex-end' }}>
+        <View style={styles.ageContainer}>
           <Text
             style={[
               styles.ageText,
@@ -35,8 +27,6 @@ const AgeScreen = ({ age, onAgeChange }) => {
           >
             Your age
           </Text>
-        </View>
-        <View style={{ justifyContent: 'flex-end' }}>
           <Text
             style={[
               styles.ageNumber,
@@ -47,8 +37,6 @@ const AgeScreen = ({ age, onAgeChange }) => {
             {age}
           </Text>
         </View>
-      </View>
-      <View style={styles.sliderContainer}>
         <Slider
           minimumTrackTintColor="#F48D79"
           maximumTrackTintColor="#C4C4C4"
@@ -72,41 +60,31 @@ const AgeScreen = ({ age, onAgeChange }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    display: 'flex',
+    height: 400,
     backgroundColor: '#fff',
     alignItems: 'center',
-    flexDirection: 'column',
-    marginTop: 100,
-    marginBottom: 100,
-    marginRight: 35,
-    marginLeft: 35
-  },
-  textContainer: {
-    flex: 1
-  },
-  infoText: {
-    fontSize: 17
+    flexDirection: 'column'
   },
   imageContainer: {
     flex: 1
   },
+  ageContainer: {
+    flex: 1
+  },
   image: {
+    marginTop: 70,
     width: 130,
     height: 153
   },
-  ageContainer: {
-    justifyContent: 'flex-end'
-  },
   ageText: {
+    marginTop: 30,
     fontSize: 28
   },
   ageNumber: {
     alignSelf: 'center',
     fontSize: 40,
     lineHeight: 70
-  },
-  sliderContainer: {
-    justifyContent: 'flex-end'
   },
   slider: {
     width: 344,
