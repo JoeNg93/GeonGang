@@ -2,19 +2,16 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
+import Header from '../common/Header';
 
 
 const PrepScanningScreen = () => {
   return (
     <View style={styles.container}>
-        <Text style={[
-            commonStyles.fontMontserratLight,
-            commonStyles.colorDarkBlue,
-            styles.informationText
-            ]}
-        >
-            Here are some scanning instructions, write something there so that our users know how to use the sensor
-        </Text>
+        <Header
+        headerText="Skin analyzing"
+        descriptionText="Here are some scanning instructions, write something there so that our users know how to use the sensor"
+      />
         <View style={styles.buttonArea}>
             <View style={styles.circle2}>
                 <View style={styles.circle1}>
@@ -52,16 +49,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'stretch'
-  },
-  informationText: {
-    /* Font */
-    fontSize: 17,
-    lineHeight: 21,
-    textAlign: 'justify',
-
-    /* Box */
-    marginLeft: 39,
-    marginRight: 39
   },
   buttonArea: {
       flex: 2,
