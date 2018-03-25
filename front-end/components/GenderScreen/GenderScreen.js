@@ -2,63 +2,67 @@ import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
+import HeaderWithLogo from '../common/HeaderWithLogo';
 
 const GenderScreen = () => {
   return (
-    <View style={styles.container}>
-      <View style={styles.maleFemaleContainer}>
-        <View style={styles.maleGroup}>
-          <Image
-            style={styles.image}
-            source={require('../../assets/images/male-pic.png')}
-          />
-          <Button
-            textStyle={[
-              styles.buttonText,
-              commonStyles.fontMontserratLight,
-              commonStyles.colorDarkBlue
-            ]}
-            outline={true}
-            backgroundColor={'fff'}
-            buttonStyle={styles.button}
-            title="Male"
-          />
+    <View>
+      <HeaderWithLogo headerText="Your gender" />
+      <View style={styles.container}>
+        <View style={styles.maleFemaleContainer}>
+          <View style={styles.maleGroup}>
+            <Image
+              style={styles.image}
+              source={require('../../assets/images/male-pic.png')}
+            />
+            <Button
+              textStyle={[
+                styles.buttonText,
+                commonStyles.fontMontserratLight,
+                commonStyles.colorDarkBlue
+              ]}
+              outline={true}
+              backgroundColor={'fff'}
+              buttonStyle={styles.button}
+              title="Male"
+            />
+          </View>
+          <View style={styles.femaleGroup}>
+            <Image
+              style={styles.image}
+              source={require('../../assets/images/female-pic.png')}
+            />
+            <Button
+              textStyle={[
+                styles.buttonText,
+                commonStyles.fontMontserratLight,
+                commonStyles.colorDarkBlue
+              ]}
+              outline={true}
+              backgroundColor={'fff'}
+              buttonStyle={styles.button}
+              title="Female"
+            />
+          </View>
         </View>
-        <View style={styles.femaleGroup}>
-          <Image
-            style={styles.image}
-            source={require('../../assets/images/female-pic.png')}
-          />
-          <Button
-            textStyle={[
-              styles.buttonText,
-              commonStyles.fontMontserratLight,
-              commonStyles.colorDarkBlue
-            ]}
-            outline={true}
-            backgroundColor={'fff'}
-            buttonStyle={styles.button}
-            title="Female"
-          />
-        </View>
-      </View>
-      <View style={styles.unspecifiedContainer}>
-        <View style={styles.unspecifiedGroup}>
-          <Image
-            style={styles.image}
-            source={require('../../assets/images/unknown-gender.png')}
-          />
-          <Button
-            textStyle={[
-              styles.buttonText,
-              commonStyles.fontMontserratLight,
-              commonStyles.colorDarkBlue
-            ]}
-            outline={true}
-            backgroundColor={'fff'}
-            buttonStyle={styles.button}
-            title="Prefer not to say"
-          />
+        <View style={styles.unspecifiedContainer}>
+          <View style={styles.unspecifiedGroup}>
+            <Image
+              style={styles.image}
+              source={require('../../assets/images/unknown-gender.png')}
+            />
+            <Button
+              textStyle={[
+                styles.buttonText,
+                commonStyles.fontMontserratLight,
+                commonStyles.colorDarkBlue
+              ]}
+              outline={true}
+              backgroundColor={'fff'}
+              buttonStyle={styles.button}
+              title="Prefer not to say"
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -70,6 +74,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
+    paddingTop: 35,
   },
   maleFemaleContainer: {
     flexDirection: 'row',
