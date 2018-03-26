@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    paddingTop: 35,
+    paddingTop: 35
   },
   maleFemaleContainer: {
     flexDirection: 'row',
