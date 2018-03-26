@@ -15,7 +15,7 @@ const Product = ({
   return (
     <View style={styles.productContainer}>
       <Image
-        source={require('../../assets/images/product-1.jpg')}
+        source={productImgPath}
         style={styles.productImg}
         resizeMode="cover"
       />
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
 
 Product.propTypes = {
   productName: PropTypes.string.isRequired,
-  productImgPath: PropTypes.string.isRequired,
+  productImgPath: PropTypes.number.isRequired,
   category: PropTypes.object.isRequired,
   rating: PropTypes.number.isRequired,
   addedState: PropTypes.bool,
