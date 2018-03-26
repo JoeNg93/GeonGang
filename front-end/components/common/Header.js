@@ -16,11 +16,17 @@ const Header = ({ headerText, descriptionText }) => {
         {headerText}
       </Text>
       <View style={styles.divider} />
-      <Text
-        style={[commonStyles.fontMontserratLight, commonStyles.colorDarkBlue, styles.description]}
-      >
-        {descriptionText}
-      </Text>
+      {descriptionText !== '' && (
+        <Text
+          style={[
+            commonStyles.fontMontserratLight,
+            commonStyles.colorDarkBlue,
+            styles.description
+          ]}
+        >
+          {descriptionText}
+        </Text>
+      )}
     </View>
   );
 };
@@ -37,11 +43,11 @@ const styles = StyleSheet.create({
     width: 56
   },
   header: {
-    fontSize: 24,
+    fontSize: 26,
     lineHeight: 29
   },
   description: {
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 17,
     marginTop: 25,
     textAlign: 'justify'
