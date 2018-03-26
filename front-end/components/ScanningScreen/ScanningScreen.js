@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 const ScanningScreen = ({ scanningProgress }) => {
   return (
     <View style={styles.container}>
-      <Header headerText="Skin analyzing" descriptionText="" />
+      <Header headerText="Analyzing skin" descriptionText="" />
       <View style={styles.contents}>
         <Text
           style={[
@@ -19,7 +19,7 @@ const ScanningScreen = ({ scanningProgress }) => {
         >
           Hold on.{"\n"}
           We are scanning your skin.{"\n"}
-          It will take just a minute.
+          It will just take a minute.
         </Text>
         <Image
           source={require("../../assets/images/scan-loading-1.png")}

@@ -9,7 +9,7 @@ const PrepScanningScreen = ({ startAnalyzingHandle }) => {
   return (
     <View style={styles.container}>
       <Header
-        headerText="Skin analyzing"
+        headerText="Analyzing skin"
         descriptionText="Here are some scanning instructions, write something there so that our users know how to use the sensor"
       />
       <View style={styles.buttonArea}>
