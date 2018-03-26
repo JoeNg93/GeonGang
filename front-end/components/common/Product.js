@@ -74,7 +74,7 @@ const Product = ({
             borderWidth: 1,
             borderRadius: 200
           }}
-          onpress={productAddHandle}
+          onPress={productAddHandle}
         />
       ) : (
         <Icon
