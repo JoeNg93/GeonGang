@@ -3,8 +3,9 @@ import { View, Text, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
 import commonStyles from "../../utils/styles";
 import Header from "../common/Header";
+import PropTypes from "prop-types";
 
-const PrepScanningScreen = () => {
+const PrepScanningScreen = ({ startAnalyzingHandle }) => {
   return (
     <View style={styles.container}>
       <Header
@@ -35,6 +36,7 @@ const PrepScanningScreen = () => {
                 borderRadius: 70
               }}
               containerStyle={{ marginTop: 20 }}
+              onPress={startAnalyzingHandle}
             />
           </View>
         </View>
@@ -79,5 +81,9 @@ const styles = StyleSheet.create({
     borderRadius: 130
   }
 });
+
+PrepScanningScreen.propTypes = {
+  startAnalyzingHandle: PropTypes.func.isRequired
+};
 
 export default PrepScanningScreen;

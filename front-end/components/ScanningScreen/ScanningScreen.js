@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { Button } from "react-native-elements";
 import commonStyles from "../../utils/styles";
 import Header from "../common/Header";
+import PropTypes from "prop-types";
 
 const ScanningScreen = ({ scanningProgress }) => {
   return (
@@ -67,5 +68,13 @@ const styles = StyleSheet.create({
     marginVertical: 32
   }
 });
+
+ScanningScreen.propTypes = {
+  scanningProgress: PropTypes.number
+};
+
+ScanningScreen.defaultProps = {
+  scanningProgress: 0
+};
 
 export default ScanningScreen;
