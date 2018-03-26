@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import AgeScreen from './AgeScreen';
+import { connect } from 'react-redux';
+import { setAge } from '../../actions/userInput';
 
 class AgeScreenContainer extends Component {
-  state = {
-    age: 0
-  };
-
   render() {
     return (
       <AgeScreen
-        age={this.state.age}
-        onAgeChange={newAge => this.setState({ age: newAge })}
+        age={this.props.age}
+        onAgeChange={newAge => this.props.setAge(newAge)}
       />
     );
   }
 }
 
-export default AgeScreenContainer;
+const mapStateToProps = state => ({
+  age: state.userInput.age
+});
+
+export default connect(mapStateToProps, { setAge })(AgeScreenContainer);

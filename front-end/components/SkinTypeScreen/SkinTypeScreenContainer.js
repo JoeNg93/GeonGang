@@ -3,7 +3,7 @@ import SkinTypeScreen from './SkinTypeScreen';
 
 class SkinTypeScreenContainer extends Component {
   state = {
-    currentActiveItemIndex: 1
+    currentActiveItemIndex: 0
   };
 
   entries = [
@@ -34,13 +34,31 @@ class SkinTypeScreenContainer extends Component {
     }
   ];
 
+  onTouchBackBtn = () => {
+    this.setState({
+      currentActiveItemIndex:
+        this.state.currentActiveItemIndex <= 0
+          ? this.entries.length - 1
+          : this.state.currentActiveItemIndex - 1
+    });
+  };
+
+  onTouchNextBtn = () => {
+    this.setState({
+      currentActiveItemIndex:
+        this.state.currentActiveItemIndex >= this.entries.length - 1
+          ? 0
+          : this.state.currentActiveItemIndex + 1
+    });
+  };
+
   render() {
     return (
       <SkinTypeScreen
         entries={this.entries}
         currentActiveItemIndex={this.state.currentActiveItemIndex}
-        onSnapToItem={slideIndex =>
-          this.setState({ currentActiveItemIndex: slideIndex })}
+        onTouchBackBtn={this.onTouchBackBtn}
+        onTouchNextBtn={this.onTouchNextBtn}
       />
     );
   }
