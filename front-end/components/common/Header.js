@@ -34,7 +34,7 @@ const Header = ({ headerText, descriptionText }) => {
 const styles = StyleSheet.create({
   container: {
     paddingLeft: 40,
-    paddingRight: 60,
+    paddingRight: 40,
     paddingTop: 60
   },
   divider: {
@@ -49,8 +49,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     lineHeight: 17,
-    marginTop: 25,
-    textAlign: 'justify'
+    marginTop: 25
   }
 });
 
