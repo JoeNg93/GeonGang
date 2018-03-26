@@ -4,22 +4,22 @@ import { Button } from "react-native-elements";
 import commonStyles from "../../utils/styles";
 import Header from "../common/Header";
 
-const ScanningScreen = () => {
+const ScanningScreen = ({ scanningProgress }) => {
   return (
     <View style={styles.container}>
       <Header headerText="Skin analyzing" descriptionText="" />
-      <Text
-        style={[
-          commonStyles.fontMontserratLight,
-          commonStyles.colorDarkBlue,
-          styles.informationText
-        ]}
-      >
-        Hold on.{"\n"}
-        We are scanning your skin.{"\n"}
-        It will take just a minute.
-      </Text>
-      <View style={styles.loading}>
+      <View style={styles.contents}>
+        <Text
+          style={[
+            commonStyles.fontMontserratLight,
+            commonStyles.colorDarkBlue,
+            styles.informationText
+          ]}
+        >
+          Hold on.{"\n"}
+          We are scanning your skin.{"\n"}
+          It will take just a minute.
+        </Text>
         <Image
           source={require("../../assets/images/scan-loading-1.png")}
           style={styles.loadingImage}
@@ -31,7 +31,7 @@ const ScanningScreen = () => {
             styles.loadingText
           ]}
         >
-          52%
+          {scanningProgress}%
         </Text>
       </View>
     </View>
@@ -42,21 +42,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column"
-    // justifyContent: 'space-between',
-    // alignItems: 'stretch'
+  },
+
+  contents: {
+    flex: 1,
+    justifyContent: "center"
   },
 
   informationText: {
-    fontSize: 17,
+    fontSize: 18,
     textAlign: "center",
-    paddingVertical: 32
-    // backgroundColor: '#bababa'
-  },
-
-  loading: {
-    flex: 2,
-    justifyContent: "center"
-    // backgroundColor: '#dadada'
+    marginBottom: 60
   },
 
   loadingImage: {
@@ -68,7 +64,7 @@ const styles = StyleSheet.create({
   loadingText: {
     fontSize: 48,
     textAlign: "center",
-    marginTop: 32
+    marginVertical: 32
   }
 });
 
