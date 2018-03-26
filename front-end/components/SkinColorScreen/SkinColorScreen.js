@@ -1,27 +1,30 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { Slider } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
 import HeaderWithLogo from '../common/HeaderWithLogo';
 
-const SkinColorScreen = ({ color, colorText, onColorChange }) => {
+const SkinColorScreen = ({
+  color,
+  colorText,
+  onColorChange,
+  sliderVal,
+  colorVal
+}) => {
   return (
     <View>
       <HeaderWithLogo headerText="Your skin color" />
       <View style={styles.container}>
         <View style={styles.colorContainer}>
-          <View
-            backgroundColor={'hsl(25, 55%, ' + (100 - color) + '%)'}
-            style={styles.colorImage}
-          />
+          <View backgroundColor={colorVal} style={styles.colorImage} />
           <Text style={[styles.colorText, commonStyles.fontMontserratRegular]}>
             {colorText}
           </Text>
         </View>
         <Slider
-          minimumTrackTintColor={'hsl(25, 55%, ' + (100 - color) + '%)'}
+          minimumTrackTintColor={colorVal}
           maximumTrackTintColor="#C4C4C4"
-          thumbTintColor={'hsl(25, 55%, ' + (100 - color) + '%)'}
+          thumbTintColor={colorVal}
           trackStyle={{
             height: 8,
             borderRadius: 0
@@ -31,7 +34,7 @@ const SkinColorScreen = ({ color, colorText, onColorChange }) => {
           step={1}
           minimumValue={3}
           maximumValue={100}
-          value={color}
+          value={sliderVal}
           onValueChange={onColorChange}
         />
       </View>
