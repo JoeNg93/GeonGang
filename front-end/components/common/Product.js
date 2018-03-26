@@ -83,7 +83,7 @@ const Product = ({
           color="#4396DC"
           size={30}
           containerStyle={{ margin: 0, width: 36, height: 36 }}
-          onpress={productAddHandle}
+          onPress={productAddHandle}
         />
       )}
     </View>
