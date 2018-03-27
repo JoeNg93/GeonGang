@@ -1,43 +1,53 @@
 import React, { Component } from 'react';
 import SkinColorScreen from './SkinColorScreen';
+import { connect } from 'react-redux';
+import { setSkinColor } from '../../actions/userInput';
 
 class SkinColorScreenContainer extends Component {
   state = {
-    colorText: 'Medium',
     sliderVal: 50,
     colorVal: 'hsl(25, 55%, 50%)'
   };
 
-  onColorChange(newSliderVal) {
-    this.setState({
-      colorVal: `hsl(25, 55%, ${100 - newSliderVal}%)`,
-      sliderVal: newSliderVal
-    });
-    if (newSliderVal >= 3 && newSliderVal <= 19) {
-      this.setState({ colorText: 'Very fair' });
-    } else if (newSliderVal >= 20 && newSliderVal <= 36) {
-      this.setState({ colorText: 'Fair' });
-    } else if (newSliderVal >= 37 && newSliderVal <= 53) {
-      this.setState({ colorText: 'Medium' });
-    } else if (newSliderVal >= 54 && newSliderVal <= 70) {
-      this.setState({ colorText: 'Olive' });
-    } else if (newSliderVal >= 71 && newSliderVal <= 87) {
-      this.setState({ colorText: 'Brown' });
-    } else if (newSliderVal >= 88 && newSliderVal <= 100) {
-      this.setState({ colorText: 'Dark brown' });
+  onColorChange = sliderVal => {
+    let skinColor = '';
+    if (sliderVal >= 3 && sliderVal <= 19) {
+      skinColor = 'Very fair';
+    } else if (sliderVal >= 20 && sliderVal <= 36) {
+      skinColor = 'Fair';
+    } else if (sliderVal >= 37 && sliderVal <= 53) {
+      skinColor = 'Medium';
+    } else if (sliderVal >= 54 && sliderVal <= 70) {
+      skinColor = 'Olive';
+    } else if (sliderVal >= 71 && sliderVal <= 87) {
+      skinColor = 'Tan';
+    } else if (sliderVal >= 88 && sliderVal <= 100) {
+      skinColor = 'Dark';
     }
-  }
+
+    this.setState({
+      colorVal: `hsl(25, 55%, ${100 - sliderVal}%)`,
+      sliderVal
+    });
+    this.props.setSkinColor(skinColor);
+  };
 
   render() {
     return (
       <SkinColorScreen
         colorVal={this.state.colorVal}
         sliderVal={this.state.sliderVal}
-        colorText={this.state.colorText}
-        onColorChange={this.onColorChange.bind(this)}
+        colorText={this.props.skinColor}
+        onColorChange={this.onColorChange}
       />
     );
   }
 }
 
-export default SkinColorScreenContainer;
+const mapStateToProps = state => ({
+  skinColor: state.userInput.skinColor
+});
+
+export default connect(mapStateToProps, { setSkinColor })(
+  SkinColorScreenContainer
+);

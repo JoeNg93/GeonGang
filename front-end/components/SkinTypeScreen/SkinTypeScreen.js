@@ -1,40 +1,39 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import commonStyles from '../../utils/styles';
 import Carousel from 'react-native-snap-carousel';
+import { Icon } from 'react-native-elements';
 import { widthPercentage } from '../../utils/dimensions';
 import PropTypes from 'prop-types';
+import HeaderWithLogo from '../common/HeaderWithLogo';
 
-const itemWidth = 190;
-const itemHeight = 250;
-
-const renderSlideItem = ({ item, index }) => {
+const SkinTypeScreen = ({
+  entries,
+  currentActiveItemIndex,
+  onTouchBackBtn,
+  onTouchNextBtn
+}) => {
   return (
-    <View style={{ width: itemWidth, height: itemHeight }} key={index}>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Image style={styles.focusSkinTypeImgSize} source={item.imgSrc} />
+    <View>
+      <HeaderWithLogo headerText="Your skin type" />
+      <View style={styles.skinFaceContainer}>
+        <TouchableOpacity onPress={onTouchBackBtn}>
+          <View style={styles.arrowBackContainer}>
+            <Icon name="keyboard-arrow-left" size={80} />
+          </View>
+        </TouchableOpacity>
+        <View>
+          <Image
+            source={entries[currentActiveItemIndex].imgSrc}
+            style={styles.skinTypeImgSize}
+          />
+        </View>
+        <TouchableOpacity onPress={onTouchNextBtn}>
+          <View style={styles.arrowNextContainer}>
+            <Icon name="keyboard-arrow-right" size={80} />
+          </View>
+        </TouchableOpacity>
       </View>
-    </View>
-  );
-};
-
-const SkinTypeScreen = ({ entries, currentActiveItemIndex, onSnapToItem }) => {
-  return (
-    <View style={styles.container}>
-      <Carousel
-        sliderWidth={widthPercentage(100)}
-        itemWidth={itemWidth}
-        data={entries}
-        renderItem={renderSlideItem}
-        firstItem={1}
-        inactiveSlideOpacity={0.7}
-        inactiveSlideScale={0.8}
-        enableSnap={true}
-        onSnapToItem={onSnapToItem}
-        containerCustomStyle={{ flexGrow: 0 }}
-        loop={true}
-        loopClonesPerSide={2}
-      />
       <View style={{ flexDirection: 'column', alignItems: 'center' }}>
         <Text
           style={[
@@ -62,11 +61,6 @@ const SkinTypeScreen = ({ entries, currentActiveItemIndex, onSnapToItem }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   skinTypeTitle: {
     fontSize: 24,
     lineHeight: 27
@@ -75,24 +69,30 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 17
   },
-  focusSkinTypeImgSize: {
+  skinTypeImgSize: {
     width: 103,
     height: 153
   },
-  normalSkinTypeImgSize: {
-    width: 90,
-    height: 134
+  skinFaceContainer: {
+    marginTop: 40,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 40
+  },
+  arrowBackContainer: {
+    marginRight: 20
+  },
+  arrowNextContainer: {
+    marginLeft: 20
   }
 });
 
 SkinTypeScreen.propTypes = {
   entries: PropTypes.array.isRequired,
   currentActiveItemIndex: PropTypes.number.isRequired,
-  onSnapToItem: PropTypes.func
-};
-
-SkinTypeScreen.defaultProps = {
-  onSnapToItem: () => {}
+  onTouchBackBtn: PropTypes.func.isRequired,
+  onTouchNextBtn: PropTypes.func.isRequired
 };
 
 export default SkinTypeScreen;
