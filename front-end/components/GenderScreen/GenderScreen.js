@@ -28,7 +28,7 @@ const GenderScreen = ({
                 gender === 'male' ? colorCode.darkBlue : colorCode.white
               }
               color={gender === 'male' ? colorCode.white : colorCode.darkBlue}
-              buttonStyle={styles.button}
+              buttonStyle={[styles.button, { width: 150 }]}
               title="Male"
               onPress={onTouchMaleBtn}
             />
@@ -44,7 +44,7 @@ const GenderScreen = ({
                 gender === 'female' ? colorCode.darkBlue : colorCode.white
               }
               color={gender === 'female' ? colorCode.white : colorCode.darkBlue}
-              buttonStyle={styles.button}
+              buttonStyle={[styles.button, { width: 150 }]}
               title="Female"
               onPress={onTouchFemaleBtn}
             />
@@ -64,7 +64,10 @@ const GenderScreen = ({
               color={
                 gender === 'unknown' ? colorCode.white : colorCode.darkBlue
               }
-              buttonStyle={styles.button}
+              buttonStyle={[
+                styles.button,
+                { paddingLeft: 26, paddingRight: 26 }
+              ]}
               title="Prefer not to say"
               onPress={onTouchUnknownBtn}
             />
@@ -77,22 +80,22 @@ const GenderScreen = ({
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    paddingTop: 35
+    paddingTop: 35,
+    paddingLeft: 10,
+    paddingRight: 10
   },
   maleFemaleContainer: {
+    width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: 414,
-    height: 200
+    justifyContent: 'space-around'
   },
   unspecifiedContainer: {
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
-    width: 414,
-    height: 200
+    paddingTop: 15
   },
   unspecifiedGroup: {
     alignItems: 'center'
@@ -109,14 +112,14 @@ const styles = StyleSheet.create({
     marginTop: 30
   },
   button: {
-    width: 140,
-    height: 30,
+    paddingTop: 5,
+    paddingBottom: 5,
     borderRadius: 20,
     borderColor: colorCode.darkBlue,
     borderWidth: 1
   },
   buttonText: {
-    fontSize: 14
+    fontSize: 16
   }
 });
 

@@ -41,7 +41,13 @@ const renderBackButton = onTouchPrevScreen => {
           color="#0C3363"
           containerStyle={styles.backArrowIcon}
         />
-        <Text style={[styles.backText, commonStyles.fontMontserratRegular]}>
+        <Text
+          style={[
+            styles.backText,
+            commonStyles.fontMontserratRegular,
+            commonStyles.colorDarkBlue
+          ]}
+        >
           back
         </Text>
       </View>
@@ -61,7 +67,8 @@ const UserInputScreens = ({
         ref={onGetFlatListRef}
         data={data}
         renderItem={({ item }) =>
-          renderItem({ item, onTouchNextScreen, onTouchPrevScreen })}
+          renderItem({ item, onTouchNextScreen, onTouchPrevScreen })
+        }
         keyExtractor={(item, index) => item.id}
         horizontal={true}
         scrollEnabled={false}

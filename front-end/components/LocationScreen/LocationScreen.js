@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import commonStyles from '../../utils/styles';
+import colorCode from '../../utils/colorCode';
 import { Button, Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import HeaderWithLogo from '../common/HeaderWithLogo';
@@ -20,15 +21,14 @@ const LocationScreen = ({ located, locationInfo, clickHandle }) => {
             buttonStyle={{ paddingLeft: 30, paddingRight: 30, marginTop: 55 }}
             title="Track your location"
             iconRight={{ name: 'my-location' }}
-            fontFamily="montserrat-regular"
-            fontSize={20}
-            backgroundColor="#4396DC"
+            textStyle={[commonStyles.fontMontserratRegular, { fontSize: 20 }]}
+            backgroundColor={colorCode.blue}
             borderRadius={25}
             containerViewStyle={{ borderRadius: 25 }}
             onPress={clickHandle}
           />
         ) : (
-          <View>
+          <View style={styles.locationInfo}>
             <Text
               style={[
                 commonStyles.fontMontserratRegular,
@@ -57,15 +57,17 @@ const LocationScreen = ({ located, locationInfo, clickHandle }) => {
 const styles = StyleSheet.create({
   contentContainer: {
     alignItems: 'center',
-    marginTop: 60
+    marginTop: 70
   },
   locationImage: {
-    width: 377,
-    height: 186
+    width: 361,
+    height: 178
+  },
+  locationInfo: {
+    padding: 40
   },
   title: {
     fontSize: 22,
-    marginTop: 55,
     textAlign: 'center'
   },
   subtitle: {
