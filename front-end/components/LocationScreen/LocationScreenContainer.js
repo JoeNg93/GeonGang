@@ -7,15 +7,19 @@ import { setClimate } from '../../actions/userInput';
 
 class LocationScreenContainer extends Component {
   state = {
-    located: false
+    located: false,
+    loading: false
   };
 
   locationInfo = {
     location: '',
-    climate: ''
+    climate: '',
+    city: '',
+    country: ''
   };
 
   displayLocation = async event => {
+    this.setState({ loading: true });
     // Get location
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     const location = await Location.getCurrentPositionAsync({});
@@ -26,6 +30,8 @@ class LocationScreenContainer extends Component {
     const locationData = await axios.get(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleGeocodingAPIKey}`
     );
+    const locationDataComponent =
+      locationData.data.results[0].address_components;
 
     // Get climate info
     const { data: climateInfo } = await axios.get(
@@ -33,14 +39,29 @@ class LocationScreenContainer extends Component {
     );
     this.props.setClimate(climateInfo.return_values[0].koppen_geiger_zone);
 
-    this.locationInfo.location = locationData.data.results[0].formatted_address;
+    locationDataComponent.forEach(component => {
+      if (
+        component.types.includes('locality') ||
+        component.types.includes('sublocality') ||
+        component.types.includes('neighborhood')
+      ) {
+        this.locationInfo.city = component.long_name;
+      }
+      if (component.types.includes('country')) {
+        this.locationInfo.country = component.long_name;
+      }
+    });
+    this.locationInfo.location =
+      this.locationInfo.city + ', ' + this.locationInfo.country;
     this.locationInfo.climate = climateInfo.return_values[0].zone_description;
     this.setState({ located: true });
+    this.setState({ loading: false });
   };
 
   render() {
     return (
       <LocationScreen
+        loading={this.state.loading}
         located={this.state.located}
         locationInfo={this.locationInfo}
         clickHandle={this.displayLocation}

@@ -11,6 +11,8 @@ import { Icon, Button } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
 import { screenWidth } from '../../utils/dimensions';
 
+const hitSlop = { top: 40, bottom: 40, left: 40, right: 40 };
+
 const renderItem = ({ item }) => {
   return (
     <View style={{ flex: 1, width: screenWidth }} key={item.id}>
@@ -24,6 +26,7 @@ const renderNextButton = onTouchNextScreen => {
     <TouchableOpacity
       onPress={onTouchNextScreen}
       style={{ marginLeft: 'auto' }}
+      hitSlop={hitSlop}
     >
       <View style={[styles.nextBtn, commonStyles.backgroundColorBlue]}>
         <Icon name="arrow-forward" color="white" />
@@ -34,7 +37,7 @@ const renderNextButton = onTouchNextScreen => {
 
 const renderBackButton = onTouchPrevScreen => {
   return (
-    <TouchableOpacity onPress={onTouchPrevScreen}>
+    <TouchableOpacity onPress={onTouchPrevScreen} hitSlop={hitSlop}>
       <View style={styles.backBtn}>
         <Icon
           name="arrow-back"

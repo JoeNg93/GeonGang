@@ -8,6 +8,8 @@ import { widthPercentage } from '../../utils/dimensions';
 import PropTypes from 'prop-types';
 import HeaderWithLogo from '../common/HeaderWithLogo';
 
+const hitSlop = { top: 30, bottom: 30, left: 30, right: 30 };
+
 const SkinTypeScreen = ({
   entries,
   currentActiveItemIndex,
@@ -18,7 +20,7 @@ const SkinTypeScreen = ({
     <View>
       <HeaderWithLogo headerText="Your skin type" />
       <View style={styles.contentContainer}>
-        <TouchableOpacity onPress={onTouchBackBtn}>
+        <TouchableOpacity onPress={onTouchBackBtn} hitSlop={hitSlop}>
           <View style={styles.arrowBackContainer}>
             <Icon
               name="arrow-left"
@@ -54,7 +56,7 @@ const SkinTypeScreen = ({
             {entries[currentActiveItemIndex].description}
           </Text>
         </View>
-        <TouchableOpacity onPress={onTouchNextBtn}>
+        <TouchableOpacity onPress={onTouchNextBtn} hitSlop={hitSlop}>
           <View style={styles.arrowNextContainer}>
             <Icon
               name="arrow-right"
