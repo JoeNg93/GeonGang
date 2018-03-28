@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Badge, Icon } from 'react-native-elements';
+import colorCode from '../../utils/colorCode';
 import commonStyles from '../../utils/styles';
 import PropTypes from 'prop-types';
 
@@ -35,11 +36,10 @@ const Product = ({
           <Badge
             value={category.name}
             containerStyle={{ backgroundColor: category.color }}
-            textStyle={{
-              fontSize: 12,
-              color: 'white',
-              fontFamily: 'montserrat-light'
-            }}
+            textStyle={[
+              { fontSize: 12, color: 'white' },
+              commonStyles.fontMontserratRegular
+            ]}
           />
           <View
             style={{
@@ -62,29 +62,39 @@ const Product = ({
         </View>
       </View>
       {addedState === false ? (
-        <Icon
-          name="add"
-          color="#4396DC"
-          size={30}
-          containerStyle={{
-            margin: 0,
-            width: 36,
-            height: 36,
-            borderColor: '#4396DC',
-            borderWidth: 1,
-            borderRadius: 200
-          }}
-          onPress={productAddHandle}
-        />
+        <TouchableOpacity onPress={productAddHandle}>
+          <View>
+            <Icon
+              name="add"
+              color="#4396DC"
+              size={30}
+              containerStyle={{
+                margin: 0,
+                width: 36,
+                height: 36,
+                borderColor: colorCode.blue,
+                borderWidth: 1,
+                borderRadius: 200
+              }}
+            />
+          </View>
+        </TouchableOpacity>
       ) : (
-        <Icon
-          reverse
-          name="add"
-          color="#4396DC"
-          size={30}
-          containerStyle={{ margin: 0, width: 36, height: 36 }}
-          onPress={productAddHandle}
-        />
+        <TouchableOpacity onPress={productAddHandle}>
+          <View>
+            <Icon
+              reverse
+              name="add"
+              size={30}
+              containerStyle={{
+                margin: 0,
+                width: 36,
+                height: 36,
+                backgroundColor: colorCode.blue
+              }}
+            />
+          </View>
+        </TouchableOpacity>
       )}
     </View>
   );

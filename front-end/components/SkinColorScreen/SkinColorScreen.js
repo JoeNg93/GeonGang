@@ -48,7 +48,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     flexDirection: 'column',
-    paddingTop: 100
+    paddingTop: 100,
+    paddingLeft: 40,
+    paddingRight: 40
   },
   colorContainer: {
     alignItems: 'center',
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
     paddingBottom: 35
   },
   slider: {
-    width: 344,
+    width: '100%',
     height: 36
   }
 });

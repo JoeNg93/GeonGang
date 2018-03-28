@@ -51,7 +51,7 @@ const ScanningResultScreen = () => {
         {/*Scanning result*/}
         <View style={styles.resultsContainer}>
           {/* Moisture*/}
-          <View style={styles.resultContainer}>
+          <View style={styles.skinConditionContainer}>
             <Image
               style={styles.moistIcon}
               source={require('../../assets/images/moist.png')}
@@ -78,7 +78,7 @@ const ScanningResultScreen = () => {
             </View>
           </View>
           {/* UV level */}
-          <View style={styles.resultContainer}>
+          <View style={styles.skinConditionContainer}>
             <Image
               style={styles.uvIcon}
               source={require('../../assets/images/uv.png')}
@@ -105,7 +105,7 @@ const ScanningResultScreen = () => {
             </View>
           </View>
           {/* Dirt */}
-          <View style={styles.resultContainer}>
+          <View style={styles.skinConditionContainer}>
             <Image
               style={styles.dirtIcon}
               source={require('../../assets/images/dirt.png')}
@@ -132,7 +132,7 @@ const ScanningResultScreen = () => {
             </View>
           </View>
           {/* Pigmentation */}
-          <View style={styles.resultContainer}>
+          <View style={styles.skinConditionContainer}>
             <Image
               style={styles.pigmentIcon}
               source={require('../../assets/images/pigment.png')}
@@ -173,7 +173,7 @@ const ScanningResultScreen = () => {
         <Button
           buttonStyle={{}}
           title="Proceed to next step"
-          iconRight={{ name: 'long-arrow-right', type: 'font-awesome' }}
+          iconRight={{ name: 'arrow-right', type: 'feather' }}
           fontFamily="montserrat-regular"
           fontSize={20}
           backgroundColor="#4396DC"
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginTop: 37
   },
-  resultContainer: {
+  skinConditionContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginRight: 39,

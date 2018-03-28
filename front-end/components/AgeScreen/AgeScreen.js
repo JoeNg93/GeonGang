@@ -9,8 +9,7 @@ const AgeScreen = ({ age, onAgeChange }) => {
     <View>
       <Header
         headerText="About you"
-        descriptionText="We need to get some information about you to produce better
-                      recommendation result. You can skip any questions at any time."
+        descriptionText="We need to get some information about you to produce better recommendation result. You can skip any questions at any time."
       />
       <View style={styles.container}>
         <Image
@@ -64,7 +63,9 @@ const styles = StyleSheet.create({
     height: 400,
     backgroundColor: '#fff',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    paddingLeft: 40,
+    paddingRight: 40
   },
   imageContainer: {
     flex: 1
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     lineHeight: 70
   },
   slider: {
-    width: 344,
+    width: '100%',
     height: 36
   }
 });
