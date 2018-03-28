@@ -6,7 +6,7 @@ import { Button, Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import HeaderWithLogo from '../common/HeaderWithLogo';
 
-const LocationScreen = ({ located, locationInfo, clickHandle }) => {
+const LocationScreen = ({ loading, located, locationInfo, clickHandle }) => {
   return (
     <View>
       <HeaderWithLogo headerText="Your climate" />
@@ -20,12 +20,15 @@ const LocationScreen = ({ located, locationInfo, clickHandle }) => {
           <Button
             buttonStyle={{ paddingLeft: 30, paddingRight: 30, marginTop: 55 }}
             title="Track your location"
-            iconRight={{ name: 'my-location' }}
+            iconRight={loading === true ? null : { name: 'my-location' }}
             textStyle={[commonStyles.fontMontserratRegular, { fontSize: 20 }]}
             backgroundColor={colorCode.blue}
             borderRadius={25}
             containerViewStyle={{ borderRadius: 25 }}
             onPress={clickHandle}
+            loading={loading}
+            loadingRight={true}
+            activityIndicatorStyle={{ marginRight: 0 }}
           />
         ) : (
           <View style={styles.locationInfo}>

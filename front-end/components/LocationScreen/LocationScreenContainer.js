@@ -7,7 +7,8 @@ import { setClimate } from '../../actions/userInput';
 
 class LocationScreenContainer extends Component {
   state = {
-    located: false
+    located: false,
+    loading: false
   };
 
   locationInfo = {
@@ -18,6 +19,7 @@ class LocationScreenContainer extends Component {
   };
 
   displayLocation = async event => {
+    this.setState({ loading: true });
     // Get location
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     const location = await Location.getCurrentPositionAsync({});
@@ -53,11 +55,13 @@ class LocationScreenContainer extends Component {
       this.locationInfo.city + ', ' + this.locationInfo.country;
     this.locationInfo.climate = climateInfo.return_values[0].zone_description;
     this.setState({ located: true });
+    this.setState({ loading: false });
   };
 
   render() {
     return (
       <LocationScreen
+        loading={this.state.loading}
         located={this.state.located}
         locationInfo={this.locationInfo}
         clickHandle={this.displayLocation}
