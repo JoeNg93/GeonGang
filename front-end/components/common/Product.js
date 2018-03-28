@@ -5,6 +5,8 @@ import colorCode from '../../utils/colorCode';
 import commonStyles from '../../utils/styles';
 import PropTypes from 'prop-types';
 
+const hitSlop = { top: 20, bottom: 20, left: 20, right: 20 };
+
 const Product = ({
   productName,
   productImgPath,
@@ -62,7 +64,7 @@ const Product = ({
         </View>
       </View>
       {addedState === false ? (
-        <TouchableOpacity onPress={productAddHandle}>
+        <TouchableOpacity onPress={productAddHandle} hitSlop={hitSlop}>
           <View>
             <Icon
               name="add"
@@ -80,7 +82,7 @@ const Product = ({
           </View>
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity onPress={productAddHandle}>
+        <TouchableOpacity onPress={productAddHandle} hitSlop={hitSlop}>
           <View>
             <Icon
               reverse

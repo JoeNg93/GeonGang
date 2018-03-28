@@ -6,6 +6,7 @@ import HeaderWithLogo from '../common/HeaderWithLogo';
 import PropTypes from 'prop-types';
 import colorCode from '../../utils/colorCode';
 
+const hitSlop = { top: 110 };
 const GenderScreen = ({
   onTouchMaleBtn,
   onTouchFemaleBtn,
@@ -31,6 +32,7 @@ const GenderScreen = ({
               buttonStyle={[styles.button, { width: 150 }]}
               title="Male"
               onPress={onTouchMaleBtn}
+              hitSlop={hitSlop}
             />
           </View>
           <View style={styles.femaleGroup}>
@@ -47,6 +49,7 @@ const GenderScreen = ({
               buttonStyle={[styles.button, { width: 150 }]}
               title="Female"
               onPress={onTouchFemaleBtn}
+              hitSlop={hitSlop}
             />
           </View>
         </View>
@@ -70,6 +73,7 @@ const GenderScreen = ({
               ]}
               title="Prefer not to say"
               onPress={onTouchUnknownBtn}
+              hitSlop={hitSlop}
             />
           </View>
         </View>

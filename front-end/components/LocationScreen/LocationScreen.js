@@ -72,7 +72,8 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 20,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: 15
   }
 });
 
