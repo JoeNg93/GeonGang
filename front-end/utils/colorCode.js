@@ -6,5 +6,9 @@ export default {
   goodTag: '#00EB63',
   badTag: '#FF9533',
   cautiousTag: '#FF3844',
-  star: '#FFC61A'
+  star: '#FFC61A',
+  goodGradient: ['#0FD850', '#CBF947'],
+  moderateGradient: ['#005BEA', '#00C6FB'],
+  badGradient: ['#FF5858', '#F09819'],
+  cautiousGradient: ['#FF0844', '#FD5655', '#FC8560']
 };
