@@ -6,6 +6,8 @@ import colorCode from '../../utils/colorCode';
 import commonStyles from '../../utils/styles';
 import PropTypes from 'prop-types';
 
+const cardWidth = 317;
+
 const RecordCard = ({
   gradientBackground,
   score,
@@ -13,10 +15,14 @@ const RecordCard = ({
   scoreTagColor,
   lightVersion,
   displayRow,
-  recommendText
+  recommendText,
+  cardContainerStyle
 }) => {
   return (
-    <LinearGradient colors={gradientBackground} style={styles.cardContainer}>
+    <LinearGradient
+      colors={gradientBackground}
+      style={[styles.cardContainer, cardContainerStyle]}
+    >
       <OverallScore
         score={score}
         scoreTag={scoreTag}
@@ -31,9 +37,11 @@ const RecordCard = ({
   );
 };
 
+RecordCard.cardWidth = cardWidth;
+
 const styles = StyleSheet.create({
   cardContainer: {
-    width: 317,
+    width: cardWidth,
     height: 380,
     borderRadius: 20,
     paddingTop: 64,
@@ -55,11 +63,13 @@ const styles = StyleSheet.create({
 
 RecordCard.propTypes = {
   gradientBackground: PropTypes.array.isRequired,
-  recommendtext: PropTypes.string.isRequired
+  recommendtext: PropTypes.string.isRequired,
+  cardContainerStyle: PropTypes.object
 };
 
 RecordCard.defaultProps = {
-  recommendtext: ''
+  recommendtext: '',
+  cardContainerStyle: {}
 };
 
 export default RecordCard;
