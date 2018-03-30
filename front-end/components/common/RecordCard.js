@@ -35,6 +35,10 @@ const RecordCard = ({
   return (
     <Animated.View
       style={{
+        opacity: animatedValue.interpolate({
+          inputRange: [itemIndex - 1, itemIndex, itemIndex + 1],
+          outputRange: [0.8, 1, 0.8]
+        }),
         transform: [
           {
             scale: animatedValue.interpolate({

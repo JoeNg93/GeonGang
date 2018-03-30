@@ -41,7 +41,7 @@ const HomepageScreen2 = ({
     <View style={styles.container}>
       <SideSwipe
         index={currentIndex}
-        threshold={RecordCard.cardWidth / 4}
+        threshold={RecordCard.cardWidth / 2}
         onIndexChange={onChangeCardIndex}
         itemWidth={RecordCard.cardWidth}
         style={{ flex: 1, width: screenWidth }}
