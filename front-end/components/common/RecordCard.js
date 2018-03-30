@@ -124,10 +124,9 @@ const styles = StyleSheet.create({
     paddingLeft: 35,
     paddingRight: 45,
     paddingBottom: 20,
-    overflow: 'hidden',
     shadowColor: '#787878',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.15,
+    shadowOffset: { width: 1, height: 6 },
+    shadowOpacity: 0.3,
     shadowRadius: 8
   },
   recommendText: {
