@@ -11,22 +11,21 @@ const renderItem = ({
   currentIndex,
   item,
   animatedValue,
-  favoriteHandle
+  favoriteHandle,
+  deleteHandle,
+  fadeOutAnim,
+  translateXAnim
 }) => {
   return (
     <RecordCard
       itemIndex={itemIndex}
       animatedValue={animatedValue}
       gradientBackground={item.gradientBackground}
-      date={item.date}
-      score={item.overallScore.score}
-      scoreTag={item.overallScore.scoreTag}
-      scoreTagColor={item.overallScore.scoreTagColor}
-      lightVersion={item.overallScore.lightVersion}
-      displayRow={item.overallScore.displayRow}
-      recommendText={item.skinConditionResult.recommendText}
-      starAdded={item.starAdded}
+      item={item}
       favoriteHandle={favoriteHandle}
+      deleteHandle={deleteHandle}
+      fadeOutAnim={item.fadeOutAnim}
+      translateXAnim={translateXAnim}
     />
   );
 };
@@ -35,7 +34,10 @@ const HomepageScreen2 = ({
   cards,
   currentIndex,
   onChangeCardIndex,
-  favoriteHandle
+  favoriteHandle,
+  deleteHandle,
+  fadeOutAnim,
+  translateXAnim
 }) => {
   return (
     <View style={styles.container}>
@@ -54,7 +56,10 @@ const HomepageScreen2 = ({
             currentIndex,
             item,
             animatedValue,
-            favoriteHandle
+            favoriteHandle,
+            deleteHandle,
+            fadeOutAnim,
+            translateXAnim
           })
         }
       />
