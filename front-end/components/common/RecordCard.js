@@ -11,6 +11,7 @@ import {
 import { LinearGradient } from 'expo';
 import { Icon } from 'react-native-elements';
 import OverallScore from '../common/OverallScore';
+import EmptyCard from '../common/EmptyCard';
 import colorCode from '../../utils/colorCode';
 import commonStyles from '../../utils/styles';
 import PropTypes from 'prop-types';
@@ -73,29 +74,7 @@ const RecordCard = ({
         {item.date}
       </Animated.Text>
       {item.emptyCard === true ? (
-        <LinearGradient
-          colors={gradientBackground}
-          style={[styles.emptyCardContainer, styles.cardContainer]}
-        >
-          <Text
-            style={[commonStyles.fontMontserratRegular, styles.emptyCardText]}
-          >
-            Add more records by scanning your skin !
-          </Text>
-          <Icon
-            name="add"
-            size={50}
-            color="white"
-            containerStyle={{
-              margin: 0,
-              width: 56,
-              height: 56,
-              borderColor: 'white',
-              borderWidth: 2,
-              borderRadius: 200
-            }}
-          />
-        </LinearGradient>
+        <EmptyCard gradientBackground={gradientBackground} />
       ) : (
         <View>
           <LinearGradient
