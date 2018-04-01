@@ -1,19 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Button } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
 import colorCode from '../../utils/colorCode';
 import HeaderWithLogo from '../common/HeaderWithLogo';
 import RecordCard from '../common/RecordCard';
+import EmptyCard from '../common/EmptyCard';
 
 const HomepageScreen1 = ({
   gradientBackground,
-  score,
-  scoreTag,
-  scoreTagColor,
-  lightVersion,
-  displayRow,
-  recommendText
+  item,
+  nonInteractive,
+  recordSearchHandle,
+  recordUserInput,
+  inputSubmit,
+  textValue,
+  inputTagColor
 }) => {
   return (
     <View style={styles.mainContainer}>
@@ -41,37 +43,62 @@ const HomepageScreen1 = ({
         >
           Search and filter
         </Text>
-        <SearchBar
-          round
-          icon={{
-            name: 'search',
-            color: colorCode.blue,
-            style: { fontSize: 22, left: 18, top: 12 }
-          }}
-          placeholder="Type filter tag here..."
-          placeholderTextColor={colorCode.blue}
-          inputStyle={styles.inputSearch}
-          containerStyle={styles.inputContainer}
-        />
+        {inputSubmit === false ? (
+          <SearchBar
+            round
+            icon={{
+              name: 'search',
+              color: colorCode.blue,
+              style: { fontSize: 22, left: 18, top: 12 }
+            }}
+            placeholder="Search here..."
+            placeholderTextColor={colorCode.blue}
+            inputStyle={styles.inputSearch}
+            containerStyle={styles.inputContainer}
+            onChangeText={recordUserInput}
+            onSubmitEditing={recordSearchHandle}
+            clearIcon={{ color: colorCode.blue, name: 'clear' }}
+          />
+        ) : (
+          <Button
+            buttonStyle={{
+              paddingLeft: 12,
+              paddingRight: 12,
+              paddingTop: 3,
+              paddingBottom: 3,
+              padding: 0
+            }}
+            title={textValue}
+            iconRight={{ name: 'clear', style: { marginLeft: 5 } }}
+            textStyle={[commonStyles.fontMontserratRegular, { fontSize: 14 }]}
+            backgroundColor={inputTagColor}
+            borderRadius={25}
+            containerViewStyle={{
+              borderRadius: 25,
+              marginTop: 20,
+              marginBottom: 20,
+              flexDirection: 'row'
+            }}
+            onPress={recordSearchHandle}
+          />
+        )}
+
         <Text
           style={[
             commonStyles.fontMontserratlight,
             { fontSize: 14, marginTop: 10, marginLeft: 12, color: '#BDBDBD' }
           ]}
         >
-          #good, #moderate, #star,..
+          good, moderate, star,..
         </Text>
       </View>
       <View style={[styles.recordCardContainer]}>
         <RecordCard
           gradientBackground={gradientBackground}
-          score={score}
-          scoreTag={scoreTag}
-          scoreTagColor={scoreTagColor}
-          lightVersion={lightVersion}
-          displayRow={displayRow}
-          recommendText={recommendText}
+          nonInteractive={nonInteractive}
+          item={item}
         />
+        {/*<EmptyCard gradientBackground={gradientBackground} />*/}
       </View>
     </View>
   );
