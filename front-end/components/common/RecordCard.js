@@ -22,6 +22,7 @@ const RecordCard = ({
   item,
   itemIndex,
   animatedValue,
+  nonInteractive,
   gradientBackground,
   cardContainerStyle,
   deleteHandle,
@@ -29,7 +30,9 @@ const RecordCard = ({
   fadeOutAnim,
   translateXAnim
 }) => {
-  return (
+  return nonInteractive === true ? (
+    <RecordCardComponent gradientBackground={gradientBackground} item={item} />
+  ) : (
     <Animated.View
       style={{
         opacity: fadeOutAnim,
@@ -77,32 +80,11 @@ const RecordCard = ({
         <EmptyCard gradientBackground={gradientBackground} />
       ) : (
         <View>
-          <LinearGradient
-            colors={gradientBackground}
-            style={[
-              styles.cardContainer,
-              cardContainerStyle,
-              {
-                paddingTop: 64,
-                paddingLeft: 35,
-                paddingRight: 45,
-                paddingBottom: 20
-              }
-            ]}
-          >
-            <OverallScore
-              score={item.overallScore.score}
-              scoreTag={item.overallScore.scoreTag}
-              scoreTagColor={item.overallScore.scoreTagColor}
-              lightVersion={item.overallScore.lightVersion}
-              displayRow={item.overallScore.displayRow}
-            />
-            <Text
-              style={[commonStyles.fontMontserratLight, styles.recommendText]}
-            >
-              {item.skinConditionResult.recommendText}
-            </Text>
-          </LinearGradient>
+          <RecordCardComponent
+            gradientBackground={gradientBackground}
+            item={item}
+            cardContainerStyle={cardContainerStyle}
+          />
         </View>
       )}
       <View style={styles.iconPanel}>
@@ -131,6 +113,39 @@ const RecordCard = ({
         </TouchableOpacity>
       </View>
     </Animated.View>
+  );
+};
+
+const RecordCardComponent = ({
+  gradientBackground,
+  item,
+  cardContainerStyle
+}) => {
+  return (
+    <LinearGradient
+      colors={gradientBackground}
+      style={[
+        styles.cardContainer,
+        cardContainerStyle,
+        {
+          paddingTop: 64,
+          paddingLeft: 35,
+          paddingRight: 45,
+          paddingBottom: 20
+        }
+      ]}
+    >
+      <OverallScore
+        score={item.overallScore.score}
+        scoreTag={item.overallScore.scoreTag}
+        scoreTagColor={item.overallScore.scoreTagColor}
+        lightVersion={item.overallScore.lightVersion}
+        displayRow={item.overallScore.displayRow}
+      />
+      <Text style={[commonStyles.fontMontserratLight, styles.recommendText]}>
+        {item.skinConditionResult.recommendText}
+      </Text>
+    </LinearGradient>
   );
 };
 
@@ -176,8 +191,8 @@ RecordCard.propTypes = {
   date: PropTypes.string,
   recommendtext: PropTypes.string,
   cardContainerStyle: PropTypes.object,
-  itemIndex: PropTypes.number.isRequired,
-  animatedValue: PropTypes.object.isRequired,
+  itemIndex: PropTypes.number,
+  animatedValue: PropTypes.object,
   starAdded: PropTypes.bool,
   emptyCard: PropTypes.bool,
   deleteHandle: PropTypes.func,
