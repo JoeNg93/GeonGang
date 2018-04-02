@@ -29,7 +29,7 @@ class FriendsComponentContainer extends Component {
   render() {
     return (
       <FriendsComponent
-        numOfFriends={this.state.numOfFriends}
+        numOfFriends={this.state.list.length}
         list={this.state.list}
       />
     );
