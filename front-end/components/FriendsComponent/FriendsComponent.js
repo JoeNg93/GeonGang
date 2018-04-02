@@ -9,28 +9,7 @@ import {
 } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
 
-const FriendsComponent = () => {
-  const list = [
-    {
-      name: 'Amy Farha',
-      avatar_url: 'https://randomuser.me/api/portraits/women/65.jpg'
-    },
-    {
-      name: 'Chris Jackson',
-      avatar_url:
-        'https://tinyfac.es/data/avatars/5F8C5D50-DDB6-4F06-AA15-ACB30D8D910D-200w.jpeg'
-    },
-    {
-      name: 'Jessica Smith',
-      avatar_url: 'https://randomuser.me/api/portraits/women/26.jpg'
-    },
-    {
-      name: 'Kelly Daniels',
-      avatar_url:
-        'https://images-na.ssl-images-amazon.com/images/M/MV5BMTczNTg5NTgwNF5BMl5BanBnXkFtZTgwMjQ4MTE2NDE@._V1_UY256_CR43,0,172,256_AL_.jpg'
-    }
-  ];
-
+const FriendsComponent = ({ numOfFriends, list }) => {
   return (
     <View style={styles.container}>
       <SearchBar
@@ -48,7 +27,7 @@ const FriendsComponent = () => {
         placeholderTextColor={'#828282'}
       />
       <Text style={[styles.numberOfFriends, commonStyles.fontMontserratLight]}>
-        28 friends and followers
+        {numOfFriends} friends and followers
       </Text>
       <List containerStyle={styles.list}>
         {list.map((l, i) => (
