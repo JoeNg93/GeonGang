@@ -22,7 +22,7 @@ const ReviewsComponent = ({
         {numOfReviews} Reviews
       </Text>
       <List containerStyle={styles.list}>
-        {list.map((l, i) => (
+        {list.slice(0, 2).map((l, i) => (
           <ListItem
             avatar={<Avatar medium source={{ uri: l.avatar_url }} />}
             key={i}
@@ -47,6 +47,7 @@ const ReviewsComponent = ({
               </View>
             }
             containerStyle={styles.listItem}
+            chevronColor={'#0C3363'}
             titleStyle={[
               styles.listItemTitle,
               commonStyles.fontMontserratLight,
@@ -121,6 +122,7 @@ const ReviewsComponent = ({
                     </View>
                   }
                   containerStyle={styles.modalListItem}
+                  chevronColor={'#0C3363'}
                   titleStyle={[
                     styles.listItemTitle,
                     commonStyles.fontMontserratLight,
@@ -144,6 +146,7 @@ const ReviewsComponent = ({
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
+    flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     flexDirection: 'column',
