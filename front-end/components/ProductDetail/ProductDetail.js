@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
 
   // NOT GOOD !!!!!!!!
   productOverview: {
-    height: 70
+    maxHeight: 70
   },
 
   productOverviewContainer: {
