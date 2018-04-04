@@ -10,11 +10,11 @@ const ProductDetailReviews = ({ productName }) => {
       {/* Section header */}
       <View style={styles.header} />
 
-      {/* communityReview */}
-      <Text style={styles.communityReviewTitle}>Review for this product</Text>
-      <View style={styles.communityReviewBox}>
-        <Text style={styles.communityReviewGrade}>4.4</Text>
-        <View style={styles.communityReviewRating}>
+      {/* globalReview */}
+      <Text style={styles.globalReviewTitle}>Review for this product</Text>
+      <View style={styles.globalReviewBox}>
+        <Text style={styles.globalReviewGrade}>4.4</Text>
+        <View style={styles.globalReviewRating}>
           <Rating
             type="star"
             readonly
@@ -25,7 +25,7 @@ const ProductDetailReviews = ({ productName }) => {
             // onFinishRating={this.ratingCompleted}
             style={{ paddingVertical: 10 }}
           />
-          <Text style={styles.communityReviewRatingText}>
+          <Text style={styles.globalReviewRatingText}>
             Based on 18 reviews and ratings
           </Text>
         </View>
@@ -48,8 +48,44 @@ const ProductDetailReviews = ({ productName }) => {
             style={{ paddingVertical: 10 }}
           />
           <TextInput placeholder="Write your review here..." multiline={true} />
-          
+
           <Button title="Write review" buttonStyle={styles.btnSubmit} />
+        </View>
+      </View>
+
+      {/* communityReviews */}
+      <View style={styles.communityReview}>
+        <Image
+          source={require("../../assets/images/profile-1.jpg")}
+          style={styles.communityReviewImage}
+        />
+        <View style={styles.communityReviewContents}>
+          <View style={styles.communityReviewTitle}>
+            <Text style={styles.communityReviewTitleName}>Emma Watson</Text>
+            <Text style={styles.communityReviewTitleDate}>1 month ago</Text>
+          </View>
+          <Rating
+            type="star"
+            readonly
+            ratingCount={5}
+            fractions={1}
+            startingValue={4.4}
+            imageSize={15}
+            // onFinishRating={this.ratingCompleted}
+            style={{ paddingVertical: 10 }}
+          />
+          <Text style={styles.communityReviewComment}>
+            The texture is very nice and it non sticky, non greasy. Very
+            hydrating and ultras a few for my sensitive skin, I can even apply
+            it around the eye area. It's a must have and 1st part of my skincare
+            routine and after I apply my Mineral 89, I apply my other serums and
+            It compliments every serum and moisturiser I apply, may it be day or
+            night.
+          </Text>
+          <View style={styles.communityReviewBottom}>
+            <Button icon={{ name: "favorite-border" }} title="Helpful" />
+            <Button icon={{ name: "warning" }} title="Report" />
+          </View>
         </View>
       </View>
     </View>
@@ -67,28 +103,20 @@ const styles = StyleSheet.create({
     height: 70
   },
 
-  communityReviewTitle: {
-    
-  },
+  globalReviewTitle: {},
 
-  communityReviewBox: {
+  globalReviewBox: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
     maxHeight: 80
   },
 
-  communityReviewGrade: {
-    
-  },
+  globalReviewGrade: {},
 
-  communityReviewRating: {
-    
-  },
+  globalReviewRating: {},
 
-  communityReviewRatingText: {
-    
-  },
+  globalReviewRatingText: {},
 
   userProfileImage: {
     resizeMode: "contain",
@@ -113,7 +141,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end"
   },
 
-  profileImage: {
+  communityReviewImage: {
     resizeMode: "contain",
     borderRadius: 28,
     height: 56,
