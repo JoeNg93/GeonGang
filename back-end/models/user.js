@@ -3,6 +3,7 @@ const knex = require('../utils/knex_config');
 const userSchema = `
   type User {
     id: Int!
+    email: String!
     name: String!
     gender: String!
     age: Int!
@@ -22,6 +23,15 @@ class User {
     this.skinColor = skinColor;
     this.skinType = skinType;
     this.climate = climate;
+  }
+
+  async email() {
+    const row = await knex
+      .select('email')
+      .from('user_credential')
+      .where('user_id', this.id)
+      .first();
+    return row.email;
   }
 
   async reviews() {
@@ -80,6 +90,23 @@ class User {
           row.climate
         )
       : null;
+  }
+
+  static async getMyProfile(args, { user }) {
+    const row = await knex
+      .select('*')
+      .from('user_info')
+      .where('id', user.id)
+      .first();
+    return new User(
+      row.id,
+      row.name,
+      row.gender,
+      row.age,
+      row.skin_color,
+      row.skin_type,
+      row.climate
+    );
   }
 }
 
