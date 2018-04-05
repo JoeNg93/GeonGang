@@ -61,6 +61,26 @@ class Product {
     return new Category(row.id, row.name);
   }
 
+  async reviews() {
+    const { Review } = require('./review');
+    const reviews = await knex
+      .select('*')
+      .from('review')
+      .where('product_id', this.id)
+      .map(
+        row =>
+          new Review(
+            row.id,
+            row.content,
+            row.rating,
+            row.num_of_likes,
+            row.user_id,
+            row.product_id
+          )
+      );
+    return reviews;
+  }
+
   static async getAllProducts() {
     const products = await knex
       .select('*')
