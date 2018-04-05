@@ -1,6 +1,4 @@
 const knex = require('../utils/knex_config');
-const { Category } = require('./category');
-const { Brand } = require('./brand');
 
 const productSchema = `
   type Product {
@@ -14,6 +12,7 @@ const productSchema = `
     imgSrc: String!
     brand: Brand!
     category: Category!
+    reviews: [Review]!
   }
 `;
 
@@ -43,6 +42,7 @@ class Product {
   }
 
   async brand() {
+    const { Brand } = require('./brand');
     const row = await knex
       .select('*')
       .from('brand')
@@ -52,6 +52,7 @@ class Product {
   }
 
   async category() {
+    const { Category } = require('./category');
     const row = await knex
       .select('*')
       .from('category')
