@@ -2,10 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const apiRouter = require('./api');
+const authRouter = require('./routers/auth/index');
 
 app.use(bodyParser.json());
 
 app.use('/api', apiRouter);
+
+app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
   res.send('OK');
