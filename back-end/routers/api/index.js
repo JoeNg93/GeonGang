@@ -6,22 +6,29 @@ const router = express.Router();
 const graphqlHTTP = require('express-graphql');
 const { buildSchema } = require('graphql');
 const { userSchema, User } = require('../../models/user');
+const { brandSchema, Brand } = require('../../models/brand');
 
 showdown.setFlavor('github');
 
 const schema = buildSchema(`
   type Query {
     allUsers: [User]!
-    
     user(id: Int!): User
+    
+    allBrands: [Brand]!
+    brand(id: Int!): Brand
   }
   
   ${userSchema}
+  ${brandSchema}
 `);
 
 const rootValue = {
   allUsers: User.getAllUsers,
-  user: User.getUser
+  user: User.getUser,
+
+  allBrands: Brand.getAllBrands,
+  brand: Brand.getBrand
 };
 
 router.get('/', (req, res) => {

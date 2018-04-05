@@ -8,8 +8,10 @@ Schema:
 ```graphql
   type Query {
     allUsers: [User]!
-
     user(id: Int!): User
+
+    allBrands: [Brand]!
+    brand(id: Int!): Brand
   }
 
   type User {
@@ -20,6 +22,11 @@ Schema:
     skinColor: String!
     skinType: String!
     climate: String!
+  }
+
+  type Brand {
+    id: Int!
+    name: String!
   }
 ```
 
