@@ -9,6 +9,7 @@ const userSchema = `
     skinColor: String!
     skinType: String!
     climate: String!
+    reviews: [Review]!
   }
 `;
 
@@ -21,6 +22,26 @@ class User {
     this.skinColor = skinColor;
     this.skinType = skinType;
     this.climate = climate;
+  }
+
+  async reviews() {
+    const { Review } = require('./review');
+    const reviews = await knex
+      .select('*')
+      .from('review')
+      .where('user_id', this.id)
+      .map(
+        row =>
+          new Review(
+            row.id,
+            row.content,
+            row.rating,
+            row.num_of_likes,
+            row.user_id,
+            row.product_id
+          )
+      );
+    return reviews;
   }
 
   static async getAllUsers() {
