@@ -10,6 +10,7 @@ const { brandSchema, Brand } = require('../../models/brand');
 const { categorySchema, Category } = require('../../models/category');
 const { productSchema, Product } = require('../../models/product');
 const { reviewSchema } = require('../../models/review');
+const { recordSchema } = require('../../models/record');
 
 showdown.setFlavor('github');
 
@@ -35,6 +36,7 @@ const schema = buildSchema(`
   ${categorySchema}
   ${productSchema}
   ${reviewSchema}
+  ${recordSchema}
 `);
 
 const rootValue = {
