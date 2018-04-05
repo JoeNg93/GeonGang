@@ -11,6 +11,7 @@ const userSchema = `
     skinType: String!
     climate: String!
     reviews: [Review]!
+    records: [Record]!
   }
 `;
 
@@ -52,6 +53,33 @@ class User {
           )
       );
     return reviews;
+  }
+
+  async records(args, { user }) {
+    if (this.id !== user.id) {
+      return [];
+    }
+
+    const { Record } = require('./record');
+    const records = await knex
+      .select('*')
+      .from('record')
+      .where('user_id', this.id)
+      .map(
+        row =>
+          new Record(
+            row.id,
+            row.date,
+            row.overall_score,
+            row.tag,
+            row.moisture,
+            row.dirt,
+            row.uv,
+            row.pigmentation,
+            row.user_id
+          )
+      );
+    return records;
   }
 
   static async getAllUsers() {
