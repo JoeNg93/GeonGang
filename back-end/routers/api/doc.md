@@ -12,6 +12,9 @@ Schema:
 
     allBrands: [Brand]!
     brand(id: Int!): Brand
+
+    allCategories: [Category]!
+    category(id: Int!): Category
   }
 
   type User {
@@ -25,6 +28,11 @@ Schema:
   }
 
   type Brand {
+    id: Int!
+    name: String!
+  }
+
+  type Category {
     id: Int!
     name: String!
   }
