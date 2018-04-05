@@ -14,4 +14,23 @@ const requireInputs = (...inputs) => (req, res, next) => {
 
 const jwtMiddleware = jwt({ secret: envConfig.jwtSecretKey });
 
-module.exports = { requireInputs, jwtMiddleware };
+const errHandlerMiddleware = (err, req, res, next) => {
+  let msg = '';
+  let statusCode = 200;
+  switch (err.name) {
+    case 'UnauthorizedError':
+      statusCode = 401;
+      msg = 'Token is missing or invalid';
+      break;
+    default:
+      statusCode = 500;
+      msg = 'Unknown error';
+  }
+  if (msg) {
+    res.status(statusCode).send({ error: msg });
+    return;
+  }
+  next();
+};
+
+module.exports = { requireInputs, jwtMiddleware, errHandlerMiddleware };
