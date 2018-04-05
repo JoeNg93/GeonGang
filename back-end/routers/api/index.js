@@ -8,6 +8,7 @@ const { buildSchema } = require('graphql');
 const { userSchema, User } = require('../../models/user');
 const { brandSchema, Brand } = require('../../models/brand');
 const { categorySchema, Category } = require('../../models/category');
+const { productSchema, Product } = require('../../models/product');
 
 showdown.setFlavor('github');
 
@@ -21,11 +22,15 @@ const schema = buildSchema(`
     
     allCategories: [Category]!
     category(id: Int!): Category
+    
+    allProducts: [Product]!
+    product(id: Int!): Product
   }
   
   ${userSchema}
   ${brandSchema}
   ${categorySchema}
+  ${productSchema}
 `);
 
 const rootValue = {
@@ -36,7 +41,10 @@ const rootValue = {
   brand: Brand.getBrand,
 
   allCategories: Category.getAllCategories,
-  category: Category.getCategory
+  category: Category.getCategory,
+
+  allProducts: Product.getAllProducts,
+  product: Product.getProduct
 };
 
 router.get('/', (req, res) => {
