@@ -4,12 +4,7 @@ const bcrypt = require('bcrypt');
 const knex = require('../../utils/knex_config');
 const router = express.Router();
 
-const requireInputs = (...inputs) => (req, res, next) => {
-  const missingInputs = inputs.filter(input => !req.body[input]);
-  if (missingInputs.length) {
-    res
-      .status(400)
-      .send({ error: `Missing arguments: ${missingInputs.join(', ')}` });
+const { requireInputs } = require('../../utils/middlewares');
     return;
   }
   next();
