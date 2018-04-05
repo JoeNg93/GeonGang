@@ -15,6 +15,9 @@ Schema:
 
     allCategories: [Category]!
     category(id: Int!): Category
+
+    allProducts: [Product]!
+    product(id: Int!): Product
   }
 
   type User {
@@ -35,6 +38,19 @@ Schema:
   type Category {
     id: Int!
     name: String!
+  }
+
+  type Product {
+    id: Int!
+    name: String!
+    price: String!
+    rating: Float!
+    numOfReviews: Int!
+    ingredients: String!
+    tag: String
+    imgSrc: String!
+    brand: Brand!
+    category: Category!
   }
 ```
 
