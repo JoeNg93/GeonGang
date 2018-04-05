@@ -91,6 +91,23 @@ class User {
         )
       : null;
   }
+
+  static async getMyProfile(args, { user }) {
+    const row = await knex
+      .select('*')
+      .from('user_info')
+      .where('id', user.id)
+      .first();
+    return new User(
+      row.id,
+      row.name,
+      row.gender,
+      row.age,
+      row.skin_color,
+      row.skin_type,
+      row.climate
+    );
+  }
 }
 
 module.exports = { userSchema, User };

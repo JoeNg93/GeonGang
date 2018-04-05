@@ -26,6 +26,8 @@ const schema = buildSchema(`
     
     allProducts: [Product]!
     product(id: Int!): Product
+    
+    myProfile: User!
   }
   
   ${userSchema}
@@ -46,7 +48,9 @@ const rootValue = {
   category: Category.getCategory,
 
   allProducts: Product.getAllProducts,
-  product: Product.getProduct
+  product: Product.getProduct,
+
+  myProfile: User.getMyProfile
 };
 
 router.get('/', (req, res) => {
