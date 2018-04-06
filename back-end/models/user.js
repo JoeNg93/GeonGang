@@ -12,6 +12,7 @@ const userSchema = `
     climate: String!
     reviews: [Review]!
     records: [Record]!
+    favoriteProducts: [Product]!
   }
 `;
 
@@ -80,6 +81,42 @@ class User {
           )
       );
     return records;
+  }
+
+  async favoriteProducts() {
+    const { Product } = require('./product');
+    const products = await knex
+      .select(
+        'product.id',
+        'product.name',
+        'product.price',
+        'product.rating',
+        'product.num_of_reviews',
+        'product.ingredients',
+        'product.tag',
+        'product.img_src',
+        'product.category_id',
+        'product.brand_id'
+      )
+      .from('product_added')
+      .join('product', 'product_added.product_id', 'product.id')
+      .where('user_id', this.id)
+      .map(
+        row =>
+          new Product(
+            row.id,
+            row.name,
+            row.price,
+            row.rating,
+            row.num_of_reviews,
+            row.ingredients,
+            row.tag,
+            row.img_src,
+            row.category_id,
+            row.brand_id
+          )
+      );
+    return products;
   }
 
   static async getAllUsers() {
