@@ -125,4 +125,41 @@ router.post(
   }
 );
 
+router.post(
+  '/scanning-result',
+  jwtMiddleware,
+  errHandlerMiddleware,
+  requireInputs(
+    'overall_score',
+    'tag',
+    'moisture',
+    'dirt',
+    'uv',
+    'pigmentation'
+  ),
+  async (req, res) => {
+    const date = new Date();
+    const { overall_score, tag, moisture, dirt, uv, pigmentation } = req.body;
+    const user_id = req.user.id;
+    const rowId = await knex
+      .insert({
+        date,
+        overall_score,
+        tag,
+        moisture,
+        dirt,
+        uv,
+        pigmentation,
+        user_id
+      })
+      .into('record');
+    const rowInRecord = await knex
+      .select('*')
+      .from('record')
+      .where('id', rowId)
+      .first();
+    res.status(201).send({ data: { record: toCamelCaseKey(rowInRecord) } });
+  }
+);
+
 module.exports = router;
