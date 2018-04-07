@@ -162,4 +162,43 @@ router.post(
   }
 );
 
+router.post(
+  '/user-info',
+  jwtMiddleware,
+  errHandlerMiddleware,
+  requireInputs('name', 'gender', 'age', 'skin_color', 'skin_type', 'climate'),
+  async (req, res) => {
+    // Check if user already has info
+    const rowInUserCredential = await knex
+      .select('*')
+      .from('user_credential')
+      .where('id', req.user.id)
+      .first();
+    if (rowInUserCredential.user_id) {
+      res.status(400).send({ error: 'User already entered the info!' });
+      return;
+    }
+
+    const { name, gender, age, skin_color, skin_type, climate } = req.body;
+    // Get back newly added user info id
+    const userInfoId = await knex
+      .insert({ name, gender, age, skin_color, skin_type, climate })
+      .into('user_info');
+
+    // Update user_id in table user_credential
+    await knex('user_credential')
+      .where('id', req.user.id)
+      .update({ user_id: userInfoId });
+
+    const rowInUserInfo = await knex
+      .select('*')
+      .from('user_info')
+      .where('id', userInfoId)
+      .first();
+    res
+      .status(201)
+      .send({ data: { myProfile: toCamelCaseKey(rowInUserInfo) } });
+  }
+);
+
 module.exports = router;
