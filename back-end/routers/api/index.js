@@ -84,7 +84,7 @@ router.use(
 );
 
 router.post(
-  '/product_added',
+  '/product-added',
   jwtMiddleware,
   errHandlerMiddleware,
   requireInputs('product_id'),
