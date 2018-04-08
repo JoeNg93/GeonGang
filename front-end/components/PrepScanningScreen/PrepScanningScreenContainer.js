@@ -40,23 +40,23 @@ class PrepScanningScreenContainer extends Component {
       this.state.scaleValue2.setValue(0.4);
     });
   }
-  getRippleAnimationStyle1() {
+  getRippleAnimationStyle(scaleValue, opacityValue) {
     return {
-      transform: [{ scale: this.state.scaleValue2 }],
-      opacity: this.state.opacityValue1
-    };
-  }
-  getRippleAnimationStyle2() {
-    return {
-      transform: [{ scale: this.state.scaleValue2 }],
-      opacity: this.state.opacityValue2
+      transform: [{ scale: scaleValue }],
+      opacity: opacityValue
     };
   }
   render() {
     return (
       <PrepScanningScreen
-        rippleAnimatedValue1={this.getRippleAnimationStyle1()}
-        rippleAnimatedValue2={this.getRippleAnimationStyle2()}
+        rippleAnimatedValue1={this.getRippleAnimationStyle(
+          this.state.scaleValue1,
+          this.state.opacityValue1
+        )}
+        rippleAnimatedValue2={this.getRippleAnimationStyle(
+          this.state.scaleValue2,
+          this.state.opacityValue2
+        )}
       />
     );
   }
