@@ -32,7 +32,7 @@ const ProductDetail = ({ productName }) => {
           <View style={styles.productOverviewText}>
             <Text
               style={[
-                { fontSize: 22 },
+                { fontSize: 22, marginBottom: 9 },
                 commonStyles.fontMontserratMedium,
                 commonStyles.colorDarkBlue
               ]}
@@ -43,7 +43,9 @@ const ProductDetail = ({ productName }) => {
               <View
                 style={{
                   backgroundColor: colorCode.blue,
-                  borderRadius: 50
+                  borderRadius: 50,
+                  paddingHorizontal: 15,
+                  paddingVertical: 1
                 }}
               >
                 <Text
@@ -57,17 +59,21 @@ const ProductDetail = ({ productName }) => {
               </View>
             </View>
           </View>
-          <TouchableHighlight
-            underlayColor="#eaeaea"
-            activeOpacity={1}
-            onPress={this.onPress}
+          {/* <TouchableHighlight
+            // underlayColor="#eaeaea"
+            // activeOpacity={.1}
+            // onPress={this.onPress}
             style={styles.productOverviewBtnAdd}
-          >
-            <Icon
-              // style={styles.productOverviewBtnAdd}
-              name="add-circle-outline"
-            />
-          </TouchableHighlight>
+          > */}
+          <Icon
+            style={styles.productOverviewBtnAdd}
+            underlayColor="transparent"
+            name="add-circle-outline"
+            size={50}
+            color={colorCode.blue}
+            onPress={this.onPress}
+          />
+          {/* </TouchableHighlight> */}
         </View>
         <View style={styles.productOverviewRating}>
           <Rating
@@ -78,11 +84,11 @@ const ProductDetail = ({ productName }) => {
             startingValue={4.4}
             imageSize={20}
             // onFinishRating={this.ratingCompleted}
-            style={{ paddingVertical: 10 }}
+            style={{ paddingVertical: 20 }}
           />
           <Text
             style={[
-              { fontSize: 16 },
+              { fontSize: 16, marginLeft: 16 },
               commonStyles.fontMontserratLight,
               commonStyles.colorDarkBlue
             ]}
@@ -110,10 +116,10 @@ const ProductDetail = ({ productName }) => {
             commonStyles.colorDarkBlue
           ]}
         >
-          AQUA / WATER / EAU • PEG/PPG/POLYBUTYLENE GLYCOL-8/5/3 GLYCERIN •
-          GLYCERIN • BUTYLENE GLYCOL • METHYL GLUCETH-20 • CARBOMER • SODIUM
-          HYALURONATE • PHENOXYETHANOL • CAPRYLYL GLYCOL • CITRIC ACID •
-          BIOSACCHARIDE GUM-1
+          aqua / water / eau • peg/ppg/polybutylene glycol-8/5/3 glycerin •
+          glycerin • butylene glycol • methyl gluceth-20 • carbomer • sodium
+          hyaluronate • phenoxyethanol • caprylyl glycol • citric acid •
+          biosaccharide gum-1
         </Text>
       </View>
 
@@ -163,7 +169,11 @@ const ProductDetail = ({ productName }) => {
             hydrating and ultras a few for my sensitive skin, I can even apply
             it around the eye area...
           </Text>
-          <Icon name="keyboard-arrow-right" />
+          <Icon
+            name="keyboard-arrow-right"
+            size={38}
+            color={colorCode.darkBlue}
+          />
         </View>
       </TouchableHighlight>
     </View>
@@ -190,7 +200,8 @@ const styles = StyleSheet.create({
   productImage: {
     resizeMode: "contain",
     height: 180,
-    width: undefined
+    width: undefined,
+    marginVertical: 30
   },
 
   productOverview: {
@@ -210,8 +221,7 @@ const styles = StyleSheet.create({
 
   productOverviewBtnAdd: {
     // flex: 2,
-    justifyContent: "center",
-    backgroundColor: "#a0a0a0"
+    justifyContent: "center"
   },
 
   productOverviewRating: {
@@ -227,12 +237,14 @@ const styles = StyleSheet.create({
 
   // TODO: Style + color
   productIngredientsTitle: {
-    fontSize: 16
+    fontSize: 16,
+    marginBottom: 8
   },
 
   // TODO: Style + color
   productIngredientsContents: {
-    fontSize: 12
+    fontSize: 14,
+    marginBottom: 16
   },
 
   productReviewTitle: {
@@ -265,14 +277,16 @@ const styles = StyleSheet.create({
     // flexGrow: 1,
     flexShrink: 1,
     flexBasis: "auto",
-    fontSize: 12
+    fontSize: 11,
+    marginLeft: 16
   },
 
   profileImage: {
     resizeMode: "contain",
     borderRadius: 28,
     height: 56,
-    width: 56
+    width: 56,
+    alignSelf: "center"
   }
 });
 
