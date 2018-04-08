@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
 
   userReview: {
-    flex: 1,
+    // flex: 1,
     flexDirection: "row"
   },
 

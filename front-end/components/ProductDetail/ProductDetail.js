@@ -17,15 +17,16 @@ const ProductDetail = ({ productName }) => {
       />
 
       {/* productOverview */}
-      <View style={styles.productOverview}>
+      <View style={[styles.productOverview, styles.placeholder]}>
         <View style={styles.productOverviewContainer}>
           <View style={styles.productOverviewText}>
             <Text>Vichy Mineral 89</Text>
             <Text>Moisturizers</Text>
           </View>
-          <View style={styles.productOverviewBtnAdd}>
-            <Icon name="add-circle-outline" />
-          </View>
+          <Button
+            // style={styles.productOverviewBtnAdd}
+            icon={{ name: "add-circle-outline" }}
+          />
         </View>
         <View style={styles.productOverviewRating}>
           <Rating
@@ -43,7 +44,7 @@ const ProductDetail = ({ productName }) => {
       </View>
 
       {/* productIngredients */}
-      <View style={styles.productIngredients}>
+      <View style={[styles.productIngredients, styles.placeholder]}>
         <Text style={styles.productIngredientsTitle}>Ingredients</Text>
         <Text style={styles.productIngredientsContents}>
           AQUA / WATER / EAU • PEG/PPG/POLYBUTYLENE GLYCOL-8/5/3 GLYCERIN •
@@ -54,12 +55,12 @@ const ProductDetail = ({ productName }) => {
       </View>
 
       {/* productReview */}
-      <View style={styles.productReviewTitle}>
+      <View style={[styles.productReviewTitle, styles.placeholder]}>
         <Text style={styles.productReviewCount}>18 reviews</Text>
         <Text style={styles.prodcutReviewPrice}>Price: $$$</Text>
       </View>
 
-      <View style={styles.productTopReview}>
+      <View style={[styles.productTopReview, styles.placeholder]}>
         <Image
           source={require("../../assets/images/profile-1.jpg")}
           style={styles.profileImage}
@@ -81,10 +82,16 @@ const styles = StyleSheet.create({
     flexDirection: "column"
   },
 
+  placeholder: {
+    paddingHorizontal: 36
+  },
+
   header: {
     backgroundColor: "#dadada",
     height: 70
   },
+
+  // Components
 
   productImage: {
     resizeMode: "contain",
@@ -98,7 +105,7 @@ const styles = StyleSheet.create({
   },
 
   productOverviewContainer: {
-    flex: 1,
+    // flex: 1,
     flexDirection: "row"
   },
 
@@ -107,19 +114,19 @@ const styles = StyleSheet.create({
     flexDirection: "column"
   },
 
-  productOverviewBtnAdd: {
-    flex: 2,
-    justifyContent: "center"
-  },
+  // productOverviewBtnAdd: {
+  //   flex: 2,
+  //   justifyContent: "center"
+  // },
 
   productOverviewRating: {
-    flex: 1,
+    // flex: 1,
     flexDirection: "row",
     alignItems: "center"
   },
 
   productIngredients: {
-    flex: 1,
+    // flex: 1,
     flexDirection: "column"
   },
 
@@ -134,7 +141,7 @@ const styles = StyleSheet.create({
   },
 
   productReviewTitle: {
-    flex: 1,
+    // flex: 1,
     flexDirection: "row"
   },
 
@@ -151,12 +158,13 @@ const styles = StyleSheet.create({
   productTopReview: {
     flex: 1,
     flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center"
   },
 
   // NOT GOOD !!!!
   productTopReviewText: {
-    width: "60%"
+    width: "65%"
   },
 
   profileImage: {
