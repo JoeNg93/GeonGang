@@ -3,7 +3,7 @@ import { StyleSheet, View, Image, Text } from 'react-native';
 import { Button, Icon, ButtonGroup, Divider } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
 
-const UserProfileScreen = buttons => {
+const UserProfileScreen = ({ buttons, selectedIndex, updateIndex }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -48,35 +48,77 @@ const UserProfileScreen = buttons => {
       </Text>
       <View>
         <ButtonGroup
-          buttons={['Profile', 'Friends', 'Reviews']}
-          selectedIndex={0}
+          onPress={updateIndex}
+          selectedIndex={selectedIndex}
+          buttons={buttons}
           containerStyle={styles.buttonGroupContainer}
           buttonStyle={styles.buttonGroupButtons}
           selectedButtonStyle={styles.selectedButton}
-          textStyle={styles.buttonGroupText}
+          textStyle={[styles.buttonGroupText, commonStyles.fontMontserratLight]}
           selectedTextStyle={styles.selectedButtonText}
         />
       </View>
-      <Text
-        style={[
-          styles.productText,
-          commonStyles.colorDarkBlue,
-          commonStyles.fontMontserratRegular
-        ]}
+      <View style={styles.buttonGroupContent} />
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          width: '90%'
+        }}
       >
-        My Products
-      </Text>
-      <Button
-        icon={
-          <Icon
-            name="arrow-right"
-            type="simple-line-icon"
-            size={20}
-            color="white"
-          />
-        }
-        title={'See all'}
-      />
+        <Text
+          style={[
+            styles.productText,
+            commonStyles.colorDarkBlue,
+            commonStyles.fontMontserratRegular
+          ]}
+        >
+          My Products
+        </Text>
+        <Button
+          buttonStyle={styles.button}
+          textStyle={{ color: '#828282', fontSize: 11 }}
+          containerViewStyle={{ marginRight: 0 }}
+          title={'SEE ALL'}
+          iconRight={{
+            name: 'arrow-right',
+            type: 'simple-line-icon',
+            size: 10,
+            color: '#828282'
+          }}
+        />
+      </View>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          width: '90%'
+        }}
+      >
+        <Text
+          style={[
+            styles.productText,
+            commonStyles.colorDarkBlue,
+            commonStyles.fontMontserratRegular
+          ]}
+        >
+          Recommendations
+        </Text>
+        <Button
+          buttonStyle={styles.button}
+          textStyle={{ color: '#828282', fontSize: 11 }}
+          containerViewStyle={{ marginRight: 0 }}
+          title={'SEE ALL'}
+          iconRight={{
+            name: 'arrow-right',
+            type: 'simple-line-icon',
+            size: 10,
+            color: '#828282'
+          }}
+        />
+      </View>
     </View>
   );
 };
@@ -135,18 +177,23 @@ const styles = StyleSheet.create({
     width: '90%',
     borderTopColor: 'transparent',
     borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: '#E0E0E0',
-    borderBottomWidth: 4,
+    borderRightWidth: 0,
+    borderBottomWidth: 0,
     backgroundColor: '#fff'
   },
-  buttonGroupButtons: {},
+  buttonGroupContent: {
+    width: '90%',
+    height: 300
+  },
+  buttonGroupButtons: {
+    borderBottomWidth: 2,
+    borderBottomColor: '#E0E0E0'
+  },
   buttonGroupText: {
     color: '#828282',
     fontSize: 18
   },
   selectedButton: {
-    borderBottomWidth: 4,
     borderBottomColor: '#4396DC'
   },
   selectedButtonText: {
@@ -156,6 +203,12 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     paddingLeft: 20,
     fontSize: 20
+  },
+  button: {
+    backgroundColor: '#fff',
+    height: 27,
+    width: 101,
+    marginRight: 0
   }
 });
 
