@@ -1,11 +1,15 @@
-import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import { Button } from "react-native-elements";
-import commonStyles from "../../utils/styles";
-import Header from "../common/Header";
-import PropTypes from "prop-types";
+import React from 'react';
+import { View, Text, StyleSheet, Image, Animated } from 'react-native';
+import commonStyles from '../../utils/styles';
+import Header from '../common/Header';
+import PropTypes from 'prop-types';
+import AnimateNumber from 'react-native-animate-number';
 
-const ScanningScreen = ({ scanningProgress }) => {
+const ScanningScreen = ({
+  scanningProgress,
+  bounceAnimation,
+  stopAnimation
+}) => {
   return (
     <View style={styles.container}>
       <Header headerText="Analyzing skin" descriptionText="" />
@@ -17,14 +21,16 @@ const ScanningScreen = ({ scanningProgress }) => {
             styles.informationText
           ]}
         >
-          Hold on.{"\n"}
-          We are scanning your skin.{"\n"}
+          Hold on.{'\n'}
+          We are scanning your skin.{'\n'}
           It will just take a minute.
         </Text>
-        <Image
-          source={require("../../assets/images/scan-loading-1.png")}
-          style={styles.loadingImage}
-        />
+        <Animated.View style={bounceAnimation}>
+          <Image
+            source={require('../../assets/images/scan-loading-1.png')}
+            style={styles.loadingImage}
+          />
+        </Animated.View>
         <Text
           style={[
             commonStyles.fontMontserratRegular,
@@ -32,7 +38,18 @@ const ScanningScreen = ({ scanningProgress }) => {
             styles.loadingText
           ]}
         >
-          {scanningProgress}%
+          <AnimateNumber
+            value={100}
+            countBy={3}
+            interval={50}
+            formatter={val => {
+              return val + '%';
+            }}
+            timing={(interval, progress) => {
+              return interval * (1 - Math.sin(Math.PI * progress)) * 10;
+            }}
+            onFinish={stopAnimation}
+          />
         </Text>
       </View>
     </View>
@@ -41,31 +58,30 @@ const ScanningScreen = ({ scanningProgress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "column"
+    flex: 1
   },
 
   contents: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   informationText: {
     fontSize: 18,
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: 60
   },
 
   loadingImage: {
-    resizeMode: "contain",
     height: 193,
-    width: undefined
+    width: 163
   },
 
   loadingText: {
     fontSize: 48,
-    textAlign: "center",
-    marginVertical: 32
+    textAlign: 'center',
+    marginTop: 52
   }
 });
 
