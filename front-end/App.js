@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { Font, Asset } from 'expo';
 import store from './store';
-import UserProfileScreenContainer from './components/UserProfileScreen/UserProfileScreenContainer';
 
 export default class App extends Component {
   state = {
@@ -45,12 +44,11 @@ export default class App extends Component {
   render() {
     if (this.state.assetLoaded) {
       return (
-        <UserProfileScreenContainer />
-        /*<Provider store={store}>
+        <Provider store={store}>
           <View style={styles.container}>
             <Text>Open up App.js to start working on your app!</Text>
           </View>
-        </Provider>*/
+        </Provider>
       );
     } else {
       return (
