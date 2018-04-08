@@ -1,10 +1,18 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableHighlight
+} from "react-native";
 import { Icon, Button, Rating } from "react-native-elements";
 import commonStyles from "../../utils/styles";
 import PropTypes from "prop-types";
 
 const ProductDetail = ({ productName }) => {
+  onPress = () => {};
+
   return (
     <View style={styles.container}>
       {/* Section header */}
@@ -23,10 +31,17 @@ const ProductDetail = ({ productName }) => {
             <Text>Vichy Mineral 89</Text>
             <Text>Moisturizers</Text>
           </View>
-          <Button
-            // style={styles.productOverviewBtnAdd}
-            icon={{ name: "add-circle-outline" }}
-          />
+          <TouchableHighlight
+            underlayColor="#eaeaea"
+            activeOpacity={1}
+            onPress={this.onPress}
+            style={styles.productOverviewBtnAdd}
+          >
+            <Icon
+              // style={styles.productOverviewBtnAdd}
+              name="add-circle-outline"
+            />
+          </TouchableHighlight>
         </View>
         <View style={styles.productOverviewRating}>
           <Rating
@@ -60,18 +75,25 @@ const ProductDetail = ({ productName }) => {
         <Text style={styles.prodcutReviewPrice}>Price: $$$</Text>
       </View>
 
-      <View style={[styles.productTopReview, styles.placeholder]}>
-        <Image
-          source={require("../../assets/images/profile-1.jpg")}
-          style={styles.profileImage}
-        />
-        <Text style={styles.productTopReviewText}>
-          The texture is very nice and it non sticky, non greasy. Very hydrating
-          and ultras a few for my sensitive skin, I can even apply it around the
-          eye area...
-        </Text>
-        <Icon name="keyboard-arrow-right" />
-      </View>
+      <TouchableHighlight
+        underlayColor="#eaeaea"
+        activeOpacity={1}
+        onPress={this.onPress}
+        style={[styles.productTopReview, styles.placeholder]}
+      >
+        <View style={{ flexDirection: "row" }}>
+          <Image
+            source={require("../../assets/images/profile-1.jpg")}
+            style={styles.profileImage}
+          />
+          <Text style={styles.productTopReviewText}>
+            The texture is very nice and it non sticky, non greasy. Very
+            hydrating and ultras a few for my sensitive skin, I can even apply
+            it around the eye area...
+          </Text>
+          <Icon name="keyboard-arrow-right" />
+        </View>
+      </TouchableHighlight>
     </View>
   );
 };
@@ -98,10 +120,9 @@ const styles = StyleSheet.create({
     height: 180,
     width: undefined
   },
-
-  // NOT GOOD !!!!!!!!
+  
   productOverview: {
-    maxHeight: 70
+    // maxHeight: 70
   },
 
   productOverviewContainer: {
@@ -110,14 +131,16 @@ const styles = StyleSheet.create({
   },
 
   productOverviewText: {
-    flex: 1,
+    // flex: 1,
+    flexGrow: 1,
     flexDirection: "column"
   },
 
-  // productOverviewBtnAdd: {
-  //   flex: 2,
-  //   justifyContent: "center"
-  // },
+  productOverviewBtnAdd: {
+    // flex: 2,
+    justifyContent: "center",
+    backgroundColor: "#a0a0a0"
+  },
 
   productOverviewRating: {
     // flex: 1,
@@ -162,9 +185,10 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
 
-  // NOT GOOD !!!!
   productTopReviewText: {
-    width: "65%"
+    // flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: "auto"
   },
 
   profileImage: {
