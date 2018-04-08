@@ -1,6 +1,4 @@
 const knex = require('../utils/knex_config');
-const { Category } = require('./category');
-const { Brand } = require('./brand');
 
 const productSchema = `
   type Product {
@@ -14,6 +12,7 @@ const productSchema = `
     imgSrc: String!
     brand: Brand!
     category: Category!
+    reviews: [Review]!
   }
 `;
 
@@ -43,6 +42,7 @@ class Product {
   }
 
   async brand() {
+    const { Brand } = require('./brand');
     const row = await knex
       .select('*')
       .from('brand')
@@ -52,12 +52,33 @@ class Product {
   }
 
   async category() {
+    const { Category } = require('./category');
     const row = await knex
       .select('*')
       .from('category')
       .where('id', this.categoryId)
       .first();
     return new Category(row.id, row.name);
+  }
+
+  async reviews() {
+    const { Review } = require('./review');
+    const reviews = await knex
+      .select('*')
+      .from('review')
+      .where('product_id', this.id)
+      .map(
+        row =>
+          new Review(
+            row.id,
+            row.content,
+            row.rating,
+            row.num_of_likes,
+            row.user_id,
+            row.product_id
+          )
+      );
+    return reviews;
   }
 
   static async getAllProducts() {
