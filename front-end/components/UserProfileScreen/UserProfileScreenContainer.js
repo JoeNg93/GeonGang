@@ -21,6 +21,7 @@ class UserProfileScreenContainer extends Component {
         buttons={buttons}
         selectedIndex={this.state.selectedIndex}
         updateIndex={this.updateIndex}
+        screen={this.state.screen}
       />
     );
   }

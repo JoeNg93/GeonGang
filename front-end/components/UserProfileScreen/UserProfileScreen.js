@@ -1,7 +1,20 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
+import { StyleSheet, View, Image, Text, ScrollView } from 'react-native';
 import { Button, Icon, ButtonGroup, Divider } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
+import ProfileComponentContainer from '../ProfileComponent/ProfileComponentContainer';
+import ReviewsComponentContainer from '../ReviewsComponent/ReviewsComponentContainer';
+import FriendsComponentContainer from '../FriendsComponent/FriendsComponentContainer';
+
+function renderScreen(selectedIndex) {
+  if (selectedIndex == 0) {
+    return <ProfileComponentContainer />;
+  } else if (selectedIndex == 1) {
+    return <FriendsComponentContainer />;
+  } else {
+    return <ReviewsComponentContainer />;
+  }
+}
 
 const UserProfileScreen = ({ buttons, selectedIndex, updateIndex }) => {
   return (
@@ -56,69 +69,78 @@ const UserProfileScreen = ({ buttons, selectedIndex, updateIndex }) => {
           selectedButtonStyle={styles.selectedButton}
           textStyle={[styles.buttonGroupText, commonStyles.fontMontserratLight]}
           selectedTextStyle={styles.selectedButtonText}
+          innerBorderStyle={{ width: -1, color: 'transparent' }}
         />
       </View>
-      <View style={styles.buttonGroupContent} />
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          width: '90%'
-        }}
+      <ScrollView
+        style={{ width: '100%' }}
+        contentContainerStyle={{ display: 'flex', alignItems: 'center' }}
+        horizontal={false}
       >
-        <Text
-          style={[
-            styles.productText,
-            commonStyles.colorDarkBlue,
-            commonStyles.fontMontserratRegular
-          ]}
-        >
-          My Products
-        </Text>
-        <Button
-          buttonStyle={styles.button}
-          textStyle={{ color: '#828282', fontSize: 11 }}
-          containerViewStyle={{ marginRight: 0 }}
-          title={'SEE ALL'}
-          iconRight={{
-            name: 'arrow-right',
-            type: 'simple-line-icon',
-            size: 10,
-            color: '#828282'
+        <View style={styles.buttonGroupContent}>
+          {renderScreen(selectedIndex)}
+        </View>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            width: '90%'
           }}
-        />
-      </View>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          width: '90%'
-        }}
-      >
-        <Text
-          style={[
-            styles.productText,
-            commonStyles.colorDarkBlue,
-            commonStyles.fontMontserratRegular
-          ]}
         >
-          Recommendations
-        </Text>
-        <Button
-          buttonStyle={styles.button}
-          textStyle={{ color: '#828282', fontSize: 11 }}
-          containerViewStyle={{ marginRight: 0 }}
-          title={'SEE ALL'}
-          iconRight={{
-            name: 'arrow-right',
-            type: 'simple-line-icon',
-            size: 10,
-            color: '#828282'
+          <Text
+            style={[
+              styles.productText,
+              commonStyles.colorDarkBlue,
+              commonStyles.fontMontserratRegular
+            ]}
+          >
+            My Products
+          </Text>
+          <Button
+            buttonStyle={styles.button}
+            textStyle={{ color: '#828282', fontSize: 11 }}
+            containerViewStyle={{ marginRight: 0 }}
+            title={'SEE ALL'}
+            iconRight={{
+              name: 'arrow-right',
+              type: 'simple-line-icon',
+              size: 10,
+              color: '#828282'
+            }}
+          />
+        </View>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            width: '90%'
           }}
-        />
-      </View>
+        >
+          <Text
+            style={[
+              styles.productText,
+              commonStyles.colorDarkBlue,
+              commonStyles.fontMontserratRegular
+            ]}
+          >
+            Recommendations
+          </Text>
+          <Button
+            buttonStyle={styles.button}
+            textStyle={{ color: '#828282', fontSize: 11 }}
+            containerViewStyle={{ marginRight: 0 }}
+            title={'SEE ALL'}
+            iconRight={{
+              name: 'arrow-right',
+              type: 'simple-line-icon',
+              size: 10,
+              color: '#828282'
+            }}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -183,7 +205,10 @@ const styles = StyleSheet.create({
   },
   buttonGroupContent: {
     width: '90%',
-    height: 300
+    height: 'auto',
+    borderBottomWidth: 1,
+    borderBottomColor: '#BDBDBD',
+    marginBottom: 20
   },
   buttonGroupButtons: {
     borderBottomWidth: 2,

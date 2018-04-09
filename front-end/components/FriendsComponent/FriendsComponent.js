@@ -1,20 +1,24 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Modal } from 'react-native';
 import {
   SearchBar,
   List,
   ListItem,
   Button,
-  Avatar
+  Avatar,
+  Icon
 } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
 
-const FriendsComponent = ({ numOfFriends, list }) => {
+const FriendsComponent = ({
+  numOfFriends,
+  list,
+  modalVisible,
+  setModalVisible
+}) => {
   return (
     <View style={styles.container}>
       <SearchBar
-        // onChangeText={someMethod}
-        // onClearText={someMethod}
         icon={{
           type: 'simple-line-icon',
           name: 'magnifier',
@@ -46,7 +50,57 @@ const FriendsComponent = ({ numOfFriends, list }) => {
         containerViewStyle={styles.buttonContainer}
         buttonStyle={styles.button}
         textStyle={styles.textStyle}
+        onPress={() => {
+          setModalVisible(!modalVisible);
+        }}
       />
+
+      <Modal animationType="fade" transparent visible={modalVisible}>
+        <View style={styles.modalScreen}>
+          <View style={styles.modalContainer}>
+            <Icon
+              name="close"
+              type="material-community"
+              color="#828282"
+              size={25}
+              iconStyle={{
+                alignSelf: 'flex-end',
+                marginRight: 21,
+                marginTop: 17
+              }}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+              }}
+            />
+            <Text
+              style={[
+                styles.numberOfFriendsModal,
+                commonStyles.fontMontserratLight
+              ]}
+            >
+              {numOfFriends} Friends
+            </Text>
+            <List containerStyle={styles.list}>
+              {list.map((l, i) => (
+                <ListItem
+                  avatar={
+                    <Avatar rounded medium source={{ uri: l.avatar_url }} />
+                  }
+                  key={i}
+                  title={l.name}
+                  containerStyle={styles.modalListItem}
+                  chevronColor={'#0C3363'}
+                  titleStyle={[
+                    styles.listItemTitle,
+                    commonStyles.fontMontserratLight,
+                    commonStyles.colorDarkBlue
+                  ]}
+                />
+              ))}
+            </List>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -57,9 +111,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     flexDirection: 'column',
-    paddingTop: 100,
-    paddingLeft: 40,
-    paddingRight: 40
+    paddingTop: 15
   },
   searchBarContainer: {
     backgroundColor: 'transparent',
@@ -89,6 +141,12 @@ const styles = StyleSheet.create({
     color: '#828282',
     fontSize: 16
   },
+  numberOfFriendsModal: {
+    alignSelf: 'flex-start',
+    color: '#828282',
+    fontSize: 16,
+    paddingLeft: 22
+  },
   list: {
     borderTopWidth: 0,
     borderBottomWidth: 0,
@@ -98,6 +156,14 @@ const styles = StyleSheet.create({
   listItem: {
     borderTopWidth: 0,
     borderBottomWidth: 0
+  },
+  modalListItem: {
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+    paddingTop: 0,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 20
   },
   listItemTitle: {
     paddingLeft: 10
@@ -117,6 +183,22 @@ const styles = StyleSheet.create({
   textStyle: {
     color: '#828282',
     fontSize: 14
+  },
+  modalScreen: {
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.6);'
+  },
+  modalContainer: {
+    height: 'auto',
+    width: '90%',
+    backgroundColor: '#fff',
+    borderRadius: 13,
+    shadowOffset: { width: 4, height: 4 },
+    shadowColor: 'black',
+    shadowOpacity: 0.25
   }
 });
 
