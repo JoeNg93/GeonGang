@@ -19,6 +19,12 @@ export default StyleSheet.create({
   colorBlue: {
     color: '#4396DC'
   },
+  colorLightGray: {
+    color: '#BDBDBD'
+  },
+  colorGray: {
+    color: '#828282'
+  },
   backgroundColorBlue: {
     backgroundColor: '#4396DC'
   }
