@@ -1,10 +1,27 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text, ScrollView } from 'react-native';
-import { Button, Icon, ButtonGroup, Divider } from 'react-native-elements';
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  ScrollView,
+  TouchableOpacity
+} from 'react-native';
+import {
+  Button,
+  Icon,
+  ButtonGroup,
+  Divider,
+  Avatar
+} from 'react-native-elements';
+import Carousel from 'react-native-snap-carousel';
+import { widthPercentage } from '../../utils/dimensions';
+import PropTypes from 'prop-types';
 import commonStyles from '../../utils/styles';
 import ProfileComponentContainer from '../ProfileComponent/ProfileComponentContainer';
 import ReviewsComponentContainer from '../ReviewsComponent/ReviewsComponentContainer';
 import FriendsComponentContainer from '../FriendsComponent/FriendsComponentContainer';
+import colorCode from '../../utils/colorCode';
 
 function renderScreen(selectedIndex) {
   if (selectedIndex == 0) {
@@ -16,21 +33,27 @@ function renderScreen(selectedIndex) {
   }
 }
 
-const UserProfileScreen = ({ buttons, selectedIndex, updateIndex }) => {
+const UserProfileScreen = ({
+  buttons,
+  selectedIndex,
+  updateIndex,
+  _renderItem,
+  myProducts
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Icon
           name="bell"
-          type="simple-line-icon"
-          color="#000"
+          type="material-community"
+          color="#fff"
           size={22}
           iconStyle={styles.headerButtons}
         />
         <Icon
           name="settings"
-          type="simple-line-icon"
-          color="#000"
+          type="material-community"
+          color="#fff"
           size={22}
           iconStyle={styles.headerButtons}
         />
@@ -43,9 +66,9 @@ const UserProfileScreen = ({ buttons, selectedIndex, updateIndex }) => {
       <View style={styles.editAvatarIconContainer}>
         <Icon
           name="pencil"
-          type="simple-line-icon"
+          type="material-community"
           color="#fff"
-          size={15}
+          size={17}
           containerStyle={styles.editAvatarButton}
           innerBorderStyle={{ width: 0 }}
         />
@@ -110,6 +133,18 @@ const UserProfileScreen = ({ buttons, selectedIndex, updateIndex }) => {
             }}
           />
         </View>
+        <Carousel
+          ref={c => {
+            this._carousel = c;
+          }}
+          data={myProducts}
+          renderItem={_renderItem}
+          sliderWidth={500}
+          itemWidth={111}
+          activeSlideAlignment={'start'}
+          inactiveSlideScale={1}
+          containerCustomStyle={{ height: 160, width: '100%', paddingLeft: 75 }}
+        />
         <View
           style={{
             display: 'flex',
@@ -234,6 +269,9 @@ const styles = StyleSheet.create({
     height: 27,
     width: 101,
     marginRight: 0
+  },
+  productContainer: {
+    width: 50
   }
 });
 
