@@ -184,15 +184,14 @@ const styles = StyleSheet.create({
   // Components
 
   globalReviewTitle: {
-    marginTop: 16,
+    marginTop: 24,
+    marginBottom: 8,
     fontSize: 16
   },
 
   globalReviewBox: {
-    flex: 1,
     flexDirection: "row",
-    alignItems: "center",
-    maxHeight: 80
+    alignItems: "center"
   },
 
   globalReviewGrade: {
