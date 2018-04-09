@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { Icon, Button, Rating } from "react-native-elements";
 import PropTypes from "prop-types";
-
 import commonStyles from "../../utils/styles";
 import colorCode from "../../utils/colorCode";
 
@@ -216,6 +215,7 @@ const styles = StyleSheet.create({
   productOverviewText: {
     // flex: 1,
     flexGrow: 1,
+    flexShrink: 1,
     flexDirection: "column"
   },
 
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     flexGrow: 1
   },
 
-  prodcutReviewPrice: {
+  productReviewPrice: {
     textAlign: "right",
     flexGrow: 1
   },
