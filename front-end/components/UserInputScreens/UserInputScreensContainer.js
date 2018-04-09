@@ -7,6 +7,8 @@ import SkinColorScreenContainer from '../SkinColorScreen/SkinColorScreenContaine
 import SkinTypeScreenContainer from '../SkinTypeScreen/SkinTypeScreenContainer';
 import LocationScreenContainer from '../LocationScreen/LocationScreenContainer';
 import { Button } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { postUserInputs } from '../../actions/userInput';
 
 class UserInputScreensContainer extends Component {
   data = [
@@ -19,8 +21,18 @@ class UserInputScreensContainer extends Component {
   currentActiveItemIndex = 0;
   flatListRef = null;
 
-  onTouchNextScreen = () => {
-    if (this.currentActiveItemIndex >= this.data.length - 1) {
+  onTouchNextScreen = async () => {
+    if (this.currentActiveItemIndex === 4) {
+      // Last screen, attempt to save user input to db
+      const { age, gender, skinType, skinColor, climate } = this.props;
+      const response = await this.props.postUserInputs({
+        name: 'Joe',
+        age,
+        gender,
+        skinType,
+        skinColor,
+        climate
+      });
       return;
     }
     this.currentActiveItemIndex += 1;
@@ -53,4 +65,14 @@ class UserInputScreensContainer extends Component {
   }
 }
 
-export default UserInputScreensContainer;
+const mapStateToProps = state => ({
+  age: state.userInput.age,
+  gender: state.userInput.gender,
+  skinColor: state.userInput.skinColor,
+  skinType: state.userInput.skinType,
+  climate: state.userInput.climate
+});
+
+export default connect(mapStateToProps, { postUserInputs })(
+  UserInputScreensContainer
+);
