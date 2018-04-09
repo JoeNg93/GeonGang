@@ -41,7 +41,7 @@ const ProductDetailReviews = ({ productName }) => {
             startingValue={4.4}
             imageSize={20}
             // onFinishRating={this.ratingCompleted}
-            style={{ paddingVertical: 10 }}
+            style={{ marginBottom: 10 }}
           />
           <Text
             style={[
@@ -69,7 +69,7 @@ const ProductDetailReviews = ({ productName }) => {
             startingValue={0}
             imageSize={20}
             // onFinishRating={this.ratingCompleted}
-            style={{ paddingVertical: 10 }}
+            style={{ marginBottom: 10 }}
           />
           <View style={styles.userReviewTextbox}>
             <TextInput
@@ -80,6 +80,7 @@ const ProductDetailReviews = ({ productName }) => {
             />
           </View>
           <Button
+            containerViewStyle={styles.btnSubmitCont}
             textStyle={[
               commonStyles.fontMontserratSemiBold,
               { fontSize: 14, color: "#ffffff" }
@@ -91,7 +92,7 @@ const ProductDetailReviews = ({ productName }) => {
       </View>
 
       {/* communityReviews */}
-      <View style={[styles.communityReview, styles.placeholder]}>
+      <View style={styles.communityReview}>
         <Image
           source={require("../../assets/images/profile-1.jpg")}
           style={styles.communityReviewImage}
@@ -123,9 +124,9 @@ const ProductDetailReviews = ({ productName }) => {
             ratingCount={5}
             fractions={1}
             startingValue={4.4}
-            imageSize={15}
+            imageSize={16}
             // onFinishRating={this.ratingCompleted}
-            style={{ paddingVertical: 10 }}
+            style={{ paddingTop: 6, paddingBottom: 16 }}
           />
           <Text
             style={[
@@ -183,6 +184,7 @@ const styles = StyleSheet.create({
   // Components
 
   globalReviewTitle: {
+    marginTop: 16,
     fontSize: 16
   },
 
@@ -197,7 +199,10 @@ const styles = StyleSheet.create({
     fontSize: 46
   },
 
-  globalReviewRating: {},
+  globalReviewRating: {
+    flexDirection: "column",
+    marginLeft: 14
+  },
 
   globalReviewRatingText: {
     fontSize: 13
@@ -206,18 +211,21 @@ const styles = StyleSheet.create({
   userProfileImage: {
     resizeMode: "contain",
     borderRadius: 34,
-    height: 68,
-    width: 68
+    height: 65,
+    width: 65
   },
 
   userReview: {
     // flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
+    marginTop: 20,
+    marginBottom: 24
   },
 
   userReviewInput: {
     flex: 1,
-    flexDirection: "column"
+    flexDirection: "column",
+    marginLeft: 16
   },
 
   userReviewTextbox: {
@@ -226,7 +234,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    minHeight: 65
+    minHeight: 65,
+    marginBottom: 16
+  },
+
+  btnSubmitCont: {
+    marginTop: 0,
+    marginRight: 0,
+    marginBottom: 0,
+    marginLeft: 0
   },
 
   btnSubmit: {
@@ -237,7 +253,14 @@ const styles = StyleSheet.create({
     paddingVertical: 6
   },
 
-  communityReview: {},
+  communityReview: {
+    flexDirection: "row",
+    paddingTop: 20,
+    paddingBottom: 5,
+    marginHorizontal: 36,
+    borderTopWidth: 1,
+    borderColor: colorCode.lightGray
+  },
 
   communityReviewImage: {
     resizeMode: "contain",
@@ -246,10 +269,15 @@ const styles = StyleSheet.create({
     width: 56
   },
 
-  communityReviewContents: {},
+  communityReviewContents: {
+    flex: 1,
+    flexDirection: "column",
+    marginLeft: 12
+  },
 
   communityReviewTitle: {
-    flexDirection: "row"
+    flexDirection: "row",
+    alignItems: "baseline"
   },
 
   communityReviewTitleName: {
@@ -275,13 +303,16 @@ const styles = StyleSheet.create({
   },
 
   communityReviewBottomBtnCont: {
-    marginVertical: 8,
-    marginHorizontal: 2
+    marginTop: 8,
+    marginRight: 0,
+    marginBottom: 8,
+    marginLeft: 8
   },
 
   communityReviewBottomBtn: {
     backgroundColor: "transparent",
-    paddingVertical: 8
+    paddingVertical: 8,
+    paddingHorizontal: 10
   },
 
   communityReviewBottomBtnTxt: {
