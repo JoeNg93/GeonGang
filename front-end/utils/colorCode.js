@@ -12,4 +12,6 @@ export default {
   badGradient: ['#FF5858', '#F09819'],
   cautiousGradient: ['#FF0844', '#FD5655', '#FC8560'],
   emptyCardGradient: ['#a1c4fd', '#c2e9fb']
+  lightgray: '#8F8F8F',
+  black: '#303030'
 };
