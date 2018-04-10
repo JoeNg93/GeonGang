@@ -38,7 +38,8 @@ const UserProfileScreen = ({
   selectedIndex,
   updateIndex,
   _renderItem,
-  myProducts
+  myProducts,
+  recommendations
 }) => {
   return (
     <View style={styles.container}>
