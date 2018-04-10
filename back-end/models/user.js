@@ -38,21 +38,7 @@ class User {
 
   async reviews() {
     const { Review } = require('./review');
-    const reviews = await knex
-      .select('*')
-      .from('review')
-      .where('user_id', this.id)
-      .map(
-        row =>
-          new Review(
-            row.id,
-            row.content,
-            row.rating,
-            row.num_of_likes,
-            row.user_id,
-            row.product_id
-          )
-      );
+    const reviews = await Review.getReviewsByUserId({ userId: this.id });
     return reviews;
   }
 
@@ -62,24 +48,7 @@ class User {
     }
 
     const { Record } = require('./record');
-    const records = await knex
-      .select('*')
-      .from('record')
-      .where('user_id', this.id)
-      .map(
-        row =>
-          new Record(
-            row.id,
-            row.date,
-            row.overall_score,
-            row.tag,
-            row.moisture,
-            row.dirt,
-            row.uv,
-            row.pigmentation,
-            row.user_id
-          )
-      );
+    const records = await Record.getRecordsByUserId({ userId: this.id });
     return records;
   }
 
@@ -158,19 +127,27 @@ class User {
   }
 
   static async getMyProfile(args, { user }) {
-    const row = await knex
+    const rowInUserCredential = await knex
       .select('*')
-      .from('user_info')
+      .from('user_credential')
       .where('id', user.id)
       .first();
+    if (!rowInUserCredential) {
+      return null;
+    }
+    const rowInUserInfo = await knex
+      .select('*')
+      .from('user_info')
+      .where('id', rowInUserCredential.user_id)
+      .first();
     return new User(
-      row.id,
-      row.name,
-      row.gender,
-      row.age,
-      row.skin_color,
-      row.skin_type,
-      row.climate
+      rowInUserInfo.id,
+      rowInUserInfo.name,
+      rowInUserInfo.gender,
+      rowInUserInfo.age,
+      rowInUserInfo.skin_color,
+      rowInUserInfo.skin_type,
+      rowInUserInfo.climate
     );
   }
 }

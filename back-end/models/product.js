@@ -43,41 +43,19 @@ class Product {
 
   async brand() {
     const { Brand } = require('./brand');
-    const row = await knex
-      .select('*')
-      .from('brand')
-      .where('id', this.brandId)
-      .first();
-    return new Brand(row.id, row.name);
+    const brand = await Brand.getBrand({ id: this.brandId });
+    return brand;
   }
 
   async category() {
     const { Category } = require('./category');
-    const row = await knex
-      .select('*')
-      .from('category')
-      .where('id', this.categoryId)
-      .first();
-    return new Category(row.id, row.name);
+    const category = await Category.getCategory({ id: this.categoryId });
+    return category;
   }
 
   async reviews() {
     const { Review } = require('./review');
-    const reviews = await knex
-      .select('*')
-      .from('review')
-      .where('product_id', this.id)
-      .map(
-        row =>
-          new Review(
-            row.id,
-            row.content,
-            row.rating,
-            row.num_of_likes,
-            row.user_id,
-            row.product_id
-          )
-      );
+    const reviews = await Review.getReviewsByProductId({ productId: this.id });
     return reviews;
   }
 
