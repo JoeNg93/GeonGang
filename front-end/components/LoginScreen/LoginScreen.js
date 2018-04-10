@@ -3,8 +3,15 @@ import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
 import { FormInput, Icon, Button } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
 import colorCode from '../../utils/colorCode';
+import PropTypes from 'prop-types';
 
-const LoginScreen = () => {
+const LoginScreen = ({
+  email,
+  onChangeEmail,
+  password,
+  onChangePassword,
+  onPressSignin
+}) => {
   return (
     <View style={[style.pageContainer]}>
       <View style={[style.logoContainer]}>
@@ -19,13 +26,22 @@ const LoginScreen = () => {
             containerStyle={[style.loginField]}
             inputStyle={[commonStyles.fontMontserratLight, style.loginText]}
             placeholder={'email address'}
+            value={email}
             placeholderTextColor={[colorCode.lightgray]}
+            onChangeText={onChangeEmail}
+            autoCapitalize="none"
+            autoCorrect={false}
           />
           <FormInput
             containerStyle={[style.loginField]}
             inputStyle={[commonStyles.fontMontserratLight, style.loginText]}
             placeholder={'password'}
+            value={password}
+            secureTextEntry={true}
             placeholderTextColor={[colorCode.lightgray]}
+            onChangeText={onChangePassword}
+            autoCapitalize="none"
+            autoCorrect={false}
           />
           <Text style={[commonStyles.fontMontserratLight, style.socialText]}>
             or login using social media
@@ -67,6 +83,7 @@ const LoginScreen = () => {
         backgroundColor={colorCode.darkBlue}
         borderRadius={25}
         containerViewStyle={[style.loginButton]}
+        onPress={onPressSignin}
       />
     </View>
   );
@@ -125,5 +142,19 @@ const style = StyleSheet.create({
     width: 175
   }
 });
+
+LoginScreen.propTypes = {
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  onChangeEmail: PropTypes.func,
+  onChangePassword: PropTypes.func,
+  onPressSignin: PropTypes.func
+};
+
+LoginScreen.defaultProps = {
+  onChangeEmail: () => {},
+  onChangePassword: () => {},
+  onPressSignin: () => {}
+};
 
 export default LoginScreen;
