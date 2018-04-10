@@ -95,4 +95,8 @@ PrepScanningScreen.propTypes = {
   startAnalyzingHandle: PropTypes.func
 };
 
+PrepScanningScreen.defaultProps = {
+  startAnalyzingHandle: () => {}
+};
+
 export default PrepScanningScreen;
