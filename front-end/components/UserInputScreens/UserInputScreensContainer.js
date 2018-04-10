@@ -6,6 +6,7 @@ import GenderScreenContainer from '../GenderScreen/GenderScreenContainer';
 import SkinColorScreenContainer from '../SkinColorScreen/SkinColorScreenContainer';
 import SkinTypeScreenContainer from '../SkinTypeScreen/SkinTypeScreenContainer';
 import LocationScreenContainer from '../LocationScreen/LocationScreenContainer';
+import RecommendationScreenContainer from '../RecommendationScreen/RecommendationScreenContainer';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { postUserInputs } from '../../actions/userInput';
@@ -16,7 +17,8 @@ class UserInputScreensContainer extends Component {
     { component: <GenderScreenContainer />, id: 1 },
     { component: <SkinColorScreenContainer />, id: 2 },
     { component: <SkinTypeScreenContainer />, id: 3 },
-    { component: <LocationScreenContainer />, id: 4 }
+    { component: <LocationScreenContainer />, id: 4 },
+    { component: <RecommendationScreenContainer />, id: 5 }
   ];
   flatListRef = null;
 
@@ -25,8 +27,12 @@ class UserInputScreensContainer extends Component {
   };
 
   onTouchNextScreen = async () => {
+    if (this.state.currentActiveItemIndex === 5) {
+      // TODO: Add logic to navigate to Main Screen
+      return;
+    }
     if (this.state.currentActiveItemIndex === 4) {
-      // Last screen, attempt to save user input to db
+      // Finish input, attempt to save user input to db
       // const { age, gender, skinType, skinColor, climate } = this.props;
       // const response = await this.props.postUserInputs({
       //   name: 'Joe',
@@ -36,7 +42,6 @@ class UserInputScreensContainer extends Component {
       //   skinColor,
       //   climate
       // });
-      return;
     }
     const newIndex = this.state.currentActiveItemIndex + 1;
     this.setState({ currentActiveItemIndex: newIndex });
