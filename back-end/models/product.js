@@ -102,6 +102,29 @@ class Product {
         )
       : null;
   }
+
+  static async getProductsByCategoryId({ categoryId }) {
+    const products = await knex
+      .select('*')
+      .from('product')
+      .where('category_id', categoryId)
+      .map(
+        row =>
+          new Product(
+            row.id,
+            row.name,
+            row.price,
+            row.rating,
+            row.num_of_reviews,
+            row.ingredients,
+            row.tag,
+            row.img_src,
+            row.category_id,
+            row.brand_id
+          )
+      );
+    return products;
+  }
 }
 
 module.exports = { productSchema, Product };
