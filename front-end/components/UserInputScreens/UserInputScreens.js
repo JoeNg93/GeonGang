@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { Icon, Button } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
 import { screenWidth } from '../../utils/dimensions';
+import colorCode from '../../utils/colorCode';
 
 const hitSlop = { top: 40, bottom: 40, left: 40, right: 40 };
 
@@ -62,22 +63,22 @@ const UserInputScreens = ({
   data,
   onGetFlatListRef,
   onTouchNextScreen,
-  onTouchPrevScreen
+  onTouchPrevScreen,
+  currentActiveItemIndex
 }) => {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: colorCode.white }}>
       <FlatList
         ref={onGetFlatListRef}
         data={data}
         renderItem={({ item }) =>
-          renderItem({ item, onTouchNextScreen, onTouchPrevScreen })
-        }
+          renderItem({ item, onTouchNextScreen, onTouchPrevScreen })}
         keyExtractor={(item, index) => item.id}
         horizontal={true}
         scrollEnabled={false}
       />
       <View style={styles.buttonsContainer}>
-        {renderBackButton(onTouchPrevScreen)}
+        {currentActiveItemIndex !== 0 && renderBackButton(onTouchPrevScreen)}
         {renderNextButton(onTouchNextScreen)}
       </View>
     </View>
@@ -118,6 +119,7 @@ const styles = StyleSheet.create({
 
 UserInputScreens.propTypes = {
   data: PropTypes.array,
+  currentActiveItemIndex: PropTypes.number.isRequired,
   onGetFlatListRef: PropTypes.func,
   onTouchNextScreen: PropTypes.func,
   onTouchPrevScreen: PropTypes.func

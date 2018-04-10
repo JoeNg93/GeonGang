@@ -91,7 +91,8 @@ const LoginScreen = ({
 
 const style = StyleSheet.create({
   pageContainer: {
-    flex: 1
+    flex: 1,
+    backgroundColor: colorCode.white
   },
   logoContainer: {
     marginTop: 60,

@@ -3,6 +3,19 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { Font, Asset } from 'expo';
 import store from './store';
+import { TabNavigator, StackNavigator } from 'react-navigation';
+import LoginScreenContainer from './components/LoginScreen/LoginScreenContainer';
+import UserInputScreensContainer from './components/UserInputScreens/UserInputScreensContainer';
+import ScanningProcessScreensContainer from './components/ScanningProcessScreens/ScanningProcessScreensContainer';
+
+const MainNavigator = StackNavigator(
+  {
+    loginContainer: { screen: LoginScreenContainer },
+    scanningContainer: { screen: ScanningProcessScreensContainer },
+    userInputContainer: { screen: UserInputScreensContainer }
+  },
+  { headerMode: 'none' }
+);
 
 export default class App extends Component {
   state = {

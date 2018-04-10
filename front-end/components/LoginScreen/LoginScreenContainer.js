@@ -6,13 +6,15 @@ import { Alert } from 'react-native';
 
 class LoginScreenContainer extends Component {
   onPressSignin = async () => {
-    const { email, password } = this.props;
-    const response = await this.props.signIn({ email, password });
-    if (response.status !== 200) {
-      Alert.alert('Error', `Status ${response.status}: ${response.data.error}`);
-      return;
-    }
-    Alert.alert('Success', 'Login successfully');
+    // const { email, password } = this.props;
+    // const response = await this.props.signIn({ email, password });
+    // if (response.status !== 200) {
+    //   Alert.alert('Error', `Status ${response.status}: ${response.data.error}`);
+    //   return;
+    // }
+    // Alert.alert('Success', 'Login successfully');
+
+    this.props.navigation.navigate('scanningContainer');
   };
 
   render() {
