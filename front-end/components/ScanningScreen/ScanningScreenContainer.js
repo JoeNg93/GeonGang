@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Animated, Easing } from 'react-native';
 import ScanningScreen from './ScanningScreen';
+import PropTypes from 'prop-types';
 
 class ScanningScreenContainer extends Component {
   state = {
@@ -42,6 +43,7 @@ class ScanningScreenContainer extends Component {
 
   stopAnimation = () => {
     this.bounceAnimation.stop();
+    setTimeout(this.props.onFinishScanning, 800);
   };
 
   render() {
@@ -54,5 +56,9 @@ class ScanningScreenContainer extends Component {
     );
   }
 }
+
+ScanningScreenContainer.propTypes = {
+  onFinishScanning: PropTypes.func
+};
 
 export default ScanningScreenContainer;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Animated, Easing } from 'react-native';
 import PrepScanningScreen from './PrepScanningScreen';
+import PropTypes from 'prop-types';
 
 class PrepScanningScreenContainer extends Component {
   constructor(props) {
@@ -57,9 +58,14 @@ class PrepScanningScreenContainer extends Component {
           this.state.scaleValue2,
           this.state.opacityValue2
         )}
+        startAnalyzingHandle={this.props.startAnalyzingHandle}
       />
     );
   }
 }
+
+PrepScanningScreenContainer.propTypes = {
+  startAnalyzingHandle: PropTypes.func
+};
 
 export default PrepScanningScreenContainer;
