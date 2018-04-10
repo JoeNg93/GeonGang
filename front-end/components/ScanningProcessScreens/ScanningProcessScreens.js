@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList
-} from 'react-native';
+import { View, FlatList } from 'react-native';
 import { screenWidth } from '../../utils/dimensions';
+import colorCode from '../../utils/colorCode';
 
 const renderItem = ({ item }) => {
   return (
@@ -19,7 +14,7 @@ const renderItem = ({ item }) => {
 
 const ScanningProcessScreens = ({ screens, onGetFlatListRef }) => {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: colorCode.white }}>
       <FlatList
         ref={onGetFlatListRef}
         data={screens}

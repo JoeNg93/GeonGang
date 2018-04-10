@@ -17,7 +17,8 @@ const ScanningResultScreen = ({
   dirtScore,
   uvScore,
   pigmentScore,
-  recommendText
+  recommendText,
+  onPressNextStep
 }) => {
   return (
     <View>
@@ -54,6 +55,7 @@ const ScanningResultScreen = ({
           backgroundColor={colorCode.darkBlue}
           borderRadius={25}
           containerViewStyle={{ borderRadius: 25, width: 300, marginTop: 48 }}
+          onPress={onPressNextStep}
         />
       </View>
     </View>

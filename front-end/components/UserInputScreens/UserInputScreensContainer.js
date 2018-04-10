@@ -18,36 +18,41 @@ class UserInputScreensContainer extends Component {
     { component: <SkinTypeScreenContainer />, id: 3 },
     { component: <LocationScreenContainer />, id: 4 }
   ];
-  currentActiveItemIndex = 0;
   flatListRef = null;
 
+  state = {
+    currentActiveItemIndex: 0
+  };
+
   onTouchNextScreen = async () => {
-    if (this.currentActiveItemIndex === 4) {
+    if (this.state.currentActiveItemIndex === 4) {
       // Last screen, attempt to save user input to db
-      const { age, gender, skinType, skinColor, climate } = this.props;
-      const response = await this.props.postUserInputs({
-        name: 'Joe',
-        age,
-        gender,
-        skinType,
-        skinColor,
-        climate
-      });
+      // const { age, gender, skinType, skinColor, climate } = this.props;
+      // const response = await this.props.postUserInputs({
+      //   name: 'Joe',
+      //   age,
+      //   gender,
+      //   skinType,
+      //   skinColor,
+      //   climate
+      // });
       return;
     }
-    this.currentActiveItemIndex += 1;
+    const newIndex = this.state.currentActiveItemIndex + 1;
+    this.setState({ currentActiveItemIndex: newIndex });
     this.flatListRef.scrollToOffset({
-      offset: this.currentActiveItemIndex * screenWidth
+      offset: newIndex * screenWidth
     });
   };
 
   onTouchPrevScreen = () => {
-    if (this.currentActiveItemIndex <= 0) {
+    if (this.state.currentActiveItemIndex <= 0) {
       return;
     }
-    this.currentActiveItemIndex -= 1;
+    const newIndex = this.state.currentActiveItemIndex - 1;
+    this.setState({ currentActiveItemIndex: newIndex });
     this.flatListRef.scrollToOffset({
-      offset: this.currentActiveItemIndex * screenWidth
+      offset: newIndex * screenWidth
     });
   };
 
@@ -60,6 +65,7 @@ class UserInputScreensContainer extends Component {
         }}
         onTouchNextScreen={this.onTouchNextScreen}
         onTouchPrevScreen={this.onTouchPrevScreen}
+        currentActiveItemIndex={this.state.currentActiveItemIndex}
       />
     );
   }

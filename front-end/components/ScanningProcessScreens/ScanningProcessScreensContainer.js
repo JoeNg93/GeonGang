@@ -31,7 +31,15 @@ class ScanningProcessScreensContainer extends Component {
       ),
       id: 1
     },
-    { component: <ScanningResultScreenContainer />, id: 2 }
+    {
+      component: (
+        <ScanningResultScreenContainer
+          onPressNextStep={() =>
+            this.props.navigation.navigate('userInputContainer')}
+        />
+      ),
+      id: 2
+    }
   ];
 
   render() {
