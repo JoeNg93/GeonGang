@@ -6,6 +6,7 @@ import colorCode from '../../utils/colorCode';
 import HeaderWithLogo from '../common/HeaderWithLogo';
 import RecordCard from '../common/RecordCard';
 import EmptyCard from '../common/EmptyCard';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 const HomepageScreen1 = ({
   gradientBackground,
@@ -15,99 +16,107 @@ const HomepageScreen1 = ({
   recordUserInput,
   inputSubmit,
   textValue,
-  inputTagColor
+  inputTagColor,
+  onSwipeLeft
 }) => {
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.headerSearchContainer}>
-        <Image
-          style={styles.image}
-          source={require('../../assets/images/logo_icon.png')}
-        />
-        <View style={styles.divider} />
-        <Text
-          style={[
-            commonStyles.fontMontserratMedium,
-            commonStyles.colorDarkBlue,
-            styles.header
-          ]}
-        >
-          {`Your\nskin\nrecords`}
-        </Text>
-        <Text
-          style={[
-            commonStyles.fontMontserratRegular,
-            commonStyles.colorBlue,
-            { fontSize: 16, marginTop: 26, marginLeft: 12 }
-          ]}
-        >
-          Search and filter
-        </Text>
-        {inputSubmit === false ? (
-          <SearchBar
-            round
-            icon={{
-              name: 'search',
-              color: colorCode.blue,
-              style: { fontSize: 22, left: 18, top: 12 }
-            }}
-            placeholder="Search here..."
-            placeholderTextColor={colorCode.blue}
-            inputStyle={styles.inputSearch}
-            containerStyle={styles.inputContainer}
-            onChangeText={recordUserInput}
-            onSubmitEditing={recordSearchHandle}
-            clearIcon={{ color: colorCode.blue, name: 'clear' }}
+    <GestureRecognizer style={{ flex: 1 }} onSwipeLeft={onSwipeLeft}>
+      <View style={styles.mainContainer}>
+        <View style={styles.headerSearchContainer}>
+          <Image
+            style={styles.image}
+            source={require('../../assets/images/logo_icon.png')}
           />
-        ) : (
-          <Button
-            buttonStyle={{
-              paddingLeft: 12,
-              paddingRight: 12,
-              paddingTop: 3,
-              paddingBottom: 3,
-              padding: 0
-            }}
-            title={textValue}
-            iconRight={{ name: 'clear', style: { marginLeft: 5 } }}
-            textStyle={[commonStyles.fontMontserratRegular, { fontSize: 14 }]}
-            backgroundColor={inputTagColor}
-            borderRadius={25}
-            containerViewStyle={{
-              borderRadius: 25,
-              marginTop: 20,
-              marginBottom: 20,
-              flexDirection: 'row'
-            }}
-            onPress={recordSearchHandle}
-          />
-        )}
+          <View style={styles.divider} />
+          <Text
+            style={[
+              commonStyles.fontMontserratMedium,
+              commonStyles.colorDarkBlue,
+              styles.header
+            ]}
+          >
+            {`Your\nskin\nrecords`}
+          </Text>
+          <Text
+            style={[
+              commonStyles.fontMontserratLight,
+              commonStyles.colorBlue,
+              { fontSize: 16, marginTop: 26, marginLeft: 12 }
+            ]}
+          >
+            Search and filter
+          </Text>
+          {inputSubmit === false ? (
+            <SearchBar
+              round
+              icon={{
+                name: 'search',
+                color: colorCode.blue,
+                style: { fontSize: 22, left: 18, top: 12 }
+              }}
+              placeholder="Search here..."
+              placeholderTextColor={colorCode.blue}
+              inputStyle={[
+                commonStyles.fontMontserratLight,
+                styles.inputSearch
+              ]}
+              containerStyle={styles.inputContainer}
+              onChangeText={recordUserInput}
+              onSubmitEditing={recordSearchHandle}
+              clearIcon={{ color: colorCode.blue, name: 'clear' }}
+            />
+          ) : (
+            <Button
+              buttonStyle={{
+                paddingLeft: 12,
+                paddingRight: 12,
+                paddingTop: 3,
+                paddingBottom: 3,
+                padding: 0
+              }}
+              title={textValue}
+              iconRight={{ name: 'clear', style: { marginLeft: 5 } }}
+              textStyle={[commonStyles.fontMontserratLight, { fontSize: 14 }]}
+              backgroundColor={inputTagColor}
+              borderRadius={25}
+              containerViewStyle={{
+                borderRadius: 25,
+                marginTop: 20,
+                marginBottom: 20,
+                flexDirection: 'row'
+              }}
+              onPress={recordSearchHandle}
+            />
+          )}
 
-        <Text
-          style={[
-            commonStyles.fontMontserratlight,
-            { fontSize: 14, marginTop: 10, marginLeft: 12, color: '#BDBDBD' }
-          ]}
-        >
-          good, moderate, star,..
-        </Text>
+          <Text
+            style={[
+              commonStyles.fontMontserratLight,
+              { fontSize: 14, marginTop: 10, marginLeft: 12, color: '#BDBDBD' }
+            ]}
+          >
+            good, moderate, star,..
+          </Text>
+        </View>
+        <View style={[styles.recordCardContainer]}>
+          <RecordCard
+            gradientBackground={gradientBackground}
+            nonInteractive={nonInteractive}
+            item={item}
+          />
+          {/*<EmptyCard gradientBackground={gradientBackground} />*/}
+        </View>
       </View>
-      <View style={[styles.recordCardContainer]}>
-        <RecordCard
-          gradientBackground={gradientBackground}
-          nonInteractive={nonInteractive}
-          item={item}
-        />
-        {/*<EmptyCard gradientBackground={gradientBackground} />*/}
-      </View>
-    </View>
+    </GestureRecognizer>
   );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {
     flexDirection: 'row',
-    paddingLeft: 40
+    paddingLeft: 40,
+    backgroundColor: colorCode.white,
+    flex: 1
   },
   divider: {
     marginTop: 16,
