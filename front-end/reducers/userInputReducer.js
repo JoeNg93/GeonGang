@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   age: 0,
   gender: 'unknown',
   skinColor: 'Medium',
-  skinType: '',
+  skinType: 'normal',
   climate: ''
 };
 

@@ -6,7 +6,10 @@ import GenderScreenContainer from '../GenderScreen/GenderScreenContainer';
 import SkinColorScreenContainer from '../SkinColorScreen/SkinColorScreenContainer';
 import SkinTypeScreenContainer from '../SkinTypeScreen/SkinTypeScreenContainer';
 import LocationScreenContainer from '../LocationScreen/LocationScreenContainer';
+import RecommendationScreenContainer from '../RecommendationScreen/RecommendationScreenContainer';
 import { Button } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { postUserInputs } from '../../actions/userInput';
 
 class UserInputScreensContainer extends Component {
   data = [
@@ -14,28 +17,47 @@ class UserInputScreensContainer extends Component {
     { component: <GenderScreenContainer />, id: 1 },
     { component: <SkinColorScreenContainer />, id: 2 },
     { component: <SkinTypeScreenContainer />, id: 3 },
-    { component: <LocationScreenContainer />, id: 4 }
+    { component: <LocationScreenContainer />, id: 4 },
+    { component: <RecommendationScreenContainer />, id: 5 }
   ];
-  currentActiveItemIndex = 0;
   flatListRef = null;
 
-  onTouchNextScreen = () => {
-    if (this.currentActiveItemIndex >= this.data.length - 1) {
+  state = {
+    currentActiveItemIndex: 0
+  };
+
+  onTouchNextScreen = async () => {
+    if (this.state.currentActiveItemIndex === 5) {
+      // TODO: Add logic to navigate to Main Screen
       return;
     }
-    this.currentActiveItemIndex += 1;
+    if (this.state.currentActiveItemIndex === 4) {
+      // Finish input, attempt to save user input to db
+      // const { age, gender, skinType, skinColor, climate } = this.props;
+      // const response = await this.props.postUserInputs({
+      //   name: 'Joe',
+      //   age,
+      //   gender,
+      //   skinType,
+      //   skinColor,
+      //   climate
+      // });
+    }
+    const newIndex = this.state.currentActiveItemIndex + 1;
+    this.setState({ currentActiveItemIndex: newIndex });
     this.flatListRef.scrollToOffset({
-      offset: this.currentActiveItemIndex * screenWidth
+      offset: newIndex * screenWidth
     });
   };
 
   onTouchPrevScreen = () => {
-    if (this.currentActiveItemIndex <= 0) {
+    if (this.state.currentActiveItemIndex <= 0) {
       return;
     }
-    this.currentActiveItemIndex -= 1;
+    const newIndex = this.state.currentActiveItemIndex - 1;
+    this.setState({ currentActiveItemIndex: newIndex });
     this.flatListRef.scrollToOffset({
-      offset: this.currentActiveItemIndex * screenWidth
+      offset: newIndex * screenWidth
     });
   };
 
@@ -48,9 +70,20 @@ class UserInputScreensContainer extends Component {
         }}
         onTouchNextScreen={this.onTouchNextScreen}
         onTouchPrevScreen={this.onTouchPrevScreen}
+        currentActiveItemIndex={this.state.currentActiveItemIndex}
       />
     );
   }
 }
 
-export default UserInputScreensContainer;
+const mapStateToProps = state => ({
+  age: state.userInput.age,
+  gender: state.userInput.gender,
+  skinColor: state.userInput.skinColor,
+  skinType: state.userInput.skinType,
+  climate: state.userInput.climate
+});
+
+export default connect(mapStateToProps, { postUserInputs })(
+  UserInputScreensContainer
+);

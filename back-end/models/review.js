@@ -23,41 +23,52 @@ class Review {
 
   async user() {
     const { User } = require('./user');
-    const row = await knex
-      .select('*')
-      .from('user_info')
-      .where('id', this.userId)
-      .first();
-    return new User(
-      row.id,
-      row.name,
-      row.gender,
-      row.age,
-      row.skin_color,
-      row.skin_type,
-      row.climate
-    );
+    const user = await User.getUser({ id: this.userId });
+    return user;
   }
 
   async product() {
     const { Product } = require('./product');
-    const row = await knex
+    const product = await Product.getProduct({ id: this.productId });
+    return product;
+  }
+
+  static async getReviewsByProductId({ productId }) {
+    const reviews = await knex
       .select('*')
-      .from('product')
-      .where('id', this.productId)
-      .first();
-    return new Product(
-      row.id,
-      row.name,
-      row.price,
-      row.rating,
-      row.num_of_reviews,
-      row.ingredients,
-      row.tag,
-      row.img_src,
-      row.category_id,
-      row.brand_id
-    );
+      .from('review')
+      .where('product_id', productId)
+      .map(
+        row =>
+          new Review(
+            row.id,
+            row.content,
+            row.rating,
+            row.num_of_likes,
+            row.user_id,
+            row.product_id
+          )
+      );
+    return reviews;
+  }
+
+  static async getReviewsByUserId({ userId }) {
+    const reviews = await knex
+      .select('*')
+      .from('review')
+      .where('user_id', userId)
+      .map(
+        row =>
+          new Review(
+            row.id,
+            row.content,
+            row.rating,
+            row.num_of_likes,
+            row.user_id,
+            row.product_id
+          )
+      );
+    return reviews;
   }
 }
 

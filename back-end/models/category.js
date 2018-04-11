@@ -4,6 +4,7 @@ const categorySchema = `
   type Category {
     id: Int!
     name: String!
+    products: [Product]!
   }
 `;
 
@@ -11,6 +12,14 @@ class Category {
   constructor(id, name) {
     this.id = id;
     this.name = name;
+  }
+
+  async products() {
+    const { Product } = require('./product');
+    const products = await Product.getProductsByCategoryId({
+      categoryId: this.id
+    });
+    return products;
   }
 
   static async getAllCategories() {

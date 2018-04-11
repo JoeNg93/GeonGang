@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import colorCode from '../../utils/colorCode';
 import ScanningResultScreen from './ScanningResultScreen';
+import PropTypes from 'prop-types';
 
 class ScanningResultScreenContainer extends Component {
   overallScore = {
@@ -32,9 +33,18 @@ class ScanningResultScreenContainer extends Component {
         uvScore={this.skinConditionResult.uvScore}
         pigmentScore={this.skinConditionResult.pigmentScore}
         recommendText={this.skinConditionResult.recommendText}
+        onPressNextStep={this.props.onPressNextStep}
       />
     );
   }
 }
+
+ScanningResultScreenContainer.propTypes = {
+  onPressNextStep: PropTypes.func
+};
+
+ScanningResultScreenContainer.defaultProps = {
+  onPressNextStep: () => {}
+};
 
 export default ScanningResultScreenContainer;

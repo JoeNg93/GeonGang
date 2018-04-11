@@ -60,5 +60,27 @@ class Record {
       );
     return products;
   }
+
+  static async getRecordsByUserId({ userId }) {
+    const records = await knex
+      .select('*')
+      .from('record')
+      .where('user_id', userId)
+      .map(
+        row =>
+          new Record(
+            row.id,
+            row.date,
+            row.overall_score,
+            row.tag,
+            row.moisture,
+            row.dirt,
+            row.uv,
+            row.pigmentation,
+            row.user_id
+          )
+      );
+    return records;
+  }
 }
 module.exports = { recordSchema, Record };
