@@ -25,7 +25,7 @@ const FriendsComponent = ({
           color: '#4396DC',
           style: styles.icon
         }}
-        placeholder="Search for friends here"
+        placeholder="Search for friends here..."
         containerStyle={styles.searchBarContainer}
         inputStyle={styles.input}
         placeholderTextColor={'#828282'}
@@ -117,8 +117,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderTopWidth: 0,
     borderBottomWidth: 0,
-    width: '100%',
-    height: 65
+    width: '87%',
+    height: 65,
+    alignItems: 'center'
   },
   icon: {
     width: 30,
@@ -134,12 +135,14 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 100,
     margin: 0,
-    paddingLeft: 50
+    paddingLeft: 50,
+    fontSize: 16
   },
   numberOfFriends: {
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
     color: '#828282',
-    fontSize: 16
+    fontSize: 16,
+    width: '87%'
   },
   numberOfFriendsModal: {
     alignSelf: 'flex-start',
@@ -151,7 +154,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
     borderBottomWidth: 0,
     marginBottom: 20,
-    width: '100%'
+    width: '92%'
   },
   listItem: {
     borderTopWidth: 0,

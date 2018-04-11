@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { Avatar, Card } from 'react-native-elements';
+import { Avatar, Card, Icon } from 'react-native-elements';
 import UserProfileScreen from './UserProfileScreen';
 import commonStyles from '../../utils/styles';
 
@@ -94,6 +94,36 @@ class UserProfileScreenContainer extends Component {
     );
   }
 
+  _renderItem2({ item, index }) {
+    return (
+      <View style={styles.productContainer}>
+        <Card containerStyle={styles.productCard}>
+          <Icon
+            name="plus"
+            type="material-community"
+            color="#4396DC"
+            size={22}
+            iconStyle={styles.closeIcon}
+          />
+          <Image
+            resizeMode={'contain'}
+            style={styles.recommendationImage}
+            source={{ uri: item.avatar_url }}
+          />
+          <Text
+            style={[
+              styles.name,
+              commonStyles.fontMontserratLight,
+              commonStyles.colorDarkBlue
+            ]}
+          >
+            {item.name}
+          </Text>
+        </Card>
+      </View>
+    );
+  }
+
   render() {
     const { selectedIndex } = this.state;
     const buttons = ['Profile', 'Friends', 'Reviews'];
@@ -104,6 +134,7 @@ class UserProfileScreenContainer extends Component {
         updateIndex={this.updateIndex}
         screen={this.state.screen}
         _renderItem={this._renderItem}
+        _renderItem2={this._renderItem2}
         myProducts={this.myProducts}
         recommendations={this.recommendations}
       />
@@ -141,10 +172,19 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60
   },
+  recommendationImage: {
+    alignSelf: 'center',
+    marginBottom: 5,
+    height: 60,
+    width: 60
+  },
   name: {
     alignSelf: 'center',
     fontSize: 10,
     textAlign: 'center'
+  },
+  closeIcon: {
+    alignSelf: 'flex-end'
   }
 });
 

@@ -39,7 +39,8 @@ const UserProfileScreen = ({
   updateIndex,
   _renderItem,
   myProducts,
-  recommendations
+  recommendations,
+  _renderItem2
 }) => {
   return (
     <View style={styles.container}>
@@ -176,6 +177,22 @@ const UserProfileScreen = ({
             }}
           />
         </View>
+        <Carousel
+          ref={c => {
+            this._carousel2 = c;
+          }}
+          data={recommendations}
+          renderItem={_renderItem2}
+          sliderWidth={500}
+          itemWidth={111}
+          activeSlideAlignment={'start'}
+          inactiveSlideScale={1}
+          containerCustomStyle={{
+            height: 160,
+            width: '100%',
+            paddingLeft: 75
+          }}
+        />
       </ScrollView>
     </View>
   );
