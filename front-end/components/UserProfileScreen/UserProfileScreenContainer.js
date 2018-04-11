@@ -1,0 +1,191 @@
+import React, { Component } from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { Avatar, Card, Icon } from 'react-native-elements';
+import UserProfileScreen from './UserProfileScreen';
+import commonStyles from '../../utils/styles';
+
+class UserProfileScreenContainer extends Component {
+  state = {
+    selectedIndex: 0
+  };
+
+  updateIndex = this.updateIndex.bind(this);
+
+  updateIndex(selectedIndex) {
+    this.setState({ selectedIndex });
+  }
+
+  myProducts = [
+    {
+      name: 'Neutrogena Hydro Boost Water Gel',
+      avatar_url:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ56yHB2BJVmYv7VUsodB7C5Dv2t31hC9uWvHPhIZWoO5sW-phYsg'
+    },
+    {
+      name: 'Garnier SkinActive Micellar Cleansing Water',
+      avatar_url:
+        'data:image/jpeg;base64,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'
+    },
+    {
+      name: 'Caudalie Premier Cru La Creme Riche',
+      avatar_url:
+        'data:image/jpeg;base64,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'
+    },
+    {
+      name: 'Neutrogena Hydro Boost Water Gel',
+      avatar_url:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ56yHB2BJVmYv7VUsodB7C5Dv2t31hC9uWvHPhIZWoO5sW-phYsg'
+    },
+    {
+      name: 'Neutrogena Hydro Boost Water Gel',
+      avatar_url:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ56yHB2BJVmYv7VUsodB7C5Dv2t31hC9uWvHPhIZWoO5sW-phYsg'
+    }
+  ];
+
+  recommendations = [
+    {
+      name: 'Neutrogena Hydro Boost Water Gel',
+      avatar_url:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ56yHB2BJVmYv7VUsodB7C5Dv2t31hC9uWvHPhIZWoO5sW-phYsg'
+    },
+    {
+      name: 'Vichy Mineral 89',
+      avatar_url:
+        'data:image/jpeg;base64,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'
+    },
+    {
+      name: "L'Oreal Hydrafresh Toner",
+      avatar_url:
+        'data:image/jpeg;base64,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'
+    },
+    {
+      name: 'Neutrogena Hydro Boost Water Gel',
+      avatar_url:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ56yHB2BJVmYv7VUsodB7C5Dv2t31hC9uWvHPhIZWoO5sW-phYsg'
+    },
+    {
+      name: 'Neutrogena Hydro Boost Water Gel',
+      avatar_url:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ56yHB2BJVmYv7VUsodB7C5Dv2t31hC9uWvHPhIZWoO5sW-phYsg'
+    }
+  ];
+
+  _renderItem({ item, index }) {
+    return (
+      <View style={styles.productContainer}>
+        <Card containerStyle={styles.productCard}>
+          <Image
+            resizeMode={'contain'}
+            style={styles.image}
+            source={{ uri: item.avatar_url }}
+          />
+          <Text
+            style={[
+              styles.name,
+              commonStyles.fontMontserratLight,
+              commonStyles.colorDarkBlue
+            ]}
+          >
+            {item.name}
+          </Text>
+        </Card>
+      </View>
+    );
+  }
+
+  _renderItem2({ item, index }) {
+    return (
+      <View style={styles.productContainer}>
+        <Card containerStyle={styles.productCard}>
+          <Icon
+            name="plus"
+            type="material-community"
+            color="#4396DC"
+            size={22}
+            iconStyle={styles.closeIcon}
+          />
+          <Image
+            resizeMode={'contain'}
+            style={styles.recommendationImage}
+            source={{ uri: item.avatar_url }}
+          />
+          <Text
+            style={[
+              styles.name,
+              commonStyles.fontMontserratLight,
+              commonStyles.colorDarkBlue
+            ]}
+          >
+            {item.name}
+          </Text>
+        </Card>
+      </View>
+    );
+  }
+
+  render() {
+    const { selectedIndex } = this.state;
+    const buttons = ['Profile', 'Friends', 'Reviews'];
+    return (
+      <UserProfileScreen
+        buttons={buttons}
+        selectedIndex={this.state.selectedIndex}
+        updateIndex={this.updateIndex}
+        screen={this.state.screen}
+        _renderItem={this._renderItem}
+        _renderItem2={this._renderItem2}
+        myProducts={this.myProducts}
+        recommendations={this.recommendations}
+      />
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  productContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 111,
+    height: 138,
+    marginRight: 10,
+    marginLeft: 10
+  },
+  productCard: {
+    display: 'flex',
+    width: 111,
+    height: 138,
+    shadowOffset: { width: 0, height: 2 },
+    shadowColor: 'rgba(130, 130, 130, 0.25)',
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingRight: 5,
+    paddingLeft: 5
+  },
+  image: {
+    alignSelf: 'center',
+    marginTop: 20,
+    marginBottom: 5,
+    height: 60,
+    width: 60
+  },
+  recommendationImage: {
+    alignSelf: 'center',
+    marginBottom: 5,
+    height: 60,
+    width: 60
+  },
+  name: {
+    alignSelf: 'center',
+    fontSize: 10,
+    textAlign: 'center'
+  },
+  closeIcon: {
+    alignSelf: 'flex-end'
+  }
+});
+
+export default UserProfileScreenContainer;

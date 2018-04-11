@@ -127,13 +127,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     flexDirection: 'column',
-    paddingTop: 100,
-    paddingLeft: 40,
-    paddingRight: 40
+    paddingLeft: 20,
+    paddingTop: 15
   },
   rows: {
     display: 'flex',
-    justifyContent: 'space-between',
     flexDirection: 'row',
     width: '100%',
     paddingBottom: 20
@@ -146,7 +144,8 @@ const styles = StyleSheet.create({
   },
   columns: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    marginRight: 93
   },
   columns1: {
     display: 'flex',

@@ -75,8 +75,8 @@ const ReviewsComponent = ({
         <View style={styles.modalScreen}>
           <View style={styles.modalContainer}>
             <Icon
-              name="times"
-              type="font-awesome"
+              name="close"
+              type="material-community"
               color="#828282"
               size={25}
               iconStyle={{
@@ -146,13 +146,10 @@ const ReviewsComponent = ({
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     flexDirection: 'column',
-    paddingTop: 100,
-    paddingLeft: 40,
-    paddingRight: 40
+    paddingTop: 15
   },
   numberOfReviews: {
     alignSelf: 'flex-start',
@@ -226,7 +223,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.6);'
   },
   modalContainer: {
-    height: '75%',
+    height: 'auto',
     width: '90%',
     backgroundColor: '#fff',
     borderRadius: 13,

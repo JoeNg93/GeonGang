@@ -23,7 +23,12 @@ class FriendsComponentContainer extends Component {
       }
     ],
 
-    numOfFriends: ''
+    numOfFriends: '',
+    modalVisible: false
+  };
+
+  setModalVisible = visible => {
+    this.setState({ modalVisible: visible });
   };
 
   render() {
@@ -31,6 +36,8 @@ class FriendsComponentContainer extends Component {
       <FriendsComponent
         numOfFriends={this.state.list.length}
         list={this.state.list}
+        modalVisible={this.state.modalVisible}
+        setModalVisible={this.setModalVisible}
       />
     );
   }
