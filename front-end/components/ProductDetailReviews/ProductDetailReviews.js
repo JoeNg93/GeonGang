@@ -7,7 +7,7 @@ import {
   TextInput,
   ScrollView
 } from "react-native";
-import { Icon, Button, Rating } from "react-native-elements";
+import { Icon, Button, Rating, Divider } from "react-native-elements";
 import PropTypes from "prop-types";
 import commonStyles from "../../utils/styles";
 import colorCode from "../../utils/colorCode";
@@ -100,7 +100,8 @@ const ProductDetailReviews = ({ productName }) => {
         </View>
 
         {/* communityReviews */}
-        <View style={styles.communityReview}>
+        <Divider style={{ backgroundColor: "#DFDFDF", height: 1, marginHorizontal: 36 }} />
+        <View style={[styles.communityReview, styles.placeholder]}>
           <Image
             source={require("../../assets/images/profile-1.jpg")}
             style={styles.communityReviewImage}
@@ -262,12 +263,10 @@ const styles = StyleSheet.create({
   },
 
   communityReview: {
+    backgroundColor: "#eaeaea",
     flexDirection: "row",
     paddingTop: 20,
-    paddingBottom: 5,
-    marginHorizontal: 36,
-    borderTopWidth: 1,
-    borderColor: "#DFDFDF" //colorCode.lightGray
+    paddingBottom: 5
   },
 
   communityReviewImage: {
