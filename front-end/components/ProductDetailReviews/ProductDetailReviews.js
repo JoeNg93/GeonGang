@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TextInput,
+  ScrollView
+} from "react-native";
 import { Icon, Button, Rating } from "react-native-elements";
 import PropTypes from "prop-types";
 import commonStyles from "../../utils/styles";
@@ -11,157 +18,159 @@ const ProductDetailReviews = ({ productName }) => {
       {/* Section header */}
       <View style={styles.header} />
 
-      {/* globalReview */}
-      <Text
-        style={[
-          styles.globalReviewTitle,
-          styles.placeholder,
-          commonStyles.fontMontserratMedium,
-          commonStyles.colorDarkBlue
-        ]}
-      >
-        Review for this product
-      </Text>
-      <View style={[styles.globalReviewBox, styles.placeholder]}>
+      <ScrollView horizontal={false} bounces={false}>
+        {/* globalReview */}
         <Text
           style={[
-            styles.globalReviewGrade,
-            commonStyles.fontMontserratLight,
+            styles.globalReviewTitle,
+            styles.placeholder,
+            commonStyles.fontMontserratMedium,
             commonStyles.colorDarkBlue
           ]}
         >
-          4.4
+          Review for this product
         </Text>
-        <View style={styles.globalReviewRating}>
-          <Rating
-            type="star"
-            readonly
-            ratingCount={5}
-            fractions={1}
-            startingValue={4.4}
-            imageSize={20}
-            // onFinishRating={this.ratingCompleted}
-            style={{ marginBottom: 10 }}
-          />
+        <View style={[styles.globalReviewBox, styles.placeholder]}>
           <Text
             style={[
-              styles.globalReviewRatingText,
+              styles.globalReviewGrade,
               commonStyles.fontMontserratLight,
               commonStyles.colorDarkBlue
             ]}
           >
-            Based on 18 reviews and ratings
+            4.4
           </Text>
-        </View>
-      </View>
-
-      {/* userReview */}
-      <View style={[styles.userReview, styles.placeholder]}>
-        <Image
-          source={require("../../assets/images/profile-1.jpg")}
-          style={styles.userProfileImage}
-        />
-        <View style={styles.userReviewInput}>
-          <Rating
-            type="star"
-            ratingCount={5}
-            fractions={1}
-            startingValue={0}
-            imageSize={20}
-            // onFinishRating={this.ratingCompleted}
-            style={{ marginBottom: 10 }}
-          />
-          <View style={styles.userReviewTextbox}>
-            <TextInput
-              placeholder="Write your review here..."
-              multiline={true}
-              color={colorCode.gray}
-              style={[{ fontSize: 12 }, commonStyles.fontMontserratLight]}
+          <View style={styles.globalReviewRating}>
+            <Rating
+              type="star"
+              readonly
+              ratingCount={5}
+              fractions={1}
+              startingValue={4.4}
+              imageSize={20}
+              // onFinishRating={this.ratingCompleted}
+              style={{ marginBottom: 10 }}
             />
-          </View>
-          <Button
-            containerViewStyle={styles.btnSubmitCont}
-            textStyle={[
-              commonStyles.fontMontserratSemiBold,
-              { fontSize: 14, color: "#ffffff" }
-            ]}
-            title="Write review"
-            buttonStyle={styles.btnSubmit}
-          />
-        </View>
-      </View>
-
-      {/* communityReviews */}
-      <View style={styles.communityReview}>
-        <Image
-          source={require("../../assets/images/profile-1.jpg")}
-          style={styles.communityReviewImage}
-        />
-        <View style={styles.communityReviewContents}>
-          <View style={styles.communityReviewTitle}>
             <Text
               style={[
-                styles.communityReviewTitleName,
-                commonStyles.fontMontserratMedium,
+                styles.globalReviewRatingText,
+                commonStyles.fontMontserratLight,
                 commonStyles.colorDarkBlue
               ]}
             >
-              Emma Watson
-            </Text>
-            <Text
-              style={[
-                styles.communityReviewTitleDate,
-                commonStyles.fontMontserratLight,
-                commonStyles.colorGray
-              ]}
-            >
-              1 month ago
+              Based on 18 reviews and ratings
             </Text>
           </View>
-          <Rating
-            type="star"
-            readonly
-            ratingCount={5}
-            fractions={1}
-            startingValue={4.4}
-            imageSize={16}
-            // onFinishRating={this.ratingCompleted}
-            style={{ paddingTop: 6, paddingBottom: 16 }}
+        </View>
+
+        {/* userReview */}
+        <View style={[styles.userReview, styles.placeholder]}>
+          <Image
+            source={require("../../assets/images/profile-1.jpg")}
+            style={styles.userProfileImage}
           />
-          <Text
-            style={[
-              styles.communityReviewComment,
-              commonStyles.fontMontserratLight,
-              commonStyles.colorDarkBlue
-            ]}
-          >
-            The texture is very nice and it non sticky, non greasy. Very
-            hydrating and ultras a few for my sensitive skin, I can even apply
-            it around the eye area. It's a must have and 1st part of my skincare
-            routine and after I apply my Mineral 89, I apply my other serums and
-            It compliments every serum and moisturiser I apply, may it be day or
-            night.
-          </Text>
-          <View style={styles.communityReviewBottom}>
-            <Button
-              containerViewStyle={styles.communityReviewBottomBtnCont}
-              buttonStyle={styles.communityReviewBottomBtn}
-              color={colorCode.red}
-              icon={{ name: "favorite-border", color: colorCode.red }}
-              title="Helpful (3)"
-              textStyle={styles.communityReviewBottomBtnTxt}
+          <View style={styles.userReviewInput}>
+            <Rating
+              type="star"
+              ratingCount={5}
+              fractions={1}
+              startingValue={0}
+              imageSize={20}
+              // onFinishRating={this.ratingCompleted}
+              style={{ marginBottom: 10 }}
             />
+            <View style={styles.userReviewTextbox}>
+              <TextInput
+                placeholder="Write your review here..."
+                multiline={true}
+                color={colorCode.gray}
+                style={[{ fontSize: 12 }, commonStyles.fontMontserratLight]}
+              />
+            </View>
             <Button
-              containerViewStyle={styles.communityReviewBottomBtnCont}
-              buttonStyle={styles.communityReviewBottomBtn}
-              color={colorCode.lightGray}
-              icon={{ name: "warning", color: colorCode.lightGray }}
-              title="Report"
-              textStyle={styles.communityReviewBottomBtnTxt}
+              containerViewStyle={styles.btnSubmitCont}
+              textStyle={[
+                commonStyles.fontMontserratSemiBold,
+                { fontSize: 14, color: "#ffffff" }
+              ]}
+              title="Write review"
+              buttonStyle={styles.btnSubmit}
             />
           </View>
         </View>
-      </View>
+
+        {/* communityReviews */}
+        <View style={styles.communityReview}>
+          <Image
+            source={require("../../assets/images/profile-1.jpg")}
+            style={styles.communityReviewImage}
+          />
+          <View style={styles.communityReviewContents}>
+            <View style={styles.communityReviewTitle}>
+              <Text
+                style={[
+                  styles.communityReviewTitleName,
+                  commonStyles.fontMontserratMedium,
+                  commonStyles.colorDarkBlue
+                ]}
+              >
+                Emma Watson
+              </Text>
+              <Text
+                style={[
+                  styles.communityReviewTitleDate,
+                  commonStyles.fontMontserratLight,
+                  commonStyles.colorGray
+                ]}
+              >
+                1 month ago
+              </Text>
+            </View>
+            <Rating
+              type="star"
+              readonly
+              ratingCount={5}
+              fractions={1}
+              startingValue={4.4}
+              imageSize={16}
+              // onFinishRating={this.ratingCompleted}
+              style={{ paddingTop: 6, paddingBottom: 16 }}
+            />
+            <Text
+              style={[
+                styles.communityReviewComment,
+                commonStyles.fontMontserratLight,
+                commonStyles.colorDarkBlue
+              ]}
+            >
+              The texture is very nice and it non sticky, non greasy. Very
+              hydrating and ultras a few for my sensitive skin, I can even apply
+              it around the eye area. It's a must have and 1st part of my
+              skincare routine and after I apply my Mineral 89, I apply my other
+              serums and It compliments every serum and moisturiser I apply, may
+              it be day or night.
+            </Text>
+            <View style={styles.communityReviewBottom}>
+              <Button
+                containerViewStyle={styles.communityReviewBottomBtnCont}
+                buttonStyle={styles.communityReviewBottomBtn}
+                color={colorCode.red}
+                icon={{ name: "favorite-border", color: colorCode.red }}
+                title="Helpful (3)"
+                textStyle={styles.communityReviewBottomBtnTxt}
+              />
+              <Button
+                containerViewStyle={styles.communityReviewBottomBtnCont}
+                buttonStyle={styles.communityReviewBottomBtn}
+                color={colorCode.lightGray}
+                icon={{ name: "warning", color: colorCode.lightGray }}
+                title="Report"
+                textStyle={styles.communityReviewBottomBtnTxt}
+              />
+            </View>
+          </View>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -258,7 +267,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     marginHorizontal: 36,
     borderTopWidth: 1,
-    borderColor: colorCode.lightGray
+    borderColor: "#DFDFDF" //colorCode.lightGray
   },
 
   communityReviewImage: {
