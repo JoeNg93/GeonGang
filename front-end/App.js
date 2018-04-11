@@ -4,17 +4,57 @@ import { Provider } from 'react-redux';
 import { Font, Asset } from 'expo';
 import store from './store';
 import { TabNavigator, StackNavigator } from 'react-navigation';
+import commonStyles from './utils/styles';
+import colorCode from './utils/colorCode';
 import LoginScreenContainer from './components/LoginScreen/LoginScreenContainer';
 import UserInputScreensContainer from './components/UserInputScreens/UserInputScreensContainer';
 import ScanningProcessScreensContainer from './components/ScanningProcessScreens/ScanningProcessScreensContainer';
+import HomePageScreen1Container from './components/HomepageScreen/HomepageScreen1Container';
+import HomePageScreen2Container from './components/HomepageScreen/HomepageScreen2Container';
+import Component1 from './components/Temp/Component1';
+import Component2 from './components/Temp/Component2';
+import Component3 from './components/Temp/Component3';
 
 const MainNavigator = StackNavigator(
   {
     loginContainer: { screen: LoginScreenContainer },
     scanningContainer: { screen: ScanningProcessScreensContainer },
-    userInputContainer: { screen: UserInputScreensContainer }
+    userInputContainer: { screen: UserInputScreensContainer },
+    mainContainer: {
+      screen: TabNavigator(
+        {
+          homeContainer: {
+            screen: StackNavigator({
+              homepage1: { screen: HomePageScreen1Container },
+              homepage2: { screen: HomePageScreen2Container }
+            })
+          },
+          trackingContainer: { screen: StackNavigator({ screen: Component1 }) },
+          profileContainer: { screen: StackNavigator({ screen: Component2 }) },
+          productsContainer: { screen: StackNavigator({ screen: Component3 }) }
+        },
+        {
+          lazy: true,
+          tabBarOptions: {
+            // Color when focus (color of each tab)
+            activeTintColor: colorCode.darkBlue,
+            // Style for each label
+            labelStyle: [
+              commonStyles.fontMontserratLight,
+              { fontSize: 11, color: colorCode.lightLightGray }
+            ],
+            // Tab bar style
+            style: {
+              height: 56,
+              paddingTop: 6,
+              paddingBottom: 3
+            }
+          }
+        }
+      )
+    }
   },
-  { headerMode: 'none' }
+  { headerMode: 'none' } // Hide the header of main Stack Navigator
 );
 
 export default class App extends Component {

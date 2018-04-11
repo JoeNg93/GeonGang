@@ -1,8 +1,32 @@
 import React, { Component } from 'react';
 import colorCode from '../../utils/colorCode';
 import HomepageScreen1 from './HomepageScreen1';
+import { Icon } from 'react-native-elements';
+import { TouchableOpacity } from 'react-native';
 
 class HomepageScreen1Container extends Component {
+  // Header styling
+  static navigationOptions = ({ navigation }) => ({
+    headerStyle: {
+      backgroundColor: colorCode.white,
+      // Remove the border bottom line of header
+      borderBottomWidth: 0
+    },
+    tabBarLabel: 'Home',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="home" type="simple-line-icon" color={tintColor} />
+    ),
+    // Set "+" icon on the right
+    headerRight: (
+      <TouchableOpacity
+        style={{ marginRight: 10 }}
+        onPress={() => navigation.navigate('scanningContainer')}
+      >
+        <Icon name="add" iconStyle={{ color: colorCode.darkBlue }} size={32} />
+      </TouchableOpacity>
+    )
+  });
+
   gradientBackground = colorCode.moderateGradient;
   record = {
     overallScore: {
@@ -59,6 +83,7 @@ class HomepageScreen1Container extends Component {
         inputSubmit={this.state.inputSubmit}
         textValue={this.state.textValue}
         inputTagColor={this.state.inputTagColor}
+        onSwipeLeft={() => this.props.navigation.navigate('homepage2')}
       />
     );
   }

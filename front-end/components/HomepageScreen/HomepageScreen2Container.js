@@ -1,9 +1,48 @@
 import React, { Component } from 'react';
-import { Animated, Easing } from 'react-native';
+import { Animated, Easing, TouchableOpacity } from 'react-native';
 import HomepageScreen2 from './HomepageScreen2';
 import colorCode from '../../utils/colorCode';
+import { Icon } from 'react-native-elements';
+import moment from 'moment';
 
 class HomepageScreen2Container extends Component {
+  // Header styling
+  static navigationOptions = ({ navigation }) => ({
+    headerStyle: {
+      backgroundColor: colorCode.white,
+      // Remove the border bottom line of header
+      borderBottomWidth: 0
+    },
+    headerTitle:
+      (navigation.state.params && navigation.state.params.currentMonth) || null,
+    tabBarLabel: 'Home',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="home" type="simple-line-icon" color={tintColor} />
+    ),
+    // Set "+" icon on the right
+    headerRight: (
+      <TouchableOpacity
+        style={{ marginRight: 10 }}
+        onPress={() => navigation.navigate('scanningContainer')}
+      >
+        <Icon name="add" iconStyle={{ color: colorCode.darkBlue }} size={32} />
+      </TouchableOpacity>
+    ),
+    // Set "<" icon on the left
+    headerLeft: (
+      <TouchableOpacity
+        style={{ marginLeft: 10 }}
+        onPress={() => navigation.goBack()}
+      >
+        <Icon
+          name="keyboard-arrow-left"
+          iconStyle={{ color: colorCode.darkBlue }}
+          size={40}
+        />
+      </TouchableOpacity>
+    )
+  });
+
   cards = [
     {
       gradientBackground: colorCode.moderateGradient,
@@ -18,7 +57,7 @@ class HomepageScreen2Container extends Component {
         recommendText:
           'Your skin is thisty, tired with lots of dirts and oil. We recommend cleaning your face and moisturizing before go to bed.'
       },
-      date: '17. March 2018',
+      date: '2018-03-17',
       starAdded: false,
       fadeOutAnim: new Animated.Value(1),
       emptyCard: false
@@ -36,7 +75,7 @@ class HomepageScreen2Container extends Component {
         recommendText:
           'Your skin is in danger with lack of care and is easily prone to acne. We recommend cleaning your face and moisturizing before go to bed. '
       },
-      date: '16. March 2018',
+      date: '2018-04-18',
       starAdded: false,
       fadeOutAnim: new Animated.Value(1),
       emptyCard: false
@@ -54,22 +93,29 @@ class HomepageScreen2Container extends Component {
         recommendText:
           'Your skin is healthy and has improved so far. Keep up with the good work and continue to wash your face.'
       },
-      date: '15. March 2018',
+      date: '2018-06-12',
       starAdded: false,
       fadeOutAnim: new Animated.Value(1),
       emptyCard: false
     },
     {
       gradientBackground: colorCode.emptyCardGradient,
-      date: 'Today',
+      date: '2018-07-12',
       emptyCard: true
     }
   ];
 
   state = {
     currentIndex: 0,
-    translateXAnim: new Animated.Value(100)
+    translateXAnim: new Animated.Value(100),
+    currentCardMonth: moment(this.cards[0].date).format('MMMM')
   };
+
+  componentWillMount() {
+    this.props.navigation.setParams({
+      currentMonth: this.state.currentCardMonth
+    });
+  }
 
   componentDidMount() {
     Animated.timing(this.state.translateXAnim, {
@@ -110,6 +156,15 @@ class HomepageScreen2Container extends Component {
     });
   };
 
+  onChangeCardIndex = index => {
+    const newCardMonth = moment(this.cards[index].date).format('MMMM');
+    this.setState({
+      currentIndex: index,
+      currentCardMonth: newCardMonth
+    });
+    this.props.navigation.setParams({ currentMonth: newCardMonth });
+  };
+
   render() {
     return (
       <HomepageScreen2
@@ -117,7 +172,7 @@ class HomepageScreen2Container extends Component {
         favoriteHandle={this.favoriteHandle}
         deleteHandle={this.deleteHandle}
         currentIndex={this.state.currentIndex}
-        onChangeCardIndex={index => this.setState({ currentIndex: index })}
+        onChangeCardIndex={this.onChangeCardIndex}
         fadeOutAnim={this.state.fadeOutAnim}
         translateXAnim={this.state.translateXAnim}
       />
