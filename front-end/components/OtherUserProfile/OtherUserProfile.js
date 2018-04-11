@@ -1,7 +1,24 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
-import { Button, Icon, ButtonGroup, Divider } from 'react-native-elements';
+import { Button, Icon, ButtonGroup } from 'react-native-elements';
+import Carousel from 'react-native-snap-carousel';
+import { widthPercentage } from '../../utils/dimensions';
+import PropTypes from 'prop-types';
 import commonStyles from '../../utils/styles';
+import ProfileComponentContainer from '../ProfileComponent/ProfileComponentContainer';
+import ReviewsComponentContainer from '../ReviewsComponent/ReviewsComponentContainer';
+import FriendsComponentContainer from '../FriendsComponent/FriendsComponentContainer';
+import colorCode from '../../utils/colorCode';
+
+function renderScreen(selectedIndex) {
+  if (selectedIndex == 0) {
+    return <ProfileComponentContainer />;
+  } else if (selectedIndex == 1) {
+    return <FriendsComponentContainer />;
+  } else {
+    return <ReviewsComponentContainer />;
+  }
+}
 
 const OtherUserProfile = ({ buttons, selectedIndex, updateIndex }) => {
   return (
@@ -48,9 +65,12 @@ const OtherUserProfile = ({ buttons, selectedIndex, updateIndex }) => {
           selectedButtonStyle={styles.selectedButton}
           textStyle={[styles.buttonGroupText, commonStyles.fontMontserratLight]}
           selectedTextStyle={styles.selectedButtonText}
+          innerBorderStyle={{ width: -1, color: 'transparent' }}
         />
       </View>
-      <View style={styles.buttonGroupContent} />
+      <View style={styles.buttonGroupContent}>
+        {renderScreen(selectedIndex)}
+      </View>
       <View
         style={{
           display: 'flex',
