@@ -5,6 +5,7 @@ import { screenWidth } from '../../utils/dimensions';
 import commonStyles from '../../utils/styles';
 import RecordCard from '../common/RecordCard';
 import { StyleSheet, View, Text } from 'react-native';
+import colorCode from '../../utils/colorCode';
 
 const renderItem = ({
   itemIndex,
@@ -60,8 +61,7 @@ const HomepageScreen2 = ({
             deleteHandle,
             fadeOutAnim,
             translateXAnim
-          })
-        }
+          })}
       />
     </View>
   );
@@ -69,7 +69,8 @@ const HomepageScreen2 = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: colorCode.white
   }
 });
 
