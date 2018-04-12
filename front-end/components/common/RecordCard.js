@@ -6,7 +6,8 @@ import {
   Image,
   Animated,
   Easing,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableWithoutFeedback
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import { Icon } from 'react-native-elements';
@@ -29,7 +30,8 @@ const RecordCard = ({
   deleteHandle,
   favoriteHandle,
   fadeOutAnim,
-  translateXAnim
+  translateXAnim,
+  onPressOpenRecordDetailModal
 }) => {
   return nonInteractive === true ? (
     <RecordCardComponent gradientBackground={gradientBackground} item={item} />
@@ -80,13 +82,15 @@ const RecordCard = ({
       {item.emptyCard === true ? (
         <EmptyCard gradientBackground={gradientBackground} />
       ) : (
-        <View>
-          <RecordCardComponent
-            gradientBackground={gradientBackground}
-            item={item}
-            cardContainerStyle={cardContainerStyle}
-          />
-        </View>
+        <TouchableWithoutFeedback onPress={onPressOpenRecordDetailModal}>
+          <View>
+            <RecordCardComponent
+              gradientBackground={gradientBackground}
+              item={item}
+              cardContainerStyle={cardContainerStyle}
+            />
+          </View>
+        </TouchableWithoutFeedback>
       )}
       <View style={styles.iconPanel}>
         <TouchableOpacity onPress={deleteHandle}>
@@ -197,7 +201,8 @@ RecordCard.propTypes = {
   starAdded: PropTypes.bool,
   emptyCard: PropTypes.bool,
   deleteHandle: PropTypes.func,
-  favoriteHandle: PropTypes.func
+  favoriteHandle: PropTypes.func,
+  onPressOpenRecordDetailModal: PropTypes.func
 };
 
 RecordCard.defaultProps = {
@@ -207,7 +212,8 @@ RecordCard.defaultProps = {
   starAdded: false,
   emptyCard: false,
   deleteHandle: () => {},
-  favoriteHandle: () => {}
+  favoriteHandle: () => {},
+  onPressOpenRecordDetailModal: () => {}
 };
 
 export default RecordCard;

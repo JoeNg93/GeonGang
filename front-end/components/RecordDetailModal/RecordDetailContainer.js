@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import colorCode from '../../utils/colorCode';
 import RecordDetailModal from './RecordDetailModal';
 import Product from '../common/Product';
+import { connect } from 'react-redux';
+import { closeRecordDetailModal } from '../../actions/modals_control';
 
 class RecordDetailContainer extends Component {
   state = { currentActiveProduct: 0 };
@@ -79,9 +81,10 @@ class RecordDetailContainer extends Component {
         pigmentScore={this.skinConditionResult.pigmentScore}
         recommendText={this.skinConditionResult.recommendText}
         productComponents={productComponents}
+        onPressCloseModal={this.props.closeRecordDetailModal}
       />
     );
   }
 }
 
-export default RecordDetailContainer;
+export default connect(null, { closeRecordDetailModal })(RecordDetailContainer);

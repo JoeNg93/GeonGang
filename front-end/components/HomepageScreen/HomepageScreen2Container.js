@@ -4,6 +4,8 @@ import HomepageScreen2 from './HomepageScreen2';
 import colorCode from '../../utils/colorCode';
 import { Icon } from 'react-native-elements';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import { openRecordDetailModal } from '../../actions/modals_control';
 
 class HomepageScreen2Container extends Component {
   // Header styling
@@ -175,9 +177,17 @@ class HomepageScreen2Container extends Component {
         onChangeCardIndex={this.onChangeCardIndex}
         fadeOutAnim={this.state.fadeOutAnim}
         translateXAnim={this.state.translateXAnim}
+        onPressOpenRecordDetailModal={this.props.openRecordDetailModal}
+        recordDetailModalVisible={this.props.recordDetailModalVisible}
       />
     );
   }
 }
 
-export default HomepageScreen2Container;
+const mapStateToProps = state => ({
+  recordDetailModalVisible: state.modal.recordDetailModalVisible
+});
+
+export default connect(mapStateToProps, { openRecordDetailModal })(
+  HomepageScreen2Container
+);

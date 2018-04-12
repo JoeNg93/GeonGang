@@ -1,10 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity
+} from 'react-native';
+import { Icon } from 'react-native-elements';
 import { LinearGradient } from 'expo';
 import commonStyles from '../../utils/styles';
 import OverallScore from '../common/OverallScore';
 import SkinConditionResult from '../common/SkinConditionResult';
 import PropTypes from 'prop-types';
+import colorCode from '../../utils/colorCode';
 
 const RecordDetailModal = ({
   date,
@@ -19,7 +27,8 @@ const RecordDetailModal = ({
   uvScore,
   pigmentScore,
   recommendText,
-  productComponent
+  productComponent,
+  onPressCloseModal
 }) => {
   return (
     <ScrollView>
@@ -27,6 +36,11 @@ const RecordDetailModal = ({
         colors={gradientBackground}
         style={[styles.recordHeaderContainer]}
       >
+        <TouchableOpacity onPress={onPressCloseModal}>
+          <View style={styles.closeModalContainer}>
+            <Icon name="clear" color={colorCode.white} size={30} />
+          </View>
+        </TouchableOpacity>
         <Text style={[commonStyles.fontMontserratLight, styles.dateText]}>
           {date}
         </Text>
@@ -67,7 +81,7 @@ const RecordDetailModal = ({
 const styles = StyleSheet.create({
   recordHeaderContainer: {
     paddingLeft: 40,
-    paddingTop: 60,
+    paddingTop: 40,
     paddingBottom: 17,
     flex: 1
   },
@@ -97,13 +111,22 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     marginTop: 15,
     paddingRight: 40
+  },
+  closeModalContainer: {
+    alignItems: 'flex-end',
+    paddingRight: 24
   }
 });
 
 RecordDetailModal.propTypes = {
   date: PropTypes.string.isRequired,
   gradientBackground: PropTypes.array.isRequired,
-  productComponents: PropTypes.array
+  productComponents: PropTypes.array,
+  onPressCloseModal: PropTypes.func
+};
+
+RecordDetailModal.defaultProps = {
+  onPressCloseModal: () => {}
 };
 
 export default RecordDetailModal;
