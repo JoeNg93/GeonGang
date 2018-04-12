@@ -10,6 +10,7 @@ const userSchema = `
     skinColor: String!
     skinType: String!
     climate: String!
+    skinCondition: String!
     reviews: [Review]!
     records: [Record]!
     favoriteProducts: [Product]!
@@ -17,7 +18,16 @@ const userSchema = `
 `;
 
 class User {
-  constructor(id, name, gender, age, skinColor, skinType, climate) {
+  constructor(
+    id,
+    name,
+    gender,
+    age,
+    skinColor,
+    skinType,
+    climate,
+    skinCondition
+  ) {
     this.id = id;
     this.name = name;
     this.gender = gender;
@@ -25,6 +35,7 @@ class User {
     this.skinColor = skinColor;
     this.skinType = skinType;
     this.climate = climate;
+    this.skinCondition = skinCondition;
   }
 
   async email() {
@@ -101,7 +112,8 @@ class User {
             row.age,
             row.skin_color,
             row.skin_type,
-            row.climate
+            row.climate,
+            row.skin_condition
           )
       );
     return users;
@@ -121,7 +133,8 @@ class User {
           row.age,
           row.skinColor,
           row.skinType,
-          row.climate
+          row.climate,
+          row.skin_condition
         )
       : null;
   }
@@ -147,7 +160,8 @@ class User {
       rowInUserInfo.age,
       rowInUserInfo.skin_color,
       rowInUserInfo.skin_type,
-      rowInUserInfo.climate
+      rowInUserInfo.climate,
+      rowInUserInfo.skin_condition
     );
   }
 }
