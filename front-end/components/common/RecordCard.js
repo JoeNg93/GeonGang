@@ -15,6 +15,7 @@ import EmptyCard from '../common/EmptyCard';
 import colorCode from '../../utils/colorCode';
 import commonStyles from '../../utils/styles';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 const cardWidth = 317;
 
@@ -74,7 +75,7 @@ const RecordCard = ({
           item.emptyCard === true ? { opacity: 0 } : { opacity: 1 }
         ]}
       >
-        {item.date}
+        {moment(item.date).format('Do MMMM YYYY')}
       </Animated.Text>
       {item.emptyCard === true ? (
         <EmptyCard gradientBackground={gradientBackground} />
