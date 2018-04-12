@@ -29,6 +29,7 @@ class UserInputScreensContainer extends Component {
   onTouchNextScreen = async () => {
     if (this.state.currentActiveItemIndex === 5) {
       // TODO: Add logic to navigate to Main Screen
+      this.props.navigation.navigate('mainContainer');
       return;
     }
     if (this.state.currentActiveItemIndex === 4) {

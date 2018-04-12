@@ -12,8 +12,8 @@ import ScanningProcessScreensContainer from './components/ScanningProcessScreens
 import HomePageScreen1Container from './components/HomepageScreen/HomepageScreen1Container';
 import HomePageScreen2Container from './components/HomepageScreen/HomepageScreen2Container';
 import Component1 from './components/Temp/Component1';
-import Component2 from './components/Temp/Component2';
 import Component3 from './components/Temp/Component3';
+import UserProfileScreenContainer from './components/UserProfileScreen/UserProfileScreenContainer';
 
 const MainNavigator = StackNavigator(
   {
@@ -30,7 +30,9 @@ const MainNavigator = StackNavigator(
             })
           },
           trackingContainer: { screen: StackNavigator({ screen: Component1 }) },
-          profileContainer: { screen: StackNavigator({ screen: Component2 }) },
+          profileContainer: {
+            screen: StackNavigator({ screen: UserProfileScreenContainer })
+          },
           productsContainer: { screen: StackNavigator({ screen: Component3 }) }
         },
         {

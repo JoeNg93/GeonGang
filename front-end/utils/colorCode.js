@@ -1,5 +1,6 @@
 export default {
   darkBlue: '#0C3363',
+  lightBlue: '#C8EAFF',
   blue: '#4396DC',
   white: '#FFFFFF',
   moderateTag: '#4396DC',
@@ -14,5 +15,6 @@ export default {
   emptyCardGradient: ['#a1c4fd', '#c2e9fb'],
   lightgray: '#8F8F8F',
   lightLightGray: '#8A8A8F',
+  anotherLightGray: '#828282',
   black: '#303030'
 };

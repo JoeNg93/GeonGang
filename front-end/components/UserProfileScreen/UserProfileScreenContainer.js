@@ -1,19 +1,52 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
-import { Avatar, Card, Icon } from 'react-native-elements';
 import UserProfileScreen from './UserProfileScreen';
-import commonStyles from '../../utils/styles';
+import colorCode from '../../utils/colorCode';
+import { TouchableOpacity, StyleSheet, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 class UserProfileScreenContainer extends Component {
+  // Header styling
+  static navigationOptions = ({ navigation }) => ({
+    headerStyle: {
+      backgroundColor: colorCode.lightBlue,
+      // Remove the border bottom line of header
+      borderBottomWidth: 0
+    },
+    tabBarLabel: 'Profile',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="user" type="simple-line-icon" color={tintColor} />
+    ),
+    // Set "+" icon on the right
+    headerRight: (
+      <View style={styles.headerContainer}>
+        <TouchableOpacity>
+          <Icon
+            name="bell"
+            type="material-community"
+            color={colorCode.white}
+            size={22}
+            iconStyle={styles.bellButton}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Icon
+            name="settings"
+            type="material-community"
+            color={colorCode.white}
+            size={22}
+          />
+        </TouchableOpacity>
+      </View>
+    )
+  });
+
   state = {
     selectedIndex: 0
   };
 
-  updateIndex = this.updateIndex.bind(this);
-
-  updateIndex(selectedIndex) {
+  updateIndex = selectedIndex => {
     this.setState({ selectedIndex });
-  }
+  };
 
   myProducts = [
     {
@@ -71,61 +104,7 @@ class UserProfileScreenContainer extends Component {
     }
   ];
 
-  _renderItem({ item, index }) {
-    return (
-      <View style={styles.productContainer}>
-        <Card containerStyle={styles.productCard}>
-          <Image
-            resizeMode={'contain'}
-            style={styles.image}
-            source={{ uri: item.avatar_url }}
-          />
-          <Text
-            style={[
-              styles.name,
-              commonStyles.fontMontserratLight,
-              commonStyles.colorDarkBlue
-            ]}
-          >
-            {item.name}
-          </Text>
-        </Card>
-      </View>
-    );
-  }
-
-  _renderItem2({ item, index }) {
-    return (
-      <View style={styles.productContainer}>
-        <Card containerStyle={styles.productCard}>
-          <Icon
-            name="plus"
-            type="material-community"
-            color="#4396DC"
-            size={22}
-            iconStyle={styles.closeIcon}
-          />
-          <Image
-            resizeMode={'contain'}
-            style={styles.recommendationImage}
-            source={{ uri: item.avatar_url }}
-          />
-          <Text
-            style={[
-              styles.name,
-              commonStyles.fontMontserratLight,
-              commonStyles.colorDarkBlue
-            ]}
-          >
-            {item.name}
-          </Text>
-        </Card>
-      </View>
-    );
-  }
-
   render() {
-    const { selectedIndex } = this.state;
     const buttons = ['Profile', 'Friends', 'Reviews'];
     return (
       <UserProfileScreen
@@ -143,48 +122,13 @@ class UserProfileScreenContainer extends Component {
 }
 
 const styles = StyleSheet.create({
-  productContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 111,
-    height: 138,
-    marginRight: 10,
-    marginLeft: 10
+  bellButton: {
+    marginRight: 35
   },
-  productCard: {
-    display: 'flex',
-    width: 111,
-    height: 138,
-    shadowOffset: { width: 0, height: 2 },
-    shadowColor: 'rgba(130, 130, 130, 0.25)',
-    shadowOpacity: 1,
-    shadowRadius: 2,
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingRight: 5,
-    paddingLeft: 5
-  },
-  image: {
-    alignSelf: 'center',
-    marginTop: 20,
-    marginBottom: 5,
-    height: 60,
-    width: 60
-  },
-  recommendationImage: {
-    alignSelf: 'center',
-    marginBottom: 5,
-    height: 60,
-    width: 60
-  },
-  name: {
-    alignSelf: 'center',
-    fontSize: 10,
-    textAlign: 'center'
-  },
-  closeIcon: {
-    alignSelf: 'flex-end'
+  headerContainer: {
+    flexDirection: 'row',
+    paddingRight: 20.5,
+    paddingTop: 15
   }
 });
 
