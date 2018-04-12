@@ -4,8 +4,9 @@ import SideSwipe from 'react-native-sideswipe';
 import { screenWidth } from '../../utils/dimensions';
 import commonStyles from '../../utils/styles';
 import RecordCard from '../common/RecordCard';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Modal } from 'react-native';
 import colorCode from '../../utils/colorCode';
+import RecordDetailContainer from '../RecordDetailModal/RecordDetailContainer';
 
 const renderItem = ({
   itemIndex,
@@ -15,7 +16,8 @@ const renderItem = ({
   favoriteHandle,
   deleteHandle,
   fadeOutAnim,
-  translateXAnim
+  translateXAnim,
+  onPressOpenRecordDetailModal
 }) => {
   return (
     <RecordCard
@@ -27,6 +29,7 @@ const renderItem = ({
       deleteHandle={deleteHandle}
       fadeOutAnim={item.fadeOutAnim}
       translateXAnim={translateXAnim}
+      onPressOpenRecordDetailModal={onPressOpenRecordDetailModal}
     />
   );
 };
@@ -38,7 +41,9 @@ const HomepageScreen2 = ({
   favoriteHandle,
   deleteHandle,
   fadeOutAnim,
-  translateXAnim
+  translateXAnim,
+  onPressOpenRecordDetailModal,
+  recordDetailModalVisible
 }) => {
   return (
     <View style={styles.container}>
@@ -60,9 +65,13 @@ const HomepageScreen2 = ({
             favoriteHandle,
             deleteHandle,
             fadeOutAnim,
-            translateXAnim
+            translateXAnim,
+            onPressOpenRecordDetailModal
           })}
       />
+      <Modal visible={recordDetailModalVisible} animationType="slide">
+        <RecordDetailContainer />
+      </Modal>
     </View>
   );
 };
@@ -77,13 +86,17 @@ const styles = StyleSheet.create({
 HomepageScreen2.propTypes = {
   cards: PropTypes.array,
   currentIndex: PropTypes.number,
-  onChangeCardIndex: PropTypes.func
+  onChangeCardIndex: PropTypes.func,
+  onPressOpenRecordDetailModal: PropTypes.func,
+  recordDetailModalVisible: PropTypes.bool
 };
 
 HomepageScreen2.defaultProps = {
   cards: [],
   currentIndex: 0,
-  onChangeCardIndex: () => {}
+  onChangeCardIndex: () => {},
+  onPressOpenRecordDetailModal: () => {},
+  recordDetailModalVisible: false
 };
 
 export default HomepageScreen2;
