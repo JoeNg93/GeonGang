@@ -52,6 +52,7 @@ export default class App extends Component {
     await Asset.loadAsync(require('./assets/images/Ellipse.png'));
     await Asset.loadAsync(require('./assets/images/logo.png'));
     await Asset.loadAsync(require('./assets/images/background.png'));
+    await Asset.loadAsync(require('./assets/images/otherUser.png'));
 
     this.setState({ assetLoaded: true });
   };
