@@ -28,21 +28,23 @@ class UserInputScreensContainer extends Component {
 
   onTouchNextScreen = async () => {
     if (this.state.currentActiveItemIndex === 5) {
-      // TODO: Add logic to navigate to Main Screen
       this.props.navigation.navigate('mainContainer');
       return;
     }
     if (this.state.currentActiveItemIndex === 4) {
       // Finish input, attempt to save user input to db
-      // const { age, gender, skinType, skinColor, climate } = this.props;
-      // const response = await this.props.postUserInputs({
-      //   name: 'Joe',
-      //   age,
-      //   gender,
-      //   skinType,
-      //   skinColor,
-      //   climate
-      // });
+      console.log('Post data!!');
+      const { age, gender, skinType, skinColor, climate } = this.props;
+      const response = await this.props.postUserInputs({
+        name: 'Joe',
+        age,
+        gender,
+        skinType,
+        skinColor,
+        climate
+      });
+      console.log(response.status);
+      console.log(response.data);
     }
     const newIndex = this.state.currentActiveItemIndex + 1;
     this.setState({ currentActiveItemIndex: newIndex });

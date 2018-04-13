@@ -4,6 +4,9 @@ import ScanningProcessScreens from './ScanningProcessScreens';
 import PrepScanningScreenContainer from '../PrepScanningScreen/PrepScanningScreenContainer';
 import ScanningScreenContainer from '../ScanningScreen/ScanningScreenContainer';
 import ScanningResultScreenContainer from '../ScanningResultScreen/ScanningResultScreenContainer';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import { getMyProfile } from '../../actions/user_info';
 
 class ScanningProcessScreensContainer extends Component {
   currentActiveItemIndex = 0;
@@ -14,6 +17,15 @@ class ScanningProcessScreensContainer extends Component {
     this.flatListRef.scrollToOffset({
       offset: this.currentActiveItemIndex * screenWidth
     });
+  };
+
+  onPressNextStepAfterScanningResult = async () => {
+    await this.props.getMyProfile();
+    if (_.isEmpty(this.props.myProfile)) {
+      this.props.navigation.navigate('userInputContainer');
+      return;
+    }
+    this.props.navigation.navigate('mainContainer');
   };
 
   screens = [
@@ -34,8 +46,7 @@ class ScanningProcessScreensContainer extends Component {
     {
       component: (
         <ScanningResultScreenContainer
-          onPressNextStep={() =>
-            this.props.navigation.navigate('userInputContainer')}
+          onPressNextStep={this.onPressNextStepAfterScanningResult}
         />
       ),
       id: 2
@@ -52,4 +63,10 @@ class ScanningProcessScreensContainer extends Component {
   }
 }
 
-export default ScanningProcessScreensContainer;
+const mapStateToProps = state => ({
+  myProfile: state.userInfo.myProfile
+});
+
+export default connect(mapStateToProps, { getMyProfile })(
+  ScanningProcessScreensContainer
+);
