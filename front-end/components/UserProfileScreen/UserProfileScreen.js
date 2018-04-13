@@ -77,7 +77,8 @@ const UserProfileScreen = ({
   selectedIndex,
   updateIndex,
   myProducts,
-  recommendations
+  recommendations,
+  userProfile
 }) => {
   return (
     <View style={styles.container}>
@@ -104,7 +105,7 @@ const UserProfileScreen = ({
           commonStyles.fontMontserratRegular
         ]}
       >
-        Jennifer Aniston
+        {userProfile.name}
       </Text>
       <View>
         <ButtonGroup
@@ -351,7 +352,8 @@ UserProfileScreen.propTypes = {
   selectedIndex: PropTypes.number,
   updateIndex: PropTypes.func,
   myProducts: PropTypes.array,
-  recommendations: PropTypes.array
+  recommendations: PropTypes.array,
+  userProfile: PropTypes.object
 };
 
 export default UserProfileScreen;
