@@ -11,8 +11,9 @@ import { Icon, Button, Rating, Divider } from "react-native-elements";
 import PropTypes from "prop-types";
 import commonStyles from "../../utils/styles";
 import colorCode from "../../utils/colorCode";
+import Comment from "../common/Comment";
 
-const ProductDetailReviews = ({ productName }) => {
+const ProductDetailReviews = ({ commentComponents }) => {
   return (
     <View style={styles.container}>
       {/* Section header */}
@@ -100,8 +101,18 @@ const ProductDetailReviews = ({ productName }) => {
         </View>
 
         {/* communityReviews */}
-        <Divider style={{ backgroundColor: "#DFDFDF", height: 1, marginHorizontal: 36 }} />
-        <View style={[styles.communityReview, styles.placeholder]}>
+        {/* <Divider
+          style={{
+            backgroundColor: "#DFDFDF",
+            height: 1,
+            marginHorizontal: 36
+          }}
+        /> */}
+
+        <View>{commentComponents}</View>
+
+        {/* <Comment /> */}
+        {/* <View style={[styles.communityReview, styles.placeholder]}>
           <Image
             source={require("../../assets/images/profile-1.jpg")}
             style={styles.communityReviewImage}
@@ -170,7 +181,7 @@ const ProductDetailReviews = ({ productName }) => {
               />
             </View>
           </View>
-        </View>
+        </View> */}
       </ScrollView>
     </View>
   );
@@ -260,79 +271,79 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     paddingHorizontal: 24,
     paddingVertical: 6
-  },
-
-  communityReview: {
-    backgroundColor: "#eaeaea",
-    flexDirection: "row",
-    paddingTop: 20,
-    paddingBottom: 5
-  },
-
-  communityReviewImage: {
-    resizeMode: "contain",
-    borderRadius: 28,
-    height: 56,
-    width: 56
-  },
-
-  communityReviewContents: {
-    flex: 1,
-    flexDirection: "column",
-    marginLeft: 12
-  },
-
-  communityReviewTitle: {
-    flexDirection: "row",
-    alignItems: "baseline"
-  },
-
-  communityReviewTitleName: {
-    flexGrow: 1,
-    textAlign: "left",
-    fontSize: 14
-  },
-
-  communityReviewTitleDate: {
-    flexGrow: 1,
-    textAlign: "right",
-    fontSize: 12
-  },
-
-  communityReviewComment: {
-    fontSize: 12
-  },
-
-  communityReviewBottom: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "baseline"
-  },
-
-  communityReviewBottomBtnCont: {
-    marginTop: 8,
-    marginRight: 0,
-    marginBottom: 8,
-    marginLeft: 8
-  },
-
-  communityReviewBottomBtn: {
-    backgroundColor: "transparent",
-    paddingVertical: 8,
-    paddingHorizontal: 10
-  },
-
-  communityReviewBottomBtnTxt: {
-    fontSize: 12
   }
+
+  // communityReview: {
+  //   backgroundColor: "#eaeaea",
+  //   flexDirection: "row",
+  //   paddingTop: 20,
+  //   paddingBottom: 5
+  // },
+
+  // communityReviewImage: {
+  //   resizeMode: "contain",
+  //   borderRadius: 28,
+  //   height: 56,
+  //   width: 56
+  // },
+
+  // communityReviewContents: {
+  //   flex: 1,
+  //   flexDirection: "column",
+  //   marginLeft: 12
+  // },
+
+  // communityReviewTitle: {
+  //   flexDirection: "row",
+  //   alignItems: "baseline"
+  // },
+
+  // communityReviewTitleName: {
+  //   flexGrow: 1,
+  //   textAlign: "left",
+  //   fontSize: 14
+  // },
+
+  // communityReviewTitleDate: {
+  //   flexGrow: 1,
+  //   textAlign: "right",
+  //   fontSize: 12
+  // },
+
+  // communityReviewComment: {
+  //   fontSize: 12
+  // },
+
+  // communityReviewBottom: {
+  //   flexDirection: "row",
+  //   justifyContent: "flex-end",
+  //   alignItems: "baseline"
+  // },
+
+  // communityReviewBottomBtnCont: {
+  //   marginTop: 8,
+  //   marginRight: 0,
+  //   marginBottom: 8,
+  //   marginLeft: 8
+  // },
+
+  // communityReviewBottomBtn: {
+  //   backgroundColor: "transparent",
+  //   paddingVertical: 8,
+  //   paddingHorizontal: 10
+  // },
+
+  // communityReviewBottomBtnTxt: {
+  //   fontSize: 12
+  // }
 });
 
 ProductDetailReviews.propTypes = {
-  productName: PropTypes.string.isRequired
+  userProfileImgPath: PropTypes.number
 };
 
 ProductDetailReviews.defaultProps = {
-  productName: 0
+  userProfileImgPath: require("../../assets/images/unknown-gender.png")
 };
 
 export default ProductDetailReviews;
