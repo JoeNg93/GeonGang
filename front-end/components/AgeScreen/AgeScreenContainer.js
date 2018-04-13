@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AgeScreen from './AgeScreen';
 import { connect } from 'react-redux';
-import { setAge } from '../../actions/userInput';
+import { setAge } from '../../actions/user_input';
 
 class AgeScreenContainer extends Component {
   render() {

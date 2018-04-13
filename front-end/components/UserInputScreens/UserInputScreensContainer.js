@@ -9,7 +9,7 @@ import LocationScreenContainer from '../LocationScreen/LocationScreenContainer';
 import RecommendationScreenContainer from '../RecommendationScreen/RecommendationScreenContainer';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { postUserInputs } from '../../actions/userInput';
+import { postUserInputs } from '../../actions/user_input';
 
 class UserInputScreensContainer extends Component {
   data = [
