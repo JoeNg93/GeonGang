@@ -3,6 +3,9 @@ import UserProfileScreen from './UserProfileScreen';
 import colorCode from '../../utils/colorCode';
 import { TouchableOpacity, StyleSheet, View } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { getMyProfile } from '../../actions/user_info';
+import { connect } from 'react-redux';
+import _ from 'lodash';
 
 class UserProfileScreenContainer extends Component {
   // Header styling
@@ -39,6 +42,14 @@ class UserProfileScreenContainer extends Component {
       </View>
     )
   });
+
+  componentWillMount = async () => {
+    if (_.isEmpty(this.props.myProfile)) {
+      const response = await this.props.getMyProfile();
+      console.log(response.status);
+      console.log(response.data);
+    }
+  };
 
   state = {
     selectedIndex: 0
@@ -106,6 +117,14 @@ class UserProfileScreenContainer extends Component {
 
   render() {
     const buttons = ['Profile', 'Friends', 'Reviews'];
+    const { myProfile } = this.props;
+
+    if (_.isEmpty(myProfile)) {
+      return null;
+    }
+
+    console.log(myProfile);
+
     return (
       <UserProfileScreen
         buttons={buttons}
@@ -116,10 +135,15 @@ class UserProfileScreenContainer extends Component {
         _renderItem2={this._renderItem2}
         myProducts={this.myProducts}
         recommendations={this.recommendations}
+        userProfile={myProfile}
       />
     );
   }
 }
+
+const mapStateToProps = state => ({
+  myProfile: state.userInfo.myProfile
+});
 
 const styles = StyleSheet.create({
   bellButton: {
@@ -132,4 +156,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default UserProfileScreenContainer;
+export default connect(mapStateToProps, { getMyProfile })(
+  UserProfileScreenContainer
+);
