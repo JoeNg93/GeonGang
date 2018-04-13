@@ -153,16 +153,18 @@ class User {
       .from('user_info')
       .where('id', rowInUserCredential.user_id)
       .first();
-    return new User(
-      rowInUserInfo.id,
-      rowInUserInfo.name,
-      rowInUserInfo.gender,
-      rowInUserInfo.age,
-      rowInUserInfo.skin_color,
-      rowInUserInfo.skin_type,
-      rowInUserInfo.climate,
-      rowInUserInfo.skin_condition
-    );
+    return rowInUserInfo
+      ? new User(
+          rowInUserInfo.id,
+          rowInUserInfo.name,
+          rowInUserInfo.gender,
+          rowInUserInfo.age,
+          rowInUserInfo.skin_color,
+          rowInUserInfo.skin_type,
+          rowInUserInfo.climate,
+          rowInUserInfo.skin_condition
+        )
+      : null;
   }
 }
 

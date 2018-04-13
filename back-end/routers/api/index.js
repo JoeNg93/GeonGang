@@ -35,7 +35,7 @@ const schema = buildSchema(`
     allProducts: [Product]!
     product(id: Int!): Product
     
-    myProfile: User!
+    myProfile: User
   }
   
   ${userSchema}
@@ -76,6 +76,8 @@ router.get('/', (req, res) => {
 
 router.use(
   '/graphql',
+  jwtMiddleware,
+  errHandlerMiddleware,
   graphqlHTTP({
     schema,
     rootValue,
