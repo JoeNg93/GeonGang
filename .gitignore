@@ -3,3 +3,6 @@ node_modules/
 # IDE config
 .idea/
 .vscode/
+
+# Secret deployment file, please ask me for this one
+docker-compose.yml
