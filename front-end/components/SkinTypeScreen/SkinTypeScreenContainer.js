@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SkinTypeScreen from './SkinTypeScreen';
 import { connect } from 'react-redux';
-import { setSkinType } from '../../actions/userInput';
+import { setSkinType } from '../../actions/user_input';
 
 class SkinTypeScreenContainer extends Component {
   state = {

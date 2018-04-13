@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GenderScreen from './GenderScreen';
 import { connect } from 'react-redux';
-import { setGender } from '../../actions/userInput';
+import { setGender } from '../../actions/user_input';
 
 class GenderScreenContainer extends Component {
   render() {

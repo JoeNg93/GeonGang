@@ -3,7 +3,7 @@ import LocationScreen from './LocationScreen';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Permissions, Location } from 'expo';
-import { setClimate } from '../../actions/userInput';
+import { setClimate } from '../../actions/user_input';
 
 class LocationScreenContainer extends Component {
   state = {

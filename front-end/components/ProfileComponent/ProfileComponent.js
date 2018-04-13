@@ -2,8 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Badge } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
+import PropTypes from 'prop-types';
 
-const ProfileComponent = () => {
+const ProfileComponent = ({
+  age,
+  gender,
+  skinColor,
+  skinType,
+  climate,
+  skinCondition
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.rows1}>
@@ -20,7 +28,7 @@ const ProfileComponent = () => {
               commonStyles.fontMontserratLight
             ]}
           >
-            23
+            {age}
           </Text>
         </View>
         <View style={styles.columns1}>
@@ -36,7 +44,7 @@ const ProfileComponent = () => {
               commonStyles.fontMontserratLight
             ]}
           >
-            Female
+            {gender}
           </Text>
         </View>
       </View>
@@ -55,7 +63,7 @@ const ProfileComponent = () => {
                 commonStyles.fontMontserratLight
               ]}
             >
-              Medium
+              {skinColor}
             </Text>
             <View
               style={{
@@ -81,7 +89,7 @@ const ProfileComponent = () => {
               commonStyles.fontMontserratLight
             ]}
           >
-            Oily skin
+            {skinType}
           </Text>
         </View>
       </View>
@@ -99,7 +107,7 @@ const ProfileComponent = () => {
               commonStyles.fontMontserratLight
             ]}
           >
-            Dry climate
+            {climate}
           </Text>
         </View>
         <View style={styles.columns}>
@@ -112,7 +120,7 @@ const ProfileComponent = () => {
             <Text
               style={[styles.skinCondition, commonStyles.fontMontserratLight]}
             >
-              moderate
+              {skinCondition}
             </Text>
           </Badge>
         </View>
@@ -170,5 +178,14 @@ const styles = StyleSheet.create({
     color: '#fff'
   }
 });
+
+ProfileComponent.propTypes = {
+  age: PropTypes.number.isRequired,
+  gender: PropTypes.string.isRequired,
+  skinColor: PropTypes.string.isRequired,
+  skinType: PropTypes.string.isRequired,
+  climate: PropTypes.string.isRequired,
+  skinCondition: PropTypes.string.isRequired
+};
 
 export default ProfileComponent;

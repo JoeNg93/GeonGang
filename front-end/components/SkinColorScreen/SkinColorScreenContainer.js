@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SkinColorScreen from './SkinColorScreen';
 import { connect } from 'react-redux';
-import { setSkinColor } from '../../actions/userInput';
+import { setSkinColor } from '../../actions/user_input';
 
 class SkinColorScreenContainer extends Component {
   state = {
