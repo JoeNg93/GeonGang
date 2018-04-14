@@ -4,18 +4,23 @@ import {
   Text,
   StyleSheet,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  TouchableOpacity,
+  Modal
 } from "react-native";
 import { Icon, Button, Rating } from "react-native-elements";
 import commonStyles from "../../utils/styles";
 import colorCode from "../../utils/colorCode";
+
+const hitSlop = { top: 20, bottom: 20, left: 20, right: 20 };
 
 const ProductDetail = ({
   state,
   product,
   topReview,
   onPressAddProduct,
-  onPressReview
+  onPressReview,
+  onPressPopupBtn
 }) => {
   return (
     <View style={styles.container}>
@@ -57,23 +62,47 @@ const ProductDetail = ({
           </View>
 
           {state.addedState === false ? (
-            <Icon
-              style={styles.productOverviewBtnAdd}
-              underlayColor="transparent"
-              name="add-circle-outline"
-              size={50}
-              color={colorCode.blue}
+            <TouchableOpacity
               onPress={onPressAddProduct}
-            />
+              hitSlop={hitSlop}
+              style={styles.productOverviewBtnAdd}
+            >
+              <View>
+                <Icon
+                  name="add"
+                  color="#4396DC"
+                  size={30}
+                  containerStyle={{
+                    margin: 0,
+                    width: 36,
+                    height: 36,
+                    borderColor: colorCode.blue,
+                    borderWidth: 1,
+                    borderRadius: 200
+                  }}
+                />
+              </View>
+            </TouchableOpacity>
           ) : (
-            <Icon
-              style={styles.productOverviewBtnAdd}
-              underlayColor="transparent"
-              name="add-circle"
-              size={50}
-              color={colorCode.blue}
+            <TouchableOpacity
               onPress={onPressAddProduct}
-            />
+              hitSlop={hitSlop}
+              style={styles.productOverviewBtnAdd}
+            >
+              <View>
+                <Icon
+                  reverse
+                  name="add"
+                  size={30}
+                  containerStyle={{
+                    margin: 0,
+                    width: 36,
+                    height: 36,
+                    backgroundColor: colorCode.blue
+                  }}
+                />
+              </View>
+            </TouchableOpacity>
           )}
         </View>
         <View style={styles.productOverviewRating}>
@@ -175,6 +204,36 @@ const ProductDetail = ({
           />
         </View>
       </TouchableHighlight>
+
+      {/* Popup */}
+      <Modal animationType="fade" transparent visible={state.popupVisible}>
+        <View style={styles.popupBackground}>
+          <View style={styles.popupContainer}>
+            <Image
+              source={require("../../assets/images/circle-check.png")}
+              style={styles.popupImage}
+            />
+            <Text
+              style={[
+                styles.popupText,
+                commonStyles.fontMontserratLight,
+                commonStyles.colorDarkBlue
+              ]}
+            >
+              This item has been added to your product list !
+            </Text>
+            <Button
+              textStyle={[
+                commonStyles.fontMontserratSemiBold,
+                { fontSize: 14, color: "#ffffff" }
+              ]}
+              title="Great !"
+              buttonStyle={styles.popupBtnGreat}
+              onPress={onPressPopupBtn}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -269,6 +328,49 @@ const styles = StyleSheet.create({
     height: 56,
     width: 56,
     alignSelf: "center"
+  },
+
+  popupBackground: {
+    height: "100%",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.6);"
+  },
+
+  popupContainer: {
+    backgroundColor: "#FFFFFF",
+    flexDirection: "column",
+    alignItems: "center",
+    height: "auto",
+    width: "80%",
+    marginLeft: 10,
+    marginRight: 10,
+    paddingTop: 30,
+    paddingBottom: 30,
+    borderRadius: 13,
+    shadowOffset: { width: 2, height: 4 },
+    shadowColor: "black",
+    shadowOpacity: 0.25
+  },
+
+  popupImage: {
+    resizeMode: "contain",
+    height: 53
+  },
+
+  popupText: {
+    fontSize: 14,
+    textAlign: "center",
+    marginHorizontal: 60,
+    marginVertical: 24
+  },
+
+  popupBtnGreat: {
+    backgroundColor: "#4396DC",
+    borderRadius: 25,
+    paddingHorizontal: 30,
+    paddingVertical: 6
   }
 });
 

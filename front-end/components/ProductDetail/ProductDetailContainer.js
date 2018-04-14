@@ -3,7 +3,8 @@ import ProductDetail from "./ProductDetail";
 
 class ProductDetailContainer extends Component {
   state = {
-    addedState: false
+    addedState: false,
+    popupVisible: false
   };
 
   product = {
@@ -24,7 +25,16 @@ class ProductDetailContainer extends Component {
   };
 
   productAddHandle = () => {
-    this.setState({ addedState: !this.state.addedState });
+    this.setState(previousState => {
+      return { addedState: !previousState.addedState };
+    });
+    if (this.state.addedState === false) {
+      this.setPopupVisible(true);
+    }
+  };
+
+  setPopupVisible = visible => {
+    this.setState({ popupVisible: visible });
   };
 
   render() {
@@ -35,6 +45,9 @@ class ProductDetailContainer extends Component {
         topReview={this.topReview}
         onPressAddProduct={this.productAddHandle}
         onPressReview={() => {}}
+        onPressPopupBtn={() => {
+          this.setPopupVisible(false);
+        }}
       />
     );
   }
