@@ -109,7 +109,11 @@ class User {
       .from('friend')
       .where('user1_id', this.userId)
       .orWhere('user2_id', this.userId)
-      .map(row => User.getUser({ id: row.id }));
+      .map(row =>
+        User.getUser({
+          id: this.userId === row.user1_id ? row.user2_id : row.user1_id
+        })
+      );
     return friends;
   }
 
