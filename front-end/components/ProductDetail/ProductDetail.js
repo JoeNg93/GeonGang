@@ -7,7 +7,6 @@ import {
   TouchableHighlight
 } from "react-native";
 import { Icon, Button, Rating } from "react-native-elements";
-import PropTypes from "prop-types";
 import commonStyles from "../../utils/styles";
 import colorCode from "../../utils/colorCode";
 
@@ -18,18 +17,13 @@ const ProductDetail = ({
   onPressAddProduct,
   onPressReview
 }) => {
-  // onPress = () => {};
-
   return (
     <View style={styles.container}>
-      {/* Section header */}
-      <View style={styles.header} />
-
       {/* productImage */}
       <Image source={product.imgPath} style={styles.productImage} />
 
       {/* productOverview */}
-      <View style={[styles.productOverview, styles.placeholder]}>
+      <View style={styles.placeholder}>
         <View style={styles.productOverviewContainer}>
           <View style={styles.productOverviewText}>
             <Text
@@ -61,12 +55,7 @@ const ProductDetail = ({
               </View>
             </View>
           </View>
-          {/* <TouchableHighlight
-            // underlayColor="#eaeaea"
-            // activeOpacity={.1}
-            // onPress={this.onPress}
-            style={styles.productOverviewBtnAdd}
-          > */}
+
           {state.addedState === false ? (
             <Icon
               style={styles.productOverviewBtnAdd}
@@ -86,7 +75,6 @@ const ProductDetail = ({
               onPress={onPressAddProduct}
             />
           )}
-          {/* </TouchableHighlight> */}
         </View>
         <View style={styles.productOverviewRating}>
           <Rating
@@ -96,7 +84,6 @@ const ProductDetail = ({
             fractions={1}
             startingValue={product.rating}
             imageSize={20}
-            // onFinishRating={this.ratingCompleted}
             style={{ paddingVertical: 20 }}
           />
           <Text
@@ -202,11 +189,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 36
   },
 
-  header: {
-    backgroundColor: "#dadada",
-    height: 70
-  },
-
   // Components
 
   productImage: {
@@ -216,52 +198,40 @@ const styles = StyleSheet.create({
     marginVertical: 30
   },
 
-  productOverview: {
-    // maxHeight: 70
-  },
-
   productOverviewContainer: {
-    // flex: 1,
     flexDirection: "row"
   },
 
   productOverviewText: {
-    // flex: 1,
     flexGrow: 1,
     flexShrink: 1,
     flexDirection: "column"
   },
 
   productOverviewBtnAdd: {
-    // flex: 2,
     justifyContent: "center"
   },
 
   productOverviewRating: {
-    // flex: 1,
     flexDirection: "row",
     alignItems: "center"
   },
 
   productIngredients: {
-    // flex: 1,
     flexDirection: "column"
   },
 
-  // TODO: Style + color
   productIngredientsTitle: {
     fontSize: 16,
     marginBottom: 8
   },
 
-  // TODO: Style + color
   productIngredientsContents: {
     fontSize: 14,
     marginBottom: 16
   },
 
   productReviewTitle: {
-    // flex: 1,
     flexDirection: "row"
   },
 
@@ -287,7 +257,6 @@ const styles = StyleSheet.create({
   },
 
   productTopReviewText: {
-    // flexGrow: 1,
     flexShrink: 1,
     flexBasis: "auto",
     fontSize: 11,
