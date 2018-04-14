@@ -74,8 +74,8 @@ const ProductDetail = ({
                   size={30}
                   containerStyle={{
                     margin: 0,
-                    width: 36,
-                    height: 36,
+                    width: 42,
+                    height: 42,
                     borderColor: colorCode.blue,
                     borderWidth: 1,
                     borderRadius: 200
@@ -96,8 +96,8 @@ const ProductDetail = ({
                   size={30}
                   containerStyle={{
                     margin: 0,
-                    width: 36,
-                    height: 36,
+                    width: 42,
+                    height: 42,
                     backgroundColor: colorCode.blue
                   }}
                 />
