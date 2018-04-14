@@ -26,7 +26,7 @@ const renderMyProduct = ({ item, index }) => {
         <Image
           resizeMode={'contain'}
           style={styles.productImage}
-          source={{ uri: item.avatar_url }}
+          source={{ uri: item.imgSrc }}
         />
         <Text
           style={[
@@ -85,7 +85,10 @@ const UserProfileScreen = ({
       <View style={styles.header}>
         <Image
           style={styles.avatarImage}
-          source={require('../../assets/images/Ellipse.png')}
+          source={{
+            uri:
+              'https://s-media-cache-ak0.pinimg.com/736x/0e/29/d0/0e29d056cd2d93964dfe00741d4d8df4.jpg'
+          }}
         />
       </View>
       <View style={styles.editAvatarIconContainer}>
@@ -256,7 +259,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     right: 132,
-    top: 105
+    top: 105,
+    borderRadius: 70
   },
   userName: {
     fontSize: 26

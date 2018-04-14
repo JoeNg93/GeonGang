@@ -14,7 +14,9 @@ const FriendsComponent = ({
   numOfFriends,
   list,
   modalVisible,
-  setModalVisible
+  setModalVisible,
+  currentFriendSearchTerm,
+  onChangeSearchBar
 }) => {
   return (
     <View style={styles.container}>
@@ -29,14 +31,25 @@ const FriendsComponent = ({
         containerStyle={styles.searchBarContainer}
         inputStyle={styles.input}
         placeholderTextColor={'#828282'}
+        value={currentFriendSearchTerm}
+        onChangeText={onChangeSearchBar}
       />
       <Text style={[styles.numberOfFriends, commonStyles.fontMontserratLight]}>
         {numOfFriends} friends and followers
       </Text>
       <List containerStyle={styles.list}>
-        {list.map((l, i) => (
+        {list.slice(0, 5).map((l, i) => (
           <ListItem
-            avatar={<Avatar rounded medium source={{ uri: l.avatar_url }} />}
+            avatar={
+              <Avatar
+                rounded
+                medium
+                source={{
+                  uri:
+                    'https://s-media-cache-ak0.pinimg.com/736x/0e/29/d0/0e29d056cd2d93964dfe00741d4d8df4.jpg'
+                }}
+              />
+            }
             key={i}
             title={l.name}
             containerStyle={styles.listItem}
@@ -84,7 +97,14 @@ const FriendsComponent = ({
               {list.map((l, i) => (
                 <ListItem
                   avatar={
-                    <Avatar rounded medium source={{ uri: l.avatar_url }} />
+                    <Avatar
+                      rounded
+                      medium
+                      source={{
+                        uri:
+                          'https://s-media-cache-ak0.pinimg.com/736x/0e/29/d0/0e29d056cd2d93964dfe00741d4d8df4.jpg'
+                      }}
+                    />
                   }
                   key={i}
                   title={l.name}

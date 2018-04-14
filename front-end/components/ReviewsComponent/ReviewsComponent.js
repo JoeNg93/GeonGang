@@ -24,9 +24,9 @@ const ReviewsComponent = ({
       <List containerStyle={styles.list}>
         {list.slice(0, 2).map((l, i) => (
           <ListItem
-            avatar={<Avatar medium source={{ uri: l.avatar_url }} />}
+            avatar={<Avatar medium source={{ uri: l.product.imgSrc }} />}
             key={i}
-            title={l.name}
+            title={l.product.name}
             subtitle={
               <View style={styles.subtitleView}>
                 <Rating
@@ -42,7 +42,7 @@ const ReviewsComponent = ({
                     commonStyles.fontMontserratLight
                   ]}
                 >
-                  {l.info}
+                  {l.content}
                 </Text>
               </View>
             }
@@ -99,9 +99,9 @@ const ReviewsComponent = ({
             <List containerStyle={styles.list}>
               {list.map((l, i) => (
                 <ListItem
-                  avatar={<Avatar medium source={{ uri: l.avatar_url }} />}
+                  avatar={<Avatar medium source={{ uri: l.product.imgSrc }} />}
                   key={i}
-                  title={l.name}
+                  title={l.product.name}
                   subtitle={
                     <View style={styles.subtitleView}>
                       <Rating
@@ -117,7 +117,7 @@ const ReviewsComponent = ({
                           commonStyles.fontMontserratLight
                         ]}
                       >
-                        {l.info}
+                        {l.content}
                       </Text>
                     </View>
                   }

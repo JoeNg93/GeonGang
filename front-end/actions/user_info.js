@@ -15,9 +15,21 @@ export const getMyProfile = () =>
           climate
           skinCondition
           reviews {
+            id
             content
+            rating
+            product {
+              name
+              imgSrc
+            }
           }
           favoriteProducts {
+            id
+            name
+            imgSrc
+          }
+          friends {
+            userId
             name
           }
         }
