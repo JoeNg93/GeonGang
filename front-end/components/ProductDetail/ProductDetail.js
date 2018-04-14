@@ -11,8 +11,14 @@ import PropTypes from "prop-types";
 import commonStyles from "../../utils/styles";
 import colorCode from "../../utils/colorCode";
 
-const ProductDetail = ({ productName }) => {
-  onPress = () => {};
+const ProductDetail = ({
+  state,
+  product,
+  topReview,
+  onPressAddProduct,
+  onPressReview
+}) => {
+  // onPress = () => {};
 
   return (
     <View style={styles.container}>
@@ -20,10 +26,7 @@ const ProductDetail = ({ productName }) => {
       <View style={styles.header} />
 
       {/* productImage */}
-      <Image
-        source={require("../../assets/images/product-4.jpg")}
-        style={styles.productImage}
-      />
+      <Image source={product.imgPath} style={styles.productImage} />
 
       {/* productOverview */}
       <View style={[styles.productOverview, styles.placeholder]}>
@@ -36,7 +39,7 @@ const ProductDetail = ({ productName }) => {
                 commonStyles.colorDarkBlue
               ]}
             >
-              Vichy Mineral 89
+              {product.name}
             </Text>
             <View style={{ flexDirection: "row" }}>
               <View
@@ -53,7 +56,7 @@ const ProductDetail = ({ productName }) => {
                     commonStyles.fontMontserratLight
                   ]}
                 >
-                  Moisturizers
+                  {product.type}
                 </Text>
               </View>
             </View>
@@ -64,14 +67,25 @@ const ProductDetail = ({ productName }) => {
             // onPress={this.onPress}
             style={styles.productOverviewBtnAdd}
           > */}
-          <Icon
-            style={styles.productOverviewBtnAdd}
-            underlayColor="transparent"
-            name="add-circle-outline"
-            size={50}
-            color={colorCode.blue}
-            onPress={this.onPress}
-          />
+          {state.addedState === false ? (
+            <Icon
+              style={styles.productOverviewBtnAdd}
+              underlayColor="transparent"
+              name="add-circle-outline"
+              size={50}
+              color={colorCode.blue}
+              onPress={onPressAddProduct}
+            />
+          ) : (
+            <Icon
+              style={styles.productOverviewBtnAdd}
+              underlayColor="transparent"
+              name="add-circle"
+              size={50}
+              color={colorCode.blue}
+              onPress={onPressAddProduct}
+            />
+          )}
           {/* </TouchableHighlight> */}
         </View>
         <View style={styles.productOverviewRating}>
@@ -80,7 +94,7 @@ const ProductDetail = ({ productName }) => {
             readonly
             ratingCount={5}
             fractions={1}
-            startingValue={4.4}
+            startingValue={product.rating}
             imageSize={20}
             // onFinishRating={this.ratingCompleted}
             style={{ paddingVertical: 20 }}
@@ -92,7 +106,7 @@ const ProductDetail = ({ productName }) => {
               commonStyles.colorDarkBlue
             ]}
           >
-            4.4 of 5
+            {product.rating.toFixed(1)} of 5
           </Text>
         </View>
       </View>
@@ -115,10 +129,7 @@ const ProductDetail = ({ productName }) => {
             commonStyles.colorDarkBlue
           ]}
         >
-          aqua / water / eau • peg/ppg/polybutylene glycol-8/5/3 glycerin •
-          glycerin • butylene glycol • methyl gluceth-20 • carbomer • sodium
-          hyaluronate • phenoxyethanol • caprylyl glycol • citric acid •
-          biosaccharide gum-1
+          {product.ingredients}
         </Text>
       </View>
 
@@ -132,7 +143,10 @@ const ProductDetail = ({ productName }) => {
             commonStyles.colorDarkBlue
           ]}
         >
-          <Text style={commonStyles.fontMontserratMedium}>18</Text> reviews
+          <Text style={commonStyles.fontMontserratMedium}>
+            {product.numberOfReviews}
+          </Text>
+          {" reviews"}
         </Text>
         <Text
           style={[
@@ -142,19 +156,20 @@ const ProductDetail = ({ productName }) => {
             commonStyles.colorDarkBlue
           ]}
         >
-          Price: <Text style={commonStyles.fontMontserratMedium}>$$$</Text>
+          {"Price: "}
+          <Text style={commonStyles.fontMontserratMedium}>{product.price}</Text>
         </Text>
       </View>
 
       <TouchableHighlight
         underlayColor="#eaeaea"
         activeOpacity={1}
-        onPress={this.onPress}
+        onPress={onPressReview}
         style={[styles.productTopReview, styles.placeholder]}
       >
         <View style={{ flexDirection: "row" }}>
           <Image
-            source={require("../../assets/images/profile-1.jpg")}
+            source={topReview.reviewerImgPath}
             style={styles.profileImage}
           />
           <Text
@@ -164,9 +179,7 @@ const ProductDetail = ({ productName }) => {
               commonStyles.colorDarkBlue
             ]}
           >
-            The texture is very nice and it non sticky, non greasy. Very
-            hydrating and ultras a few for my sensitive skin, I can even apply
-            it around the eye area...
+            {topReview.comment}
           </Text>
           <Icon
             name="keyboard-arrow-right"
@@ -289,13 +302,5 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   }
 });
-
-ProductDetail.propTypes = {
-  productName: PropTypes.string.isRequired
-};
-
-ProductDetail.defaultProps = {
-  productName: 0
-};
 
 export default ProductDetail;
