@@ -13,7 +13,15 @@ import commonStyles from "../../utils/styles";
 import colorCode from "../../utils/colorCode";
 import Comment from "../common/Comment";
 
-const ProductDetailReviews = ({ commentComponents }) => {
+const ProductDetailReviews = ({
+  globalRating,
+  numberOfComments,
+  state,
+  onUserRating,
+  onUserCommentWriting,
+  onUserCommentSubmit,
+  commentComponents
+}) => {
   return (
     <View style={styles.container}>
       {/* Section header */}
@@ -39,7 +47,7 @@ const ProductDetailReviews = ({ commentComponents }) => {
               commonStyles.colorDarkBlue
             ]}
           >
-            4.4
+            {globalRating.toFixed(1)}
           </Text>
           <View style={styles.globalReviewRating}>
             <Rating
@@ -47,7 +55,7 @@ const ProductDetailReviews = ({ commentComponents }) => {
               readonly
               ratingCount={5}
               fractions={1}
-              startingValue={4.4}
+              startingValue={globalRating}
               imageSize={20}
               // onFinishRating={this.ratingCompleted}
               style={{ marginBottom: 10 }}
@@ -59,7 +67,7 @@ const ProductDetailReviews = ({ commentComponents }) => {
                 commonStyles.colorDarkBlue
               ]}
             >
-              Based on 18 reviews and ratings
+              Based on {numberOfComments} reviews and ratings
             </Text>
           </View>
         </View>
@@ -67,7 +75,7 @@ const ProductDetailReviews = ({ commentComponents }) => {
         {/* userReview */}
         <View style={[styles.userReview, styles.placeholder]}>
           <Image
-            source={require("../../assets/images/profile-1.jpg")}
+            source={state.userProfileImgPath}
             style={styles.userProfileImage}
           />
           <View style={styles.userReviewInput}>
@@ -75,9 +83,9 @@ const ProductDetailReviews = ({ commentComponents }) => {
               type="star"
               ratingCount={5}
               fractions={1}
-              startingValue={0}
+              startingValue={state.userRating}
               imageSize={20}
-              // onFinishRating={this.ratingCompleted}
+              onFinishRating={onUserRating}
               style={{ marginBottom: 10 }}
             />
             <View style={styles.userReviewTextbox}>
@@ -86,6 +94,8 @@ const ProductDetailReviews = ({ commentComponents }) => {
                 multiline={true}
                 color={colorCode.gray}
                 style={[{ fontSize: 12 }, commonStyles.fontMontserratLight]}
+                value={state.userComment}
+                onChangeText={onUserCommentWriting}
               />
             </View>
             <Button
@@ -96,6 +106,7 @@ const ProductDetailReviews = ({ commentComponents }) => {
               ]}
               title="Write review"
               buttonStyle={styles.btnSubmit}
+              onPress={onUserCommentSubmit}
             />
           </View>
         </View>
@@ -339,11 +350,19 @@ const styles = StyleSheet.create({
 });
 
 ProductDetailReviews.propTypes = {
-  userProfileImgPath: PropTypes.number
+  globalRating: PropTypes.number,
+  numberOfComments: PropTypes.number,
+  // userProfileImgPath: PropTypes.number,
+  // userRating: PropTypes.number,
+  // userComment: PropTypes.string
 };
 
 ProductDetailReviews.defaultProps = {
-  userProfileImgPath: require("../../assets/images/unknown-gender.png")
+  globalRating: 0,
+  numberOfComments: 0,
+  // userProfileImgPath: require("../../assets/images/unknown-gender.png"),
+  // userRating: 0,
+  // userComment: "",
 };
 
 export default ProductDetailReviews;
