@@ -127,8 +127,9 @@ router.post(
   }
 );
 
+// POST SCANNING RESULT ROUTE
 router.post(
-  '/scanning-result',
+  '/record',
   jwtMiddleware,
   errHandlerMiddleware,
   requireInputs(
