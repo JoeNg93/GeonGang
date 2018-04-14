@@ -14,6 +14,8 @@ const userSchema = `
     reviews: [Review]!
     records: [Record]!
     favoriteProducts: [Product]!
+    userId: Int!
+    friends: [User]!
   }
 `;
 
@@ -26,7 +28,8 @@ class User {
     skinColor,
     skinType,
     climate,
-    skinCondition
+    skinCondition,
+    userId
   ) {
     this.id = id;
     this.name = name;
@@ -36,30 +39,31 @@ class User {
     this.skinType = skinType;
     this.climate = climate;
     this.skinCondition = skinCondition;
+    this.userId = userId;
   }
 
   async email() {
     const row = await knex
       .select('email')
       .from('user_credential')
-      .where('user_id', this.id)
+      .where('id', this.userId)
       .first();
     return row.email;
   }
 
   async reviews() {
     const { Review } = require('./review');
-    const reviews = await Review.getReviewsByUserId({ userId: this.id });
+    const reviews = await Review.getReviewsByUserId({ userId: this.userId });
     return reviews;
   }
 
-  async records(args, { user }) {
-    if (this.id !== user.id) {
+  async records(args, context) {
+    if (args.id !== this.userId) {
       return [];
     }
 
     const { Record } = require('./record');
-    const records = await Record.getRecordsByUserId({ userId: this.id });
+    const records = await Record.getRecordsByUserId({ userId: this.userId });
     return records;
   }
 
@@ -80,7 +84,7 @@ class User {
       )
       .from('product_added')
       .join('product', 'product_added.product_id', 'product.id')
-      .where('user_id', this.id)
+      .where('user_id', this.userId)
       .map(
         row =>
           new Product(
@@ -99,6 +103,16 @@ class User {
     return products;
   }
 
+  async friends() {
+    const friends = await knex
+      .select('*')
+      .from('friend')
+      .where('user1_id', this.userId)
+      .orWhere('user2_id', this.userId)
+      .map(row => User.getUser({ id: row.id }));
+    return friends;
+  }
+
   static async getAllUsers() {
     const users = await knex
       .select('*')
@@ -113,7 +127,8 @@ class User {
             row.skin_color,
             row.skin_type,
             row.climate,
-            row.skin_condition
+            row.skin_condition,
+            row.user_id
           )
       );
     return users;
@@ -123,7 +138,7 @@ class User {
     const row = await knex
       .select('*')
       .from('user_info')
-      .where('id', id)
+      .where('user_id', id)
       .first();
     return row
       ? new User(
@@ -134,24 +149,17 @@ class User {
           row.skinColor,
           row.skinType,
           row.climate,
-          row.skin_condition
+          row.skin_condition,
+          row.user_id
         )
       : null;
   }
 
   static async getMyProfile(args, { user }) {
-    const rowInUserCredential = await knex
-      .select('*')
-      .from('user_credential')
-      .where('id', user.id)
-      .first();
-    if (!rowInUserCredential) {
-      return null;
-    }
     const rowInUserInfo = await knex
       .select('*')
       .from('user_info')
-      .where('id', rowInUserCredential.user_id)
+      .where('user_id', user.id)
       .first();
     return rowInUserInfo
       ? new User(
@@ -162,7 +170,8 @@ class User {
           rowInUserInfo.skin_color,
           rowInUserInfo.skin_type,
           rowInUserInfo.climate,
-          rowInUserInfo.skin_condition
+          rowInUserInfo.skin_condition,
+          rowInUserInfo.user_id
         )
       : null;
   }

@@ -170,13 +170,14 @@ router.post(
   errHandlerMiddleware,
   requireInputs('name', 'gender', 'age', 'skin_color', 'skin_type', 'climate'),
   async (req, res) => {
+    const user_id = req.user.id;
     // Check if user already has info
-    const rowInUserCredential = await knex
+    let rowInUserInfo = await knex
       .select('*')
-      .from('user_credential')
-      .where('id', req.user.id)
+      .from('user_info')
+      .where('user_id', user_id)
       .first();
-    if (rowInUserCredential.user_id) {
+    if (rowInUserInfo) {
       res.status(400).send({ error: 'User already entered the info!' });
       return;
     }
@@ -184,19 +185,15 @@ router.post(
     const { name, gender, age, skin_color, skin_type, climate } = req.body;
     // Get back newly added user info id
     const userInfoId = await knex
-      .insert({ name, gender, age, skin_color, skin_type, climate })
+      .insert({ name, gender, age, skin_color, skin_type, climate, user_id })
       .into('user_info');
 
-    // Update user_id in table user_credential
-    await knex('user_credential')
-      .where('id', req.user.id)
-      .update({ user_id: userInfoId });
-
-    const rowInUserInfo = await knex
+    rowInUserInfo = await knex
       .select('*')
       .from('user_info')
       .where('id', userInfoId)
       .first();
+
     res
       .status(201)
       .send({ data: { myProfile: toCamelCaseKey(rowInUserInfo) } });
