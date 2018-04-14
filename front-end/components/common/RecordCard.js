@@ -17,6 +17,7 @@ import colorCode from '../../utils/colorCode';
 import commonStyles from '../../utils/styles';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { DATETIME_FORMAT_FROM_BACKEND } from '../../utils/index';
 
 const cardWidth = 317;
 
@@ -77,7 +78,7 @@ const RecordCard = ({
           item.emptyCard === true ? { opacity: 0 } : { opacity: 1 }
         ]}
       >
-        {moment(item.date).format('Do MMMM YYYY')}
+        {moment(item.date, DATETIME_FORMAT_FROM_BACKEND).format('Do MMMM YYYY')}
       </Animated.Text>
       {item.emptyCard === true ? (
         <EmptyCard gradientBackground={gradientBackground} />
@@ -141,14 +142,14 @@ const RecordCardComponent = ({
       ]}
     >
       <OverallScore
-        score={item.overallScore.score}
-        scoreTag={item.overallScore.scoreTag}
-        scoreTagColor={item.overallScore.scoreTagColor}
-        lightVersion={item.overallScore.lightVersion}
-        displayRow={item.overallScore.displayRow}
+        score={item.overallScore}
+        scoreTag={item.tag}
+        scoreTagColor={item.scoreTagColor}
+        lightVersion={item.lightVersion}
+        displayRow={item.displayRow}
       />
       <Text style={[commonStyles.fontMontserratLight, styles.recommendText]}>
-        {item.skinConditionResult.recommendText}
+        {item.recommendedText}
       </Text>
     </LinearGradient>
   );
