@@ -11,7 +11,7 @@ const { brandSchema, Brand } = require('../../models/brand');
 const { categorySchema, Category } = require('../../models/category');
 const { productSchema, Product } = require('../../models/product');
 const { reviewSchema } = require('../../models/review');
-const { recordSchema } = require('../../models/record');
+const { recordSchema, Record } = require('../../models/record');
 const {
   jwtMiddleware,
   errHandlerMiddleware,
@@ -36,6 +36,7 @@ const schema = buildSchema(`
     product(id: Int!): Product
     
     myProfile: User
+    myRecords: [Record]!
   }
   
   ${userSchema}
@@ -59,7 +60,8 @@ const rootValue = {
   allProducts: Product.getAllProducts,
   product: Product.getProduct,
 
-  myProfile: User.getMyProfile
+  myProfile: User.getMyProfile,
+  myRecords: Record.getMyRecords
 };
 
 // MAIN ROUTE
