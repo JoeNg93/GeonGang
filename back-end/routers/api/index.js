@@ -62,6 +62,7 @@ const rootValue = {
   myProfile: User.getMyProfile
 };
 
+// MAIN ROUTE
 router.get('/', (req, res) => {
   fs.readFile(path.resolve('routers', 'api', 'doc.md'), (err, data) => {
     if (err) {
@@ -74,6 +75,7 @@ router.get('/', (req, res) => {
   });
 });
 
+// GRAPHQL ROUTE
 router.use(
   '/graphql',
   jwtMiddleware,
@@ -85,6 +87,7 @@ router.use(
   })
 );
 
+// ADD PRODUCT TO FAVORITE ROUTE
 router.post(
   '/product-added',
   jwtMiddleware,
@@ -144,6 +147,7 @@ router.post(
     const date = new Date();
     const { overall_score, tag, moisture, dirt, uv, pigmentation } = req.body;
     const user_id = req.user.id;
+    // Add scanning result
     const rowId = await knex
       .insert({
         date,
@@ -156,6 +160,8 @@ router.post(
         user_id
       })
       .into('record');
+
+    // Fetch newly added record to be returned
     const rowInRecord = await knex
       .select('*')
       .from('record')
@@ -165,6 +171,7 @@ router.post(
   }
 );
 
+// POST USER INFO ROUTE
 router.post(
   '/user-info',
   jwtMiddleware,
