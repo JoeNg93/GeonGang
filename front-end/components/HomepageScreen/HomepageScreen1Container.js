@@ -3,6 +3,11 @@ import colorCode from '../../utils/colorCode';
 import HomepageScreen1 from './HomepageScreen1';
 import { Icon } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import { getRecords } from '../../actions/record';
+import _ from 'lodash';
+import { DATETIME_FORMAT_FROM_BACKEND } from '../../utils/index';
+import moment from 'moment';
 
 class HomepageScreen1Container extends Component {
   // Header styling
@@ -55,6 +60,11 @@ class HomepageScreen1Container extends Component {
     { name: 'star', color: colorCode.star }
   ];
 
+  componentWillMount = () => {
+    // this.props.getRecords();
+    this.props.getRecords().then(response => console.log(response.data));
+  };
+
   recordSearchHandle = text => {
     this.setState(prevState => ({
       inputSubmit: !prevState.inputSubmit
@@ -73,10 +83,25 @@ class HomepageScreen1Container extends Component {
   };
 
   render() {
+    const records = _.orderBy(
+      Object.values(this.props.myRecords),
+      record => moment(record.date, DATETIME_FORMAT_FROM_BACKEND),
+      'desc'
+    );
+    if (!records.length) {
+      return null;
+    }
+
+    const gradientBackground = colorCode[`${records[0].tag}Gradient`];
+    const scoreTagColor = colorCode[`${records[0].tag}Tag`];
+    const lightVersion = true;
+    const displayRow = false;
+    const record = { ...records[0], scoreTagColor, lightVersion, displayRow };
+
     return (
       <HomepageScreen1
-        gradientBackground={this.gradientBackground}
-        item={this.record}
+        gradientBackground={gradientBackground}
+        item={record}
         nonInteractive={true}
         recordSearchHandle={this.recordSearchHandle}
         recordUserInput={this.recordUserInput}
@@ -89,4 +114,10 @@ class HomepageScreen1Container extends Component {
   }
 }
 
-export default HomepageScreen1Container;
+const mapStateToProps = state => ({
+  myRecords: state.record.myRecords
+});
+
+export default connect(mapStateToProps, { getRecords })(
+  HomepageScreen1Container
+);

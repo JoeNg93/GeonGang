@@ -6,6 +6,8 @@ import { Icon } from 'react-native-elements';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { openRecordDetailModal } from '../../actions/modals_control';
+import { DATETIME_FORMAT_FROM_BACKEND } from '../../utils/index';
+import _ from 'lodash';
 
 class HomepageScreen2Container extends Component {
   // Header styling
@@ -45,72 +47,10 @@ class HomepageScreen2Container extends Component {
     )
   });
 
-  cards = [
-    {
-      gradientBackground: colorCode.moderateGradient,
-      overallScore: {
-        score: 67.8,
-        scoreTag: 'moderate',
-        scoreTagColor: colorCode.moderateTag,
-        lightVersion: true,
-        displayRow: false
-      },
-      skinConditionResult: {
-        recommendText:
-          'Your skin is thisty, tired with lots of dirts and oil. We recommend cleaning your face and moisturizing before go to bed.'
-      },
-      date: '2018-03-17',
-      starAdded: false,
-      fadeOutAnim: new Animated.Value(1),
-      emptyCard: false
-    },
-    {
-      gradientBackground: colorCode.cautiousGradient,
-      overallScore: {
-        score: 22.9,
-        scoreTag: 'cautious',
-        scoreTagColor: colorCode.cautiousTag,
-        lightVersion: true,
-        displayRow: false
-      },
-      skinConditionResult: {
-        recommendText:
-          'Your skin is in danger with lack of care and is easily prone to acne. We recommend cleaning your face and moisturizing before go to bed. '
-      },
-      date: '2018-04-18',
-      starAdded: false,
-      fadeOutAnim: new Animated.Value(1),
-      emptyCard: false
-    },
-    {
-      gradientBackground: colorCode.goodGradient,
-      overallScore: {
-        score: 89.1,
-        scoreTag: 'good',
-        scoreTagColor: colorCode.goodTag,
-        lightVersion: true,
-        displayRow: false
-      },
-      skinConditionResult: {
-        recommendText:
-          'Your skin is healthy and has improved so far. Keep up with the good work and continue to wash your face.'
-      },
-      date: '2018-06-12',
-      starAdded: false,
-      fadeOutAnim: new Animated.Value(1),
-      emptyCard: false
-    },
-    {
-      gradientBackground: colorCode.emptyCardGradient,
-      date: '2018-07-12',
-      emptyCard: true
-    }
-  ];
-
   state = {
     currentIndex: 0,
     translateXAnim: new Animated.Value(100),
-    currentCardMonth: moment(this.cards[0].date).format('MMMM')
+    currentCardMonth: 'May'
   };
 
   componentWillMount() {
@@ -125,6 +65,29 @@ class HomepageScreen2Container extends Component {
       duration: 500,
       useNativeDriver: true
     }).start();
+    // Change from object of records to array of record sorted by date
+    this.cards = _.orderBy(
+      Object.values(this.props.myRecords),
+      record => moment(record.date, DATETIME_FORMAT_FROM_BACKEND),
+      'desc'
+    );
+    this.cards = this.cards.map(card => ({
+      ...card,
+      gradientBackground: colorCode[`${card.tag}Gradient`],
+      scoreTagColor: colorCode[`${card.tag}Tag`],
+      starAdded: false,
+      emptyCard: false,
+      fadeOutAnim: new Animated.Value(1),
+      lightVersion: true,
+      displayRow: false
+    }));
+    // Set month for top nav bar
+    this.setState({
+      currentCardMonth: moment(
+        this.cards[0].date,
+        DATETIME_FORMAT_FROM_BACKEND
+      ).format('MMMM')
+    });
   }
 
   favoriteHandle = () => {
@@ -159,7 +122,10 @@ class HomepageScreen2Container extends Component {
   };
 
   onChangeCardIndex = index => {
-    const newCardMonth = moment(this.cards[index].date).format('MMMM');
+    const newCardMonth = moment(
+      this.cards[index].date,
+      DATETIME_FORMAT_FROM_BACKEND
+    ).format('MMMM');
     this.setState({
       currentIndex: index,
       currentCardMonth: newCardMonth
@@ -185,7 +151,8 @@ class HomepageScreen2Container extends Component {
 }
 
 const mapStateToProps = state => ({
-  recordDetailModalVisible: state.modal.recordDetailModalVisible
+  recordDetailModalVisible: state.modal.recordDetailModalVisible,
+  myRecords: state.record.myRecords
 });
 
 export default connect(mapStateToProps, { openRecordDetailModal })(

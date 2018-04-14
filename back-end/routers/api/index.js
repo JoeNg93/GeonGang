@@ -11,7 +11,7 @@ const { brandSchema, Brand } = require('../../models/brand');
 const { categorySchema, Category } = require('../../models/category');
 const { productSchema, Product } = require('../../models/product');
 const { reviewSchema } = require('../../models/review');
-const { recordSchema } = require('../../models/record');
+const { recordSchema, Record } = require('../../models/record');
 const {
   jwtMiddleware,
   errHandlerMiddleware,
@@ -36,6 +36,7 @@ const schema = buildSchema(`
     product(id: Int!): Product
     
     myProfile: User
+    myRecords: [Record]!
   }
   
   ${userSchema}
@@ -59,7 +60,8 @@ const rootValue = {
   allProducts: Product.getAllProducts,
   product: Product.getProduct,
 
-  myProfile: User.getMyProfile
+  myProfile: User.getMyProfile,
+  myRecords: Record.getMyRecords
 };
 
 // MAIN ROUTE
@@ -141,11 +143,20 @@ router.post(
     'moisture',
     'dirt',
     'uv',
-    'pigmentation'
+    'pigmentation',
+    'recommended_text'
   ),
   async (req, res) => {
     const date = new Date();
-    const { overall_score, tag, moisture, dirt, uv, pigmentation } = req.body;
+    const {
+      overall_score,
+      tag,
+      moisture,
+      dirt,
+      uv,
+      pigmentation,
+      recommended_text
+    } = req.body;
     const user_id = req.user.id;
     // Add scanning result
     const rowId = await knex
@@ -157,7 +168,8 @@ router.post(
         dirt,
         uv,
         pigmentation,
-        user_id
+        user_id,
+        recommended_text
       })
       .into('record');
 

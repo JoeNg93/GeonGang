@@ -10,6 +10,7 @@ const recordSchema = `
     dirt: Float!
     uv: Float!
     pigmentation: Float!
+    recommendedText: String!
   }
 `;
 
@@ -23,7 +24,8 @@ class Record {
     dirt,
     uv,
     pigmentation,
-    userId
+    userId,
+    recommendedText
   ) {
     this.id = id;
     this.date = date;
@@ -34,6 +36,7 @@ class Record {
     this.uv = uv;
     this.pigmentation = pigmentation;
     this.userId = userId;
+    this.recommendedText = recommendedText;
   }
 
   async recommendedProducts() {
@@ -77,9 +80,15 @@ class Record {
             row.dirt,
             row.uv,
             row.pigmentation,
-            row.user_id
+            row.user_id,
+            row.recommended_text
           )
       );
+    return records;
+  }
+
+  static async getMyRecords(args, { user }) {
+    const records = await Record.getRecordsByUserId({ userId: user.id });
     return records;
   }
 }

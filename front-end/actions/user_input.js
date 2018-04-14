@@ -40,7 +40,7 @@ export const postUserInputs = ({
       age,
       gender,
       climate,
-      skin_color: skinColor,
+      skin_color: skinColor.toLowerCase(),
       skin_type: skinType
     }
   });

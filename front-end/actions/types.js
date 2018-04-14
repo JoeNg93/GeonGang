@@ -22,3 +22,5 @@ export const PENDING = 'PENDING';
 export const FAIL = 'FAIL';
 
 export const RECORD_POST = 'RECORD_POST';
+export const RECORDS_GET = 'RECORDS_GET';
+export const CURRENT_RECORD_SET = 'CURRENT_RECORD_SET';

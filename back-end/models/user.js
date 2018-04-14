@@ -12,7 +12,6 @@ const userSchema = `
     climate: String!
     skinCondition: String!
     reviews: [Review]!
-    records: [Record]!
     favoriteProducts: [Product]!
     userId: Int!
     friends: [User]!
@@ -55,16 +54,6 @@ class User {
     const { Review } = require('./review');
     const reviews = await Review.getReviewsByUserId({ userId: this.userId });
     return reviews;
-  }
-
-  async records(args, context) {
-    if (args.id !== this.userId) {
-      return [];
-    }
-
-    const { Record } = require('./record');
-    const records = await Record.getRecordsByUserId({ userId: this.userId });
-    return records;
   }
 
   async favoriteProducts() {
