@@ -143,11 +143,20 @@ router.post(
     'moisture',
     'dirt',
     'uv',
-    'pigmentation'
+    'pigmentation',
+    'recommended_text'
   ),
   async (req, res) => {
     const date = new Date();
-    const { overall_score, tag, moisture, dirt, uv, pigmentation } = req.body;
+    const {
+      overall_score,
+      tag,
+      moisture,
+      dirt,
+      uv,
+      pigmentation,
+      recommended_text
+    } = req.body;
     const user_id = req.user.id;
     // Add scanning result
     const rowId = await knex
@@ -159,7 +168,8 @@ router.post(
         dirt,
         uv,
         pigmentation,
-        user_id
+        user_id,
+        recommended_text
       })
       .into('record');
 
