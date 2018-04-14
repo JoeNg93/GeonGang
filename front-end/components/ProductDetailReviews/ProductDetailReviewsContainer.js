@@ -19,7 +19,7 @@ class ProductDetailReviewsContainer extends Component {
     {
       profileName: "Emma Watson",
       profileImgPath: require("../../assets/images/profile-1.jpg"),
-      rating: 2.7,
+      rating: 2,
       postDate: "1 month ago",
       text:
         "The texture is very nice and it non sticky, non greasy. Very hydrating and ultras a few for my sensitive skin, I can even apply it around the eye area. It's a must have and 1st part of my skincare routine and after I apply my Mineral 89, I apply my other serums and It compliments every serum and moisturiser I apply, may it be day or night.",
