@@ -1,5 +1,5 @@
 import { MY_PROFILE_GET, SUCCESS, PENDING, FAIL } from '../actions/types';
-import _ from 'lodash';
+// import _ from 'lodash';
 
 const INITIAL_STATE = {
   userInfo: {},
@@ -12,25 +12,25 @@ export default function(state = INITIAL_STATE, { type, payload }) {
       return { ...state, isFetchingUserInfo: true };
     }
     case `${MY_PROFILE_GET}_${SUCCESS}`: {
-      let myProfile = {};
-      if (payload.myProfile) {
-        const {
-          records,
-          reviews,
-          favoriteProducts,
-          friends
-        } = payload.myProfile;
-        myProfile = {
-          ...payload.myProfile,
-          records: _.keyBy(records, 'id'),
-          reviews: _.keyBy(reviews, 'id'),
-          favoriteProducts: _.keyBy(favoriteProducts, 'id'),
-          friends: _.keyBy(friends, 'userId')
-        };
-      }
+      // let myProfile = {};
+      // if (payload.myProfile) {
+      //   const {
+      //     records,
+      //     reviews,
+      //     favoriteProducts,
+      //     friends
+      //   } = payload.myProfile;
+      //   myProfile = {
+      //     ...payload.myProfile,
+      //     records: _.keyBy(records, 'id'),
+      //     reviews: _.keyBy(reviews, 'id'),
+      //     favoriteProducts: _.keyBy(favoriteProducts, 'id'),
+      //     friends: _.keyBy(friends, 'userId')
+      //   };
+      // }
       return {
         ...state,
-        userInfo: myProfile,
+        userInfo: payload.myProfile || {},
         isFetchingUserInfo: false
       };
     }
