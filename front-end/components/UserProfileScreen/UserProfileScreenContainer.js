@@ -117,13 +117,13 @@ class UserProfileScreenContainer extends Component {
 
   render() {
     const buttons = ['Profile', 'Friends', 'Reviews'];
-    const { myProfile } = this.props;
+    const { userInfo } = this.props;
 
-    if (_.isEmpty(myProfile)) {
+    if (_.isEmpty(userInfo)) {
       return null;
     }
 
-    console.log(myProfile);
+    console.log(userInfo);
 
     return (
       <UserProfileScreen
@@ -135,14 +135,14 @@ class UserProfileScreenContainer extends Component {
         _renderItem2={this._renderItem2}
         myProducts={this.myProducts}
         recommendations={this.recommendations}
-        userProfile={myProfile}
+        userProfile={userInfo}
       />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  myProfile: state.userInfo.myProfile
+  userInfo: state.userInfo.userInfo
 });
 
 const styles = StyleSheet.create({

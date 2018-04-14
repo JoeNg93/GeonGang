@@ -5,8 +5,8 @@ import _ from 'lodash';
 
 class ProfileComponentContainer extends Component {
   render() {
-    const { myProfile } = this.props;
-    if (_.isEmpty(myProfile)) {
+    const { userInfo } = this.props;
+    if (_.isEmpty(userInfo)) {
       return null;
     }
 
@@ -17,7 +17,7 @@ class ProfileComponentContainer extends Component {
       skinType,
       climate,
       skinCondition
-    } = myProfile;
+    } = userInfo;
 
     return (
       <ProfileComponent
@@ -33,7 +33,7 @@ class ProfileComponentContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  myProfile: state.userInfo.myProfile
+  userInfo: state.userInfo.userInfo
 });
 
 export default connect(mapStateToProps, {})(ProfileComponentContainer);

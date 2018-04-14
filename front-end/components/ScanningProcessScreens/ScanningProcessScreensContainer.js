@@ -21,7 +21,7 @@ class ScanningProcessScreensContainer extends Component {
 
   onPressNextStepAfterScanningResult = async () => {
     await this.props.getMyProfile();
-    if (_.isEmpty(this.props.myProfile)) {
+    if (_.isEmpty(this.props.userInfo)) {
       this.props.navigation.navigate('userInputContainer');
       return;
     }
@@ -64,7 +64,7 @@ class ScanningProcessScreensContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  myProfile: state.userInfo.myProfile
+  userInfo: state.userInfo.userInfo
 });
 
 export default connect(mapStateToProps, { getMyProfile })(
