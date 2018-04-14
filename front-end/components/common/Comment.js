@@ -11,7 +11,10 @@ const Comment = ({
   rating,
   postDate,
   text,
-  helpfulCount
+  helpfulCount,
+  liked,
+  onPressHelpful,
+  onPressReport
 }) => {
   return (
     <View>
@@ -65,14 +68,27 @@ const Comment = ({
             {text}
           </Text>
           <View style={styles.communityReviewBottom}>
-            <Button
-              containerViewStyle={styles.communityReviewBottomBtnCont}
-              buttonStyle={styles.communityReviewBottomBtn}
-              color={colorCode.red}
-              icon={{ name: "favorite-border", color: colorCode.red }}
-              title={"Helpful (" + helpfulCount + ")"}
-              textStyle={styles.communityReviewBottomBtnTxt}
-            />
+            {liked === false ? (
+              <Button
+                containerViewStyle={styles.communityReviewBottomBtnCont}
+                buttonStyle={styles.communityReviewBottomBtn}
+                color={colorCode.lightGray}
+                icon={{ name: "favorite-border", color: colorCode.lightGray }}
+                title={"Helpful (" + helpfulCount + ")"}
+                textStyle={styles.communityReviewBottomBtnTxt}
+                onPress={onPressHelpful}
+              />
+            ) : (
+              <Button
+                containerViewStyle={styles.communityReviewBottomBtnCont}
+                buttonStyle={styles.communityReviewBottomBtn}
+                color={colorCode.red}
+                icon={{ name: "favorite-border", color: colorCode.red }}
+                title={"Helpful (" + helpfulCount + ")"}
+                textStyle={styles.communityReviewBottomBtnTxt}
+                onPress={onPressHelpful}
+              />
+            )}
             <Button
               containerViewStyle={styles.communityReviewBottomBtnCont}
               buttonStyle={styles.communityReviewBottomBtn}
@@ -80,6 +96,7 @@ const Comment = ({
               icon={{ name: "warning", color: colorCode.lightGray }}
               title="Report"
               textStyle={styles.communityReviewBottomBtnTxt}
+              onPress={onPressReport}
             />
           </View>
         </View>
@@ -158,27 +175,21 @@ const styles = StyleSheet.create({
   }
 });
 
-// Comment.propTypes = {
-//   profileName: PropTypes.string.isRequired,
-//   profileImgPath: PropTypes.number,
-//   rating: PropTypes.number.isRequired,
-//   postDate: PropTypes.string.isRequired,
-//   text: PropTypes.string.isRequired,
-//   helpfulCount: PropTypes.number
-// };
-
 Comment.propTypes = {
-  profileName: PropTypes.string,
+  profileName: PropTypes.string.isRequired,
   profileImgPath: PropTypes.number,
-  rating: PropTypes.number,
-  postDate: PropTypes.string,
+  rating: PropTypes.number.isRequired,
+  postDate: PropTypes.string.isRequired,
   text: PropTypes.string,
-  helpfulCount: PropTypes.number
+  helpfulCount: PropTypes.number,
+  liked: PropTypes.bool
 };
 
 Comment.defaultProps = {
   profileImgPath: require("../../assets/images/unknown-gender.png"),
-  helpfulCount: 0
+  helpfulCount: 0,
+  text: "",
+  liked: false
 };
 
 export default Comment;
