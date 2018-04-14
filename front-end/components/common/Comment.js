@@ -55,7 +55,6 @@ const Comment = ({
             fractions={1}
             startingValue={rating}
             imageSize={16}
-            // onFinishRating={this.ratingCompleted}
             style={{ paddingTop: 6, paddingBottom: 16 }}
           />
           <Text
@@ -83,7 +82,7 @@ const Comment = ({
                 containerViewStyle={styles.communityReviewBottomBtnCont}
                 buttonStyle={styles.communityReviewBottomBtn}
                 color={colorCode.red}
-                icon={{ name: "favorite-border", color: colorCode.red }}
+                icon={{ name: "favorite", color: colorCode.red }}
                 title={"Helpful (" + helpfulCount + ")"}
                 textStyle={styles.communityReviewBottomBtnTxt}
                 onPress={onPressHelpful}
