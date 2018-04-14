@@ -20,3 +20,5 @@ export const MY_PROFILE_GET = 'MY_PROFILE_GET';
 export const SUCCESS = 'SUCCESS';
 export const PENDING = 'PENDING';
 export const FAIL = 'FAIL';
+
+export const RECORD_POST = 'RECORD_POST';
