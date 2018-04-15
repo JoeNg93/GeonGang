@@ -105,7 +105,7 @@ export default class App extends Component {
       return (
         <Provider store={store}>
           <View style={styles.container}>
-            <ScanningResultScreenContainer />
+            <Text>Open up App.js to start working on your app!</Text>
           </View>
         </Provider>
       );
