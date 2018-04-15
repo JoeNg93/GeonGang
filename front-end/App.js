@@ -81,6 +81,7 @@ export default class App extends Component {
     await Asset.loadAsync(require('./assets/images/dry_skin.png'));
     await Asset.loadAsync(require('./assets/images/logo_icon.png'));
     await Asset.loadAsync(require('./assets/images/world-map.png'));
+    await Asset.loadAsync(require('./assets/images/scan-loading-1.png'));
     await Asset.loadAsync(require('./assets/images/product-1.jpg'));
     await Asset.loadAsync(require('./assets/images/product-2.jpg'));
     await Asset.loadAsync(require('./assets/images/product-3.jpg'));
@@ -104,7 +105,7 @@ export default class App extends Component {
       return (
         <Provider store={store}>
           <View style={styles.container}>
-            <Text>Open up App.js to start working on your app!</Text>
+            <ScanningResultScreenContainer />
           </View>
         </Provider>
       );
