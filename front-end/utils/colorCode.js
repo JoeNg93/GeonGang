@@ -19,5 +19,6 @@ export default {
   lightgray: '#8F8F8F',
   lightLightGray: '#8A8A8F',
   anotherLightGray: '#828282',
+  extremeLightGray: '#E3E3E3',
   black: '#303030'
 };
