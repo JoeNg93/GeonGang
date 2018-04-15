@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { openRecordDetailModal } from '../../actions/modals_control';
 import { DATETIME_FORMAT_FROM_BACKEND } from '../../utils/index';
 import _ from 'lodash';
+import { setCurrentRecord } from '../../actions/record';
 
 class HomepageScreen2Container extends Component {
   // Header styling
@@ -133,6 +134,12 @@ class HomepageScreen2Container extends Component {
     this.props.navigation.setParams({ currentMonth: newCardMonth });
   };
 
+  onPressOpenRecordDetailModal = () => {
+    const recordId = this.cards[this.state.currentIndex].id;
+    this.props.setCurrentRecord(this.props.myRecords[recordId]);
+    this.props.openRecordDetailModal();
+  };
+
   render() {
     return (
       <HomepageScreen2
@@ -143,7 +150,7 @@ class HomepageScreen2Container extends Component {
         onChangeCardIndex={this.onChangeCardIndex}
         fadeOutAnim={this.state.fadeOutAnim}
         translateXAnim={this.state.translateXAnim}
-        onPressOpenRecordDetailModal={this.props.openRecordDetailModal}
+        onPressOpenRecordDetailModal={this.onPressOpenRecordDetailModal}
         recordDetailModalVisible={this.props.recordDetailModalVisible}
       />
     );
@@ -155,6 +162,7 @@ const mapStateToProps = state => ({
   myRecords: state.record.myRecords
 });
 
-export default connect(mapStateToProps, { openRecordDetailModal })(
-  HomepageScreen2Container
-);
+export default connect(mapStateToProps, {
+  openRecordDetailModal,
+  setCurrentRecord
+})(HomepageScreen2Container);

@@ -4,26 +4,12 @@ import RecordDetailModal from './RecordDetailModal';
 import Product from '../common/Product';
 import { connect } from 'react-redux';
 import { closeRecordDetailModal } from '../../actions/modals_control';
+import _ from 'lodash';
+import moment from 'moment';
+import { DATETIME_FORMAT_FROM_BACKEND } from '../../utils/index';
 
 class RecordDetailContainer extends Component {
   state = { currentActiveProduct: 0 };
-  date = '18. March 2018';
-  gradientBackground = colorCode.moderateGradient;
-  overallScore = {
-    score: 67.8,
-    scoreTag: 'moderate',
-    scoreTagColor: colorCode.moderateTag,
-    lightVersion: true,
-    displayRow: true
-  };
-  skinConditionResult = {
-    moistureScore: 45,
-    dirtScore: 62,
-    uvScore: 88,
-    pigmentScore: 20,
-    recommendText:
-      'Your skin is thisty, tired with lots of dirts and oil. We recommend cleaning your face and moisturizing before go to bed.'
-  };
   productEntries = [
     {
       productName: 'Neutrogena Hydro Boost Water Gel',
@@ -55,6 +41,11 @@ class RecordDetailContainer extends Component {
   };
 
   render() {
+    const { currentRecord } = this.props;
+    if (_.isEmpty(currentRecord)) {
+      return null;
+    }
+
     productComponents = this.productEntries.map((productInfo, index) => (
       <Product
         key={index}
@@ -66,20 +57,27 @@ class RecordDetailContainer extends Component {
         productAddHandle={this.productAddHandle.bind(this, index)}
       />
     ));
+
+    const gradientBackground = colorCode[`${currentRecord.tag}Gradient`];
+    const date = moment(
+      currentRecord.date,
+      DATETIME_FORMAT_FROM_BACKEND
+    ).format('DD MMM YYYY');
+
     return (
       <RecordDetailModal
-        date={this.date}
-        gradientBackground={this.gradientBackground}
-        score={this.overallScore.score}
-        scoreTag={this.overallScore.scoreTag}
-        scoreTagColor={this.overallScore.scoreTagColor}
-        lightVersion={this.overallScore.lightVersion}
-        displayRow={this.overallScore.displayRow}
-        moistureScore={this.skinConditionResult.moistureScore}
-        dirtScore={this.skinConditionResult.dirtScore}
-        uvScore={this.skinConditionResult.uvScore}
-        pigmentScore={this.skinConditionResult.pigmentScore}
-        recommendText={this.skinConditionResult.recommendText}
+        date={date}
+        gradientBackground={gradientBackground}
+        score={currentRecord.overallScore}
+        scoreTag={currentRecord.tag}
+        scoreTagColor={colorCode[`${currentRecord.tag}Tag`]}
+        lightVersion={true}
+        displayRow={true}
+        moistureScore={currentRecord.moisture}
+        dirtScore={currentRecord.dirt}
+        uvScore={currentRecord.uv}
+        pigmentScore={currentRecord.pigmentation}
+        recommendText={currentRecord.recommendedText}
         productComponents={productComponents}
         onPressCloseModal={this.props.closeRecordDetailModal}
       />
@@ -87,4 +85,10 @@ class RecordDetailContainer extends Component {
   }
 }
 
-export default connect(null, { closeRecordDetailModal })(RecordDetailContainer);
+const mapStateToProps = state => ({
+  currentRecord: state.record.currentRecord
+});
+
+export default connect(mapStateToProps, { closeRecordDetailModal })(
+  RecordDetailContainer
+);
