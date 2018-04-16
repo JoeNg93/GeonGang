@@ -42,7 +42,7 @@ const ProductDatabaseScreen = ({
       <TouchableOpacity onpress={categoryHandle}>
         <View style={styles.categoryButtonContainer}>
           <Text style={[commonStyles.fontMontserratLight, styles.categoryText]}>
-            Category: {currentCategory}
+            Category: {currentCategory.name}
           </Text>
           <Icon name="chevron-right" color="#fff" size={32} />
         </View>
@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     paddingLeft: 40,
-    paddingRight: 40
+    paddingRight: 40,
+    backgroundColor: colorCode.white
   },
   productSection: {
     flex: 1,
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderTopWidth: 0,
     borderBottomWidth: 0,
-    marginTop: 52
+    marginTop: 16
   },
   searchIcon: {
     fontSize: 24,
