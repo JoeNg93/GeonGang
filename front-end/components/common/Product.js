@@ -18,7 +18,7 @@ const Product = ({
   return (
     <View style={styles.productContainer}>
       <Image
-        source={productImgPath}
+        source={{ uri: productImgPath }}
         style={styles.productImg}
         resizeMode="cover"
       />
@@ -37,7 +37,7 @@ const Product = ({
         >
           <Badge
             value={category.name}
-            containerStyle={{ backgroundColor: category.color }}
+            containerStyle={{ backgroundColor: colorCode.blue }}
             textStyle={[
               { fontSize: 12, color: 'white' },
               commonStyles.fontMontserratRegular

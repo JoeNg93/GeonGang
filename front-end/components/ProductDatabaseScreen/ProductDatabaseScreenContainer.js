@@ -1,8 +1,25 @@
 import React, { Component } from 'react';
 import ProductDatabaseScreen from './ProductDatabaseScreen';
 import Product from '../common/Product';
+import { Icon } from 'react-native-elements';
+import colorCode from '../../utils/colorCode';
+import { connect } from 'react-redux';
+import { getCategories, setCategory } from '../../actions/category';
+import _ from 'lodash';
 
 class ProductDatabaseScreenContainer extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: 'Product list',
+    headerStyle: {
+      backgroundColor: colorCode.white,
+      // Remove the border bottom line of header
+      borderBottomWidth: 0
+    },
+    tabBarLabel: 'Products',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="bag" type="simple-line-icon" color={tintColor} />
+    )
+  });
   state = {
     currentActive: 0,
     selectedIndex: 0,
@@ -34,6 +51,11 @@ class ProductDatabaseScreenContainer extends Component {
 
   buttons = ['All items', 'High rated', 'Most reviewed'];
 
+  componentWillMount = async () => {
+    await this.props.getCategories();
+    this.props.setCategory(Object.values(this.props.categories)[0]);
+  };
+
   productAddHandle = index => {
     this.setState({ currentActive: index });
     this.productEntries[index].addedState = !this.productEntries[index]
@@ -49,24 +71,30 @@ class ProductDatabaseScreenContainer extends Component {
   productSearchHandle = () => {};
 
   render() {
-    productComponents = this.productEntries.map((productInfo, index) => (
-      <Product
-        key={index}
-        productName={productInfo.productName}
-        productImgPath={productInfo.productImgPath}
-        category={productInfo.category}
-        rating={productInfo.rating}
-        addedState={productInfo.addedState}
-        productAddHandle={this.productAddHandle.bind(this, index)}
-      />
-    ));
+    if (_.isEmpty(this.props.currentCategory)) {
+      return null;
+    }
+
+    productComponents = this.props.currentCategory.products.map(
+      (productInfo, index) => (
+        <Product
+          key={index}
+          productName={productInfo.name}
+          productImgPath={productInfo.imgSrc}
+          category={productInfo.category}
+          rating={productInfo.rating}
+          addedState={false}
+          productAddHandle={this.productAddHandle.bind(this, index)}
+        />
+      )
+    );
     return (
       <ProductDatabaseScreen
         productComponents={productComponents}
         buttons={this.buttons}
         selectedIndex={this.state.selectedIndex}
         updateIndex={this.updateIndex}
-        currentCategory={this.state.currentCategory}
+        currentCategory={this.props.currentCategory}
         categoryHandle={this.categoryHandle}
         recordSearchInput={this.recordSearchInput}
         productSearchHandle={this.productSearchHandle}
@@ -75,4 +103,11 @@ class ProductDatabaseScreenContainer extends Component {
   }
 }
 
-export default ProductDatabaseScreenContainer;
+const mapStateToProps = state => ({
+  categories: state.category.categories,
+  currentCategory: state.category.currentCategory
+});
+
+export default connect(mapStateToProps, { getCategories, setCategory })(
+  ProductDatabaseScreenContainer
+);
