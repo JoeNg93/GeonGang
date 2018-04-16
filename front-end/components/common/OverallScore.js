@@ -9,39 +9,60 @@ const OverallScore = ({
   scoreTag,
   scoreTagColor,
   lightVersion,
-  displayRow
+  displayRow,
+  fontSize,
+  statisticsScreen
 }) => {
   return (
     <View
       style={[
         displayRow === true
           ? { flexDirection: 'row', alignItems: 'flex-end' }
-          : { flexDirection: 'column' }
+          : { flexDirection: 'column' },
+        statisticsScreen === true ? { justifyContent: 'space-between' } : {}
       ]}
     >
-      <View style={[styles.overallScoreContainer]}>
-        <Text
-          style={[
-            commonStyles.fontMontserratRegular,
-            lightVersion === true
-              ? { color: 'white' }
-              : commonStyles.colorDarkBlue,
-            styles.overallScore
-          ]}
-        >
-          {score}
-        </Text>
-        <Text
-          style={[
-            commonStyles.fontMontserratLight,
-            lightVersion === true
-              ? { color: 'white' }
-              : commonStyles.colorDarkBlue,
-            styles.overallBand
-          ]}
-        >
-          /100
-        </Text>
+      <View>
+        <View style={[styles.overallScoreContainer]}>
+          <Text
+            style={[
+              commonStyles.fontMontserratRegular,
+              lightVersion === true
+                ? { color: 'white' }
+                : commonStyles.colorDarkBlue,
+              fontSize ? { fontSize: fontSize } : { fontSize: 48 }
+            ]}
+          >
+            {score}
+          </Text>
+          <Text
+            style={[
+              commonStyles.fontMontserratLight,
+              lightVersion === true
+                ? { color: 'white' }
+                : commonStyles.colorDarkBlue,
+              {},
+              fontSize
+                ? { fontSize: fontSize / 2, marginBottom: fontSize / 5 }
+                : { fontSize: 26, marginBottom: 10 }
+            ]}
+          >
+            /100
+          </Text>
+        </View>
+        {statisticsScreen === true ? (
+          <Text
+            style={[
+              commonStyles.fontMontserratLight,
+              commonStyles.colorDarkBlue,
+              { fontSize: 16 }
+            ]}
+          >
+            Average Score
+          </Text>
+        ) : (
+          {}
+        )}
       </View>
       <View style={{ flexDirection: 'row' }}>
         <Badge
@@ -55,7 +76,8 @@ const OverallScore = ({
                   marginLeft: 23,
                   marginBottom: 15
                 }
-              : { marginTop: 17 }
+              : { marginTop: 17 },
+            statisticsScreen === true ? { marginLeft: 0, marginBottom: 0 } : {}
           ]}
         >
           <Text
@@ -63,7 +85,8 @@ const OverallScore = ({
               commonStyles.fontMontserratLight,
               lightVersion === true
                 ? { color: scoreTagColor, fontSize: 16 }
-                : { color: 'white', fontSize: 14 }
+                : { color: 'white', fontSize: 14 },
+              fontSize ? { fontSize: 12 } : {}
             ]}
           >
             {scoreTag}
@@ -78,13 +101,6 @@ const styles = StyleSheet.create({
   overallScoreContainer: {
     flexDirection: 'row',
     alignItems: 'flex-end'
-  },
-  overallScore: {
-    fontSize: 50
-  },
-  overallBand: {
-    fontSize: 26,
-    marginBottom: 10
   },
   badgeContainer: {
     paddingLeft: 20,
