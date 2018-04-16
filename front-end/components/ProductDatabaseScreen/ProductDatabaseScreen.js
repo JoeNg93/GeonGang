@@ -11,6 +11,7 @@ import commonStyles from '../../utils/styles';
 import colorCode from '../../utils/colorCode';
 import Product from '../common/Product';
 import PropTypes from 'prop-types';
+import { categoryColor } from '../../utils/index';
 
 const ProductDatabaseScreen = ({
   productComponents,
@@ -40,7 +41,12 @@ const ProductDatabaseScreen = ({
         clearIcon={{ color: colorCode.anotherLightGray, name: 'clear' }}
       />
       <TouchableOpacity onpress={categoryHandle}>
-        <View style={styles.categoryButtonContainer}>
+        <View
+          style={[
+            styles.categoryButtonContainer,
+            { backgroundColor: categoryColor[category.name] }
+          ]}
+        >
           <Text style={[commonStyles.fontMontserratLight, styles.categoryText]}>
             Category: {currentCategory.name}
           </Text>
@@ -98,7 +104,6 @@ const styles = StyleSheet.create({
   },
   categoryButtonContainer: {
     width: '100%',
-    backgroundColor: colorCode.blue,
     borderRadius: 200,
     marginTop: 17,
     flexDirection: 'row',
