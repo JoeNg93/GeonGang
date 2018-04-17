@@ -39,6 +39,8 @@ const ProductDatabaseScreen = ({
         onChangeText={recordSearchInput}
         onSubmitEditing={productSearchHandle}
         clearIcon={{ color: colorCode.anotherLightGray, name: 'clear' }}
+        autoCapitalize="none"
+        autoCorrect={false}
       />
       <TouchableOpacity onPress={categoryHandle}>
         <View

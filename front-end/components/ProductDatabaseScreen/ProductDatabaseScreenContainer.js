@@ -24,7 +24,8 @@ class ProductDatabaseScreenContainer extends Component {
   state = {
     currentActive: 0,
     selectedIndex: 0,
-    currentCategory: 'Moisturizers'
+    currentCategory: 'Moisturizers',
+    productSearchTerm: ''
   };
   productEntries = [
     {
@@ -70,7 +71,9 @@ class ProductDatabaseScreenContainer extends Component {
   categoryHandle = () => {
     this.props.navigation.navigate('productCategory');
   };
-  recordSearchInput = text => {};
+  recordSearchInput = text => {
+    this.setState({ productSearchTerm: text });
+  };
   productSearchHandle = () => {};
 
   render() {
@@ -78,19 +81,32 @@ class ProductDatabaseScreenContainer extends Component {
       return null;
     }
 
-    const productComponents = this.props.currentCategory.products.map(
-      (productInfo, index) => (
-        <Product
-          key={index}
-          productName={productInfo.name}
-          productImgPath={productInfo.imgSrc}
-          category={productInfo.category}
-          rating={productInfo.rating}
-          addedState={false}
-          productAddHandle={this.productAddHandle.bind(this, index)}
-        />
-      )
-    );
+    let { products } = this.props.currentCategory;
+    // Filter according to search term
+    if (this.state.productSearchTerm) {
+      products = products.filter(
+        product =>
+          product.name
+            .toLowerCase()
+            .indexOf(this.state.productSearchTerm.toLowerCase()) !== -1 ||
+          product.brand.name
+            .toLowerCase()
+            .indexOf(this.state.productSearchTerm.toLowerCase()) !== -1
+      );
+    }
+
+    const productComponents = products.map(productInfo => (
+      <Product
+        key={productInfo.id}
+        productName={`${productInfo.brand.name} ${productInfo.name}`}
+        productImgPath={productInfo.imgSrc}
+        category={productInfo.category}
+        rating={productInfo.rating}
+        addedState={false}
+        productAddHandle={this.productAddHandle.bind(this, productInfo.id)}
+        onPressProduct={() => this.onPressSetCurrentProduct(productInfo)}
+      />
+    ));
     return (
       <ProductDatabaseScreen
         productComponents={productComponents}
