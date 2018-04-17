@@ -4,7 +4,8 @@ import {
   View,
   Text,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Modal
 } from 'react-native';
 import { Icon, ButtonGroup, SearchBar } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
@@ -12,6 +13,7 @@ import colorCode from '../../utils/colorCode';
 import Product from '../common/Product';
 import PropTypes from 'prop-types';
 import { categoryColor } from '../../utils/index';
+import ProductDetailAndReviews from '../ProductDetailAndReviews/ProductDetailAndReviews';
 
 const ProductDatabaseScreen = ({
   productComponents,
@@ -21,7 +23,8 @@ const ProductDatabaseScreen = ({
   currentCategory,
   categoryHandle,
   recordSearchInput,
-  productSearchHandle
+  productSearchHandle,
+  productDetailModalVisible
 }) => {
   return (
     <ScrollView style={styles.container}>
@@ -67,6 +70,9 @@ const ProductDatabaseScreen = ({
         innerBorderStyle={{ width: -1, color: 'transparent' }}
       />
       <View style={styles.productSection}>{productComponents}</View>
+      <Modal visible={productDetailModalVisible} animationType="slide">
+        <ProductDetailAndReviews />
+      </Modal>
     </ScrollView>
   );
 };
@@ -151,7 +157,12 @@ Product.propTypes = {
   currentCategory: PropTypes.string,
   categoryHandle: PropTypes.func,
   recordSearchInput: PropTypes.func,
-  productSearchHandle: PropTypes.func
+  productSearchHandle: PropTypes.func,
+  productDetailModalVisible: PropTypes.bool
+};
+
+Product.defaultProps = {
+  productDetailModalVisible: false
 };
 
 export default ProductDatabaseScreen;

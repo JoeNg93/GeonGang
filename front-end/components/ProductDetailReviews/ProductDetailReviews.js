@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
@@ -6,12 +6,12 @@ import {
   Image,
   TextInput,
   ScrollView
-} from "react-native";
-import { Icon, Button, Rating, Divider } from "react-native-elements";
-import PropTypes from "prop-types";
-import commonStyles from "../../utils/styles";
-import colorCode from "../../utils/colorCode";
-import Comment from "../common/Comment";
+} from 'react-native';
+import { Icon, Button, Rating, Divider } from 'react-native-elements';
+import PropTypes from 'prop-types';
+import commonStyles from '../../utils/styles';
+import colorCode from '../../utils/colorCode';
+import Comment from '../common/Comment';
 
 const ProductDetailReviews = ({
   globalRating,
@@ -98,7 +98,7 @@ const ProductDetailReviews = ({
               containerViewStyle={styles.btnSubmitCont}
               textStyle={[
                 commonStyles.fontMontserratSemiBold,
-                { fontSize: 14, color: "#ffffff" }
+                { fontSize: 14, color: '#ffffff' }
               ]}
               title="Write review"
               buttonStyle={styles.btnSubmit}
@@ -117,7 +117,8 @@ const ProductDetailReviews = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column"
+    flexDirection: 'column',
+    backgroundColor: colorCode.white
   },
 
   placeholder: {
@@ -133,8 +134,8 @@ const styles = StyleSheet.create({
   },
 
   globalReviewBox: {
-    flexDirection: "row",
-    alignItems: "center"
+    flexDirection: 'row',
+    alignItems: 'center'
   },
 
   globalReviewGrade: {
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
   },
 
   globalReviewRating: {
-    flexDirection: "column",
+    flexDirection: 'column',
     marginLeft: 14
   },
 
@@ -151,21 +152,21 @@ const styles = StyleSheet.create({
   },
 
   userProfileImage: {
-    resizeMode: "contain",
+    resizeMode: 'contain',
     borderRadius: 34,
     height: 65,
     width: 65
   },
 
   userReview: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginTop: 20,
     marginBottom: 24
   },
 
   userReviewInput: {
     flex: 1,
-    flexDirection: "column",
+    flexDirection: 'column',
     marginLeft: 16
   },
 
@@ -187,9 +188,9 @@ const styles = StyleSheet.create({
   },
 
   btnSubmit: {
-    backgroundColor: "#4396DC",
+    backgroundColor: '#4396DC',
     borderRadius: 25,
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
     paddingHorizontal: 24,
     paddingVertical: 6
   }

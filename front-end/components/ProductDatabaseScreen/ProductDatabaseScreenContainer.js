@@ -5,6 +5,8 @@ import { Icon } from 'react-native-elements';
 import colorCode from '../../utils/colorCode';
 import { connect } from 'react-redux';
 import { getCategories, setCategory } from '../../actions/category';
+import { setCurrentProduct } from '../../actions/product';
+import { openProductDetailModal } from '../../actions/modals_control';
 import _ from 'lodash';
 
 class ProductDatabaseScreenContainer extends Component {
@@ -76,6 +78,11 @@ class ProductDatabaseScreenContainer extends Component {
   };
   productSearchHandle = () => {};
 
+  onPressSetCurrentProduct = async productInfo => {
+    await this.props.setCurrentProduct(productInfo);
+    this.props.openProductDetailModal();
+  };
+
   render() {
     if (_.isEmpty(this.props.currentCategory)) {
       return null;
@@ -117,6 +124,7 @@ class ProductDatabaseScreenContainer extends Component {
         categoryHandle={this.categoryHandle}
         recordSearchInput={this.recordSearchInput}
         productSearchHandle={this.productSearchHandle}
+        productDetailModalVisible={this.props.productDetailModalVisible}
       />
     );
   }
@@ -124,9 +132,13 @@ class ProductDatabaseScreenContainer extends Component {
 
 const mapStateToProps = state => ({
   categories: state.category.categories,
-  currentCategory: state.category.currentCategory
+  currentCategory: state.category.currentCategory,
+  productDetailModalVisible: state.modal.productDetailModalVisible
 });
 
-export default connect(mapStateToProps, { getCategories, setCategory })(
-  ProductDatabaseScreenContainer
-);
+export default connect(mapStateToProps, {
+  getCategories,
+  setCategory,
+  setCurrentProduct,
+  openProductDetailModal
+})(ProductDatabaseScreenContainer);
