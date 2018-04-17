@@ -4,6 +4,7 @@ import { Badge, Icon } from 'react-native-elements';
 import colorCode from '../../utils/colorCode';
 import commonStyles from '../../utils/styles';
 import PropTypes from 'prop-types';
+import { categoryColor } from '../../utils/index';
 
 const hitSlop = { top: 20, bottom: 20, left: 20, right: 20 };
 
@@ -18,7 +19,13 @@ const Product = ({
   return (
     <View style={styles.productContainer}>
       <Image
-        source={{ uri: productImgPath }}
+        source={
+          typeof productImgPath === 'string' ? (
+            { uri: productImgPath }
+          ) : (
+            productImgPath
+          )
+        }
         style={styles.productImg}
         resizeMode="cover"
       />
@@ -37,7 +44,7 @@ const Product = ({
         >
           <Badge
             value={category.name}
-            containerStyle={{ backgroundColor: colorCode.blue }}
+            containerStyle={{ backgroundColor: categoryColor[category.name] }}
             textStyle={[
               { fontSize: 12, color: 'white' },
               commonStyles.fontMontserratRegular

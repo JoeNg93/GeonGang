@@ -20,6 +20,7 @@ class ProductDatabaseScreenContainer extends Component {
       <Icon name="bag" type="simple-line-icon" color={tintColor} />
     )
   });
+
   state = {
     currentActive: 0,
     selectedIndex: 0,
@@ -66,7 +67,9 @@ class ProductDatabaseScreenContainer extends Component {
     this.setState({ selectedIndex });
   };
 
-  categoryHandle = () => {};
+  categoryHandle = () => {
+    this.props.navigation.navigate('productCategory');
+  };
   recordSearchInput = text => {};
   productSearchHandle = () => {};
 
@@ -75,7 +78,7 @@ class ProductDatabaseScreenContainer extends Component {
       return null;
     }
 
-    productComponents = this.props.currentCategory.products.map(
+    const productComponents = this.props.currentCategory.products.map(
       (productInfo, index) => (
         <Product
           key={index}
