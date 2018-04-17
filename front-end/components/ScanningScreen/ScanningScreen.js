@@ -8,7 +8,8 @@ import AnimateNumber from 'react-native-animate-number';
 const ScanningScreen = ({
   scanningProgress,
   bounceAnimation,
-  stopAnimation
+  stopAnimation,
+  startAnimation
 }) => {
   return (
     <View style={styles.container}>
@@ -31,26 +32,28 @@ const ScanningScreen = ({
             style={styles.loadingImage}
           />
         </Animated.View>
-        <Text
-          style={[
-            commonStyles.fontMontserratRegular,
-            commonStyles.colorDarkBlue,
-            styles.loadingText
-          ]}
-        >
-          <AnimateNumber
-            value={100}
-            countBy={3}
-            interval={50}
-            formatter={val => {
-              return val + '%';
-            }}
-            timing={(interval, progress) => {
-              return interval * (1 - Math.sin(Math.PI * progress)) * 10;
-            }}
-            onFinish={stopAnimation}
-          />
-        </Text>
+        {startAnimation && (
+          <Text
+            style={[
+              commonStyles.fontMontserratRegular,
+              commonStyles.colorDarkBlue,
+              styles.loadingText
+            ]}
+          >
+            <AnimateNumber
+              value={100}
+              countBy={3}
+              interval={50}
+              formatter={val => {
+                return val + '%';
+              }}
+              timing={(interval, progress) => {
+                return interval * (1 - Math.sin(Math.PI * progress)) * 10;
+              }}
+              onFinish={stopAnimation}
+            />
+          </Text>
+        )}
       </View>
     </View>
   );
@@ -86,11 +89,13 @@ const styles = StyleSheet.create({
 });
 
 ScanningScreen.propTypes = {
-  scanningProgress: PropTypes.number
+  scanningProgress: PropTypes.number,
+  startAnimation: PropTypes.bool
 };
 
 ScanningScreen.defaultProps = {
-  scanningProgress: 0
+  scanningProgress: 0,
+  startAnimation: true
 };
 
 export default ScanningScreen;
