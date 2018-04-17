@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Animated, Easing } from 'react-native';
 import ScanningScreen from './ScanningScreen';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class ScanningScreenContainer extends Component {
   state = {
@@ -42,8 +43,10 @@ class ScanningScreenContainer extends Component {
   };
 
   stopAnimation = () => {
-    this.bounceAnimation.stop();
-    setTimeout(this.props.onFinishScanning, 800);
+    setTimeout(() => {
+      this.props.onFinishScanning();
+      this.bounceAnimation.stop();
+    }, 800);
   };
 
   render() {
@@ -52,13 +55,18 @@ class ScanningScreenContainer extends Component {
         scanningProgress={this.state.scanningProgress}
         bounceAnimation={this.getBouncingStyle()}
         stopAnimation={this.stopAnimation}
+        startAnimation={this.props.startScanningAnimation}
       />
     );
   }
 }
 
+const mapStateToProps = state => ({
+  startScanningAnimation: state.scanningScreen.startScanningAnimation
+});
+
 ScanningScreenContainer.propTypes = {
   onFinishScanning: PropTypes.func
 };
 
-export default ScanningScreenContainer;
+export default connect(mapStateToProps, {})(ScanningScreenContainer);
