@@ -40,11 +40,11 @@ const ProductDatabaseScreen = ({
         onSubmitEditing={productSearchHandle}
         clearIcon={{ color: colorCode.anotherLightGray, name: 'clear' }}
       />
-      <TouchableOpacity onpress={categoryHandle}>
+      <TouchableOpacity onPress={categoryHandle}>
         <View
           style={[
             styles.categoryButtonContainer,
-            { backgroundColor: categoryColor[category.name] }
+            { backgroundColor: categoryColor[currentCategory.name] }
           ]}
         >
           <Text style={[commonStyles.fontMontserratLight, styles.categoryText]}>

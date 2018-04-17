@@ -7,7 +7,7 @@ export const categoryColor = {
   Toners: '#F48D79',
   Masks: '#531EC6',
   Scrubs: '#FF2D55',
-  'Treatment (Face)': '#4CD964',
+  'Treatments (Face)': '#4CD964',
   Sunscreen: '#FF3B30',
   'Eye Makeup Remover': '#FF9500'
 };

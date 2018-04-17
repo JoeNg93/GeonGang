@@ -19,7 +19,13 @@ const Product = ({
   return (
     <View style={styles.productContainer}>
       <Image
-        source={{ uri: productImgPath }}
+        source={
+          typeof productImgPath === 'string' ? (
+            { uri: productImgPath }
+          ) : (
+            productImgPath
+          )
+        }
         style={styles.productImg}
         resizeMode="cover"
       />

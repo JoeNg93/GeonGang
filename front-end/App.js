@@ -14,12 +14,14 @@ import HomePageScreen2Container from './components/HomepageScreen/HomepageScreen
 import Component1 from './components/Temp/Component1';
 import Component3 from './components/Temp/Component3';
 import UserProfileScreenContainer from './components/UserProfileScreen/UserProfileScreenContainer';
+import ProductDatabaseScreenContainer from './components/ProductDatabaseScreen/ProductDatabaseScreenContainer';
+import ProductCategoryScreenContainer from './components/ProductDatabaseScreen/ProductCategoryScreenContainer';
 
 const MainNavigator = StackNavigator(
   {
-    loginContainer: { screen: LoginScreenContainer },
-    scanningContainer: { screen: ScanningProcessScreensContainer },
-    userInputContainer: { screen: UserInputScreensContainer },
+    // loginContainer: { screen: LoginScreenContainer },
+    // scanningContainer: { screen: ScanningProcessScreensContainer },
+    // userInputContainer: { screen: UserInputScreensContainer },
     mainContainer: {
       screen: TabNavigator(
         {

@@ -1,61 +1,66 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { List, ListItem } from 'react-native-elements';
-import commonStyles from '../../utils/styles';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { List, ListItem, Icon } from 'react-native-elements';
 import colorCode from '../../utils/colorCode';
+import { categoryColor } from '../../utils/index';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import { setCategory } from '../../actions/category';
 
 class ProductCategoryScreenContainer extends Component {
-  categoryList = [
-    {
-      name: 'Moisturizers',
-      color: '#4396DC'
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: 'Category list',
+    headerStyle: {
+      backgroundColor: colorCode.white,
+      // Remove the border bottom line of header
+      borderBottomWidth: 0
     },
-    {
-      name: 'Cleansers',
-      color: '#0C3363'
-    },
-    {
-      name: 'Toners',
-      color: '#F48D79'
-    },
-    {
-      name: 'Masks',
-      color: '#531EC6'
-    },
-    {
-      name: 'Scrubs',
-      color: '#FF2D55'
-    },
-    {
-      name: 'Makeup removal',
-      color: '#FF9500'
-    },
-    {
-      name: 'Treatment (Face)',
-      color: '#4CD964'
-    },
-    {
-      name: 'Treatment (Eye)',
-      color: '#9B51E0'
-    },
-    {
-      name: 'Neckcream',
-      color: '#FF3B30'
-    }
-  ];
+    tabBarLabel: 'Products',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="bag" type="simple-line-icon" color={tintColor} />
+    ),
+    // Set "<" icon on the left
+    headerLeft: (
+      <TouchableOpacity
+        style={{ marginLeft: 10 }}
+        onPress={() => navigation.goBack()}
+      >
+        <Icon
+          name="keyboard-arrow-left"
+          iconStyle={{ color: colorCode.darkBlue }}
+          size={40}
+        />
+      </TouchableOpacity>
+    )
+  });
+
+  onPressCategory = categoryId => {
+    this.props.setCategory(this.props.categories[categoryId]);
+    this.props.navigation.goBack();
+  };
+
   render() {
-    categoryListComponents = this.categoryList.map((item, i) => (
+    const { categories } = this.props;
+    if (_.isEmpty(this.props.categories)) {
+      return null;
+    }
+
+    const categoryListComponents = _.map(categories, (category, categoryId) => (
       <ListItem
         avatar={
           <View
-            style={[styles.categoryColorBox, { backgroundColor: item.color }]}
+            style={[
+              styles.categoryColorBox,
+              { backgroundColor: categoryColor[category.name] }
+            ]}
           />
         }
-        key={i}
-        title={item.name}
+        key={categoryId}
+        title={category.name}
         titleStyle={styles.title}
         chevronColor={'#C7C7CC'}
         containerStyle={styles.listItem}
+        onPress={() => this.onPressCategory(categoryId)}
       />
     ));
     return (
@@ -92,4 +97,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProductCategoryScreenContainer;
+const mapStateToProps = state => ({
+  categories: state.category.categories
+});
+
+export default connect(mapStateToProps, { setCategory })(
+  ProductCategoryScreenContainer
+);
