@@ -87,32 +87,29 @@ class UserProfileScreenContainer extends Component {
 
   render() {
     const buttons = ['Profile', 'Friends', 'Reviews'];
-    const { userInfo } = this.props;
+    const { myProfile } = this.props;
 
-    if (_.isEmpty(userInfo)) {
+    if (_.isEmpty(myProfile)) {
       return null;
     }
-
-    console.log(userInfo);
 
     return (
       <UserProfileScreen
         buttons={buttons}
         selectedIndex={this.state.selectedIndex}
         updateIndex={this.updateIndex}
-        screen={this.state.screen}
-        _renderItem={this._renderItem}
-        _renderItem2={this._renderItem2}
-        myProducts={userInfo.favoriteProducts}
+        myProducts={myProfile.favoriteProducts}
         recommendations={this.recommendations}
-        userProfile={userInfo}
+        userProfile={myProfile}
+        otherUserProfileModalVisible={this.props.otherUserProfileModalVisible}
       />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  userInfo: state.userInfo.userInfo
+  myProfile: state.userInfo.myProfile,
+  otherUserProfileModalVisible: state.modal.otherUserProfileModalVisible
 });
 
 const styles = StyleSheet.create({

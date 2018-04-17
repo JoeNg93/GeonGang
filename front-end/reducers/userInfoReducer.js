@@ -1,41 +1,45 @@
-import { MY_PROFILE_GET, SUCCESS, PENDING, FAIL } from '../actions/types';
-// import _ from 'lodash';
+import {
+  MY_PROFILE_GET,
+  OTHER_USER_PROFILE_GET,
+  SUCCESS,
+  PENDING,
+  FAIL
+} from '../actions/types';
 
 const INITIAL_STATE = {
-  userInfo: {},
-  isFetchingUserInfo: false
+  otherUserProfile: {},
+  isFetchingOtherUserProfile: false,
+  myProfile: {},
+  isFetchingMyProfile: false
 };
 
 export default function(state = INITIAL_STATE, { type, payload }) {
   switch (type) {
     case `${MY_PROFILE_GET}_${PENDING}`: {
-      return { ...state, isFetchingUserInfo: true };
+      return { ...state, isFetchingMyProfile: true };
     }
     case `${MY_PROFILE_GET}_${SUCCESS}`: {
-      // let myProfile = {};
-      // if (payload.myProfile) {
-      //   const {
-      //     records,
-      //     reviews,
-      //     favoriteProducts,
-      //     friends
-      //   } = payload.myProfile;
-      //   myProfile = {
-      //     ...payload.myProfile,
-      //     records: _.keyBy(records, 'id'),
-      //     reviews: _.keyBy(reviews, 'id'),
-      //     favoriteProducts: _.keyBy(favoriteProducts, 'id'),
-      //     friends: _.keyBy(friends, 'userId')
-      //   };
-      // }
       return {
         ...state,
-        userInfo: payload.myProfile || {},
-        isFetchingUserInfo: false
+        myProfile: payload.myProfile || {},
+        isFetchingMyProfile: false
       };
     }
     case `${MY_PROFILE_GET}_${FAIL}`: {
-      return { ...state, isFetchingUserInfo: false };
+      return { ...state, isFetchingMyProfile: false };
+    }
+    case `${OTHER_USER_PROFILE_GET}_${PENDING}`: {
+      return { ...state, isFetchingOtherUserProfile: true };
+    }
+    case `${OTHER_USER_PROFILE_GET}_${SUCCESS}`: {
+      return {
+        ...state,
+        otherUserProfile: payload.user || {},
+        isFetchingOtherUserProfile: false
+      };
+    }
+    case `${OTHER_USER_PROFILE_GET}_${FAIL}`: {
+      return { ...state, isFetchingOtherUserProfile: false };
     }
     default: {
       return state;

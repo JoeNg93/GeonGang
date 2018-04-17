@@ -35,7 +35,12 @@ const MainNavigator = StackNavigator(
           profileContainer: {
             screen: StackNavigator({ screen: UserProfileScreenContainer })
           },
-          productsContainer: { screen: StackNavigator({ screen: Component3 }) }
+          productsContainer: {
+            screen: StackNavigator({
+              productDatabase: { screen: ProductDatabaseScreenContainer },
+              productCategory: { screen: ProductCategoryScreenContainer }
+            })
+          }
         },
         {
           lazy: true,
