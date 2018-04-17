@@ -8,17 +8,19 @@ const reviewSchema = `
     numOfLikes: Int!
     user: User!
     product: Product!
+    postedAt: String!
   }
 `;
 
 class Review {
-  constructor(id, content, rating, numOfLikes, userId, productId) {
+  constructor(id, content, rating, numOfLikes, userId, productId, postedAt) {
     this.id = id;
     this.content = content;
     this.rating = rating;
     this.numOfLikes = numOfLikes;
     this.userId = userId;
     this.productId = productId;
+    this.postedAt = postedAt;
   }
 
   async user() {
@@ -46,7 +48,8 @@ class Review {
             row.rating,
             row.num_of_likes,
             row.user_id,
-            row.product_id
+            row.product_id,
+            row.posted_at
           )
       );
     return reviews;
@@ -65,7 +68,8 @@ class Review {
             row.rating,
             row.num_of_likes,
             row.user_id,
-            row.product_id
+            row.product_id,
+            row.posted_at
           )
       );
     return reviews;
