@@ -12,13 +12,24 @@ class ReviewsComponentContainer extends Component {
     this.setState({ modalVisible: visible });
   };
   render() {
-    const { userInfo } = this.props;
+    const {
+      myProfile,
+      otherUserProfile,
+      otherUserProfileModalVisible
+    } = this.props;
+    let userProfile = {};
 
-    if (_.isEmpty(userInfo)) {
+    if (otherUserProfileModalVisible) {
+      userProfile = otherUserProfile;
+    } else {
+      userProfile = myProfile;
+    }
+
+    if (_.isEmpty(userProfile)) {
       return null;
     }
 
-    const { reviews } = userInfo;
+    const { reviews } = userProfile;
 
     return (
       <ReviewsComponent
@@ -32,7 +43,9 @@ class ReviewsComponentContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  userInfo: state.userInfo.userInfo
+  myProfile: state.userInfo.myProfile,
+  otherUserProfile: state.userInfo.otherUserProfile,
+  otherUserProfileModalVisible: state.modal.otherUserProfileModalVisible
 });
 
 export default connect(mapStateToProps, {})(ReviewsComponentContainer);

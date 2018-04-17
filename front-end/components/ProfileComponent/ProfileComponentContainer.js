@@ -5,8 +5,20 @@ import _ from 'lodash';
 
 class ProfileComponentContainer extends Component {
   render() {
-    const { userInfo } = this.props;
-    if (_.isEmpty(userInfo)) {
+    const {
+      myProfile,
+      otherUserProfile,
+      otherUserProfileModalVisible
+    } = this.props;
+    let userProfile = {};
+
+    if (otherUserProfileModalVisible) {
+      userProfile = otherUserProfile;
+    } else {
+      userProfile = myProfile;
+    }
+
+    if (_.isEmpty(userProfile)) {
       return null;
     }
 
@@ -17,7 +29,7 @@ class ProfileComponentContainer extends Component {
       skinType,
       climate,
       skinCondition
-    } = userInfo;
+    } = userProfile;
 
     return (
       <ProfileComponent
@@ -33,7 +45,9 @@ class ProfileComponentContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  userInfo: state.userInfo.userInfo
+  myProfile: state.userInfo.myProfile,
+  otherUserProfile: state.userInfo.otherUserProfile,
+  otherUserProfileModalVisible: state.modal.otherUserProfileModalVisible
 });
 
 export default connect(mapStateToProps, {})(ProfileComponentContainer);

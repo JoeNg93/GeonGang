@@ -139,8 +139,8 @@ class User {
           row.name,
           row.gender,
           row.age,
-          row.skinColor,
-          row.skinType,
+          row.skin_color,
+          row.skin_type,
           row.climate,
           row.skin_condition,
           row.user_id

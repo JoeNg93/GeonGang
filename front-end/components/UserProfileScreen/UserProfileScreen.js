@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Image, Text, ScrollView, Modal } from 'react-native';
 import { Button, Icon, ButtonGroup, Card } from 'react-native-elements';
 import Carousel from 'react-native-snap-carousel';
 import PropTypes from 'prop-types';
@@ -7,6 +7,7 @@ import commonStyles from '../../utils/styles';
 import ProfileComponentContainer from '../ProfileComponent/ProfileComponentContainer';
 import ReviewsComponentContainer from '../ReviewsComponent/ReviewsComponentContainer';
 import FriendsComponentContainer from '../FriendsComponent/FriendsComponentContainer';
+import OtherUserProfileContainer from '../OtherUserProfile/OtherUserProfileContainer';
 import colorCode from '../../utils/colorCode';
 
 function renderScreen(selectedIndex) {
@@ -78,7 +79,8 @@ const UserProfileScreen = ({
   updateIndex,
   myProducts,
   recommendations,
-  userProfile
+  userProfile,
+  otherUserProfileModalVisible
 }) => {
   return (
     <View style={styles.container}>
@@ -214,6 +216,9 @@ const UserProfileScreen = ({
           }}
         />
       </ScrollView>
+      <Modal visible={otherUserProfileModalVisible} animationType="slide">
+        <OtherUserProfileContainer />
+      </Modal>
     </View>
   );
 };
@@ -357,7 +362,8 @@ UserProfileScreen.propTypes = {
   updateIndex: PropTypes.func,
   myProducts: PropTypes.array,
   recommendations: PropTypes.array,
-  userProfile: PropTypes.object
+  userProfile: PropTypes.object,
+  otherUserProfileModalVisible: PropTypes.bool
 };
 
 export default UserProfileScreen;

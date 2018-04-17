@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import FriendsComponent from './FriendsComponent';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { getOtherUserProfile } from '../../actions/user_info';
+import { openOtherUserProfileModal } from '../../actions/modals_control';
 
 class FriendsComponentContainer extends Component {
   state = {
@@ -13,13 +15,30 @@ class FriendsComponentContainer extends Component {
     this.setState({ modalVisible: visible });
   };
 
+  onPressFriend = async userId => {
+    await this.props.getOtherUserProfile(userId);
+    this.props.openOtherUserProfileModal();
+  };
+
   render() {
-    const { userInfo } = this.props;
-    if (_.isEmpty(userInfo)) {
+    const {
+      myProfile,
+      otherUserProfile,
+      otherUserProfileModalVisible
+    } = this.props;
+    let userProfile = {};
+
+    if (otherUserProfileModalVisible) {
+      userProfile = otherUserProfile;
+    } else {
+      userProfile = myProfile;
+    }
+
+    if (_.isEmpty(userProfile)) {
       return null;
     }
 
-    const friends = userInfo.friends.filter(
+    const friends = userProfile.friends.filter(
       friend => friend.name.indexOf(this.state.currentFriendSearchTerm) !== -1
     );
 
@@ -32,13 +51,19 @@ class FriendsComponentContainer extends Component {
         currentFriendSearchTerm={this.state.currentFriendSearchTerm}
         onChangeSearchBar={newTerm =>
           this.setState({ currentFriendSearchTerm: newTerm })}
+        onPressFriend={this.onPressFriend}
       />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  userInfo: state.userInfo.userInfo
+  myProfile: state.userInfo.myProfile,
+  otherUserProfile: state.userInfo.otherUserProfile,
+  otherUserProfileModalVisible: state.modal.otherUserProfileModalVisible
 });
 
-export default connect(mapStateToProps, {})(FriendsComponentContainer);
+export default connect(mapStateToProps, {
+  getOtherUserProfile,
+  openOtherUserProfileModal
+})(FriendsComponentContainer);

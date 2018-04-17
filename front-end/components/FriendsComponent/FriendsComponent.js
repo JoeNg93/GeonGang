@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Modal } from 'react-native';
+import { StyleSheet, Text, View, Modal, TouchableOpacity } from 'react-native';
 import {
   SearchBar,
   List,
@@ -16,7 +16,8 @@ const FriendsComponent = ({
   modalVisible,
   setModalVisible,
   currentFriendSearchTerm,
-  onChangeSearchBar
+  onChangeSearchBar,
+  onPressFriend
 }) => {
   return (
     <View style={styles.container}>
@@ -55,6 +56,8 @@ const FriendsComponent = ({
             containerStyle={styles.listItem}
             titleStyle={styles.listItemTitle}
             hideChevron
+            component={TouchableOpacity}
+            onPress={() => onPressFriend(l.userId)}
           />
         ))}
       </List>

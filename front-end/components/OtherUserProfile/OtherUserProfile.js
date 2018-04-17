@@ -1,8 +1,14 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text, ScrollView } from 'react-native';
-import { Button, Icon, ButtonGroup } from 'react-native-elements';
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  ScrollView,
+  TouchableOpacity
+} from 'react-native';
+import { Button, Icon, ButtonGroup, Card } from 'react-native-elements';
 import Carousel from 'react-native-snap-carousel';
-import { widthPercentage } from '../../utils/dimensions';
 import PropTypes from 'prop-types';
 import commonStyles from '../../utils/styles';
 import ProfileComponentContainer from '../ProfileComponent/ProfileComponentContainer';
@@ -11,38 +17,101 @@ import FriendsComponentContainer from '../FriendsComponent/FriendsComponentConta
 import colorCode from '../../utils/colorCode';
 
 function renderScreen(selectedIndex) {
-  if (selectedIndex == 0) {
+  if (selectedIndex === 0) {
     return <ProfileComponentContainer />;
-  } else if (selectedIndex == 1) {
+  } else if (selectedIndex === 1) {
     return <FriendsComponentContainer />;
   } else {
     return <ReviewsComponentContainer />;
   }
 }
 
+const renderMyProduct = ({ item, index }) => {
+  return (
+    <View style={styles.productContainer}>
+      <Card containerStyle={styles.productCard}>
+        <Image
+          resizeMode={'contain'}
+          style={styles.productImage}
+          source={{ uri: item.imgSrc }}
+        />
+        <Text
+          style={[
+            styles.name,
+            commonStyles.fontMontserratLight,
+            commonStyles.colorDarkBlue
+          ]}
+        >
+          {item.name}
+        </Text>
+      </Card>
+    </View>
+  );
+};
+
+const renderRecommendationProduct = ({ item, index }) => {
+  return (
+    <View style={styles.productContainer}>
+      <Card containerStyle={styles.productCard}>
+        <Icon
+          name="plus"
+          type="material-community"
+          color={colorCode.blue}
+          size={22}
+          iconStyle={styles.closeIcon}
+        />
+        <Image
+          resizeMode={'contain'}
+          style={styles.recommendationImage}
+          source={{ uri: item.avatar_url }}
+        />
+        <Text
+          style={[
+            styles.name,
+            commonStyles.fontMontserratLight,
+            commonStyles.colorDarkBlue
+          ]}
+        >
+          {item.name}
+        </Text>
+      </Card>
+    </View>
+  );
+};
+
 const OtherUserProfile = ({
   buttons,
   selectedIndex,
   updateIndex,
-  _renderItem,
   myProducts,
   recommendations,
-  _renderItem2
+  userProfile,
+  onPressCloseModal
 }) => {
   return (
     <View style={styles.container}>
+      <View style={styles.closeModalContainer}>
+        <TouchableOpacity onPress={onPressCloseModal}>
+          <Icon name="clear" color={colorCode.white} size={30} />
+        </TouchableOpacity>
+      </View>
       <View style={styles.header}>
-        <Icon
-          name="close"
-          type="material-community"
-          color="#fff"
-          size={30}
-          iconStyle={styles.headerButton}
-        />
-
         <Image
-          style={styles.image}
-          source={require('../../assets/images/otherUser.png')}
+          style={styles.avatarImage}
+          source={{
+            uri:
+              'https://s-media-cache-ak0.pinimg.com/736x/0e/29/d0/0e29d056cd2d93964dfe00741d4d8df4.jpg'
+          }}
+        />
+      </View>
+      <View style={styles.editAvatarIconContainer}>
+        <Icon
+          name="pencil"
+          type="material-community"
+          color={colorCode.white}
+          size={17}
+          containerStyle={styles.editAvatarButton}
+          innerBorderStyle={{ width: 0 }}
         />
       </View>
       <Text
@@ -52,20 +121,8 @@ const OtherUserProfile = ({
           commonStyles.fontMontserratRegular
         ]}
       >
-        Michelle Vermint
+        {userProfile.name}
       </Text>
-      <Button
-        small
-        iconRight={{
-          name: 'account-plus',
-          type: 'material-community',
-          color: '#4396DC',
-          size: 22
-        }}
-        title="Add friend"
-        buttonStyle={styles.addFriendButton}
-        textStyle={[styles.addFriendText, commonStyles.fontMontserratRegular]}
-      />
       <View>
         <ButtonGroup
           onPress={updateIndex}
@@ -106,23 +163,20 @@ const OtherUserProfile = ({
           </Text>
           <Button
             buttonStyle={styles.button}
-            textStyle={{ color: '#828282', fontSize: 11 }}
+            textStyle={{ color: colorCode.anotherLightGray, fontSize: 11 }}
             containerViewStyle={{ marginRight: 0 }}
             title={'SEE ALL'}
             iconRight={{
               name: 'arrow-right',
               type: 'simple-line-icon',
               size: 10,
-              color: '#828282'
+              color: colorCode.anotherLightGray
             }}
           />
         </View>
         <Carousel
-          ref={c => {
-            this._carousel = c;
-          }}
           data={myProducts}
-          renderItem={_renderItem}
+          renderItem={renderMyProduct}
           sliderWidth={500}
           itemWidth={111}
           activeSlideAlignment={'start'}
@@ -148,23 +202,20 @@ const OtherUserProfile = ({
           </Text>
           <Button
             buttonStyle={styles.button}
-            textStyle={{ color: '#828282', fontSize: 11 }}
+            textStyle={{ color: colorCode.anotherLightGray, fontSize: 11 }}
             containerViewStyle={{ marginRight: 0 }}
             title={'SEE ALL'}
             iconRight={{
               name: 'arrow-right',
               type: 'simple-line-icon',
               size: 10,
-              color: '#828282'
+              color: colorCode.anotherLightGray
             }}
           />
         </View>
         <Carousel
-          ref={c => {
-            this._carousel2 = c;
-          }}
           data={recommendations}
-          renderItem={_renderItem2}
+          renderItem={renderRecommendationProduct}
           sliderWidth={500}
           itemWidth={111}
           activeSlideAlignment={'start'}
@@ -185,7 +236,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    height: '100%'
+    height: '100%',
+    backgroundColor: colorCode.white
   },
   header: {
     display: 'flex',
@@ -194,28 +246,37 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: 414,
     height: 180,
-    backgroundColor: '#C8EAFF',
-    marginBottom: 85
-  },
-  headerButton: {
-    paddingTop: 35,
-    paddingRight: 15
+    backgroundColor: colorCode.lightBlue
   },
   headerButtonContainer: {
     marginLeft: 0,
     marginRight: 0
   },
-  image: {
+  editAvatarIconContainer: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    width: 140,
+    height: 55,
+    marginBottom: 25
+  },
+  editAvatarButton: {
+    borderRadius: 50,
+    height: 27,
+    width: 27,
+    backgroundColor: colorCode.blue
+  },
+  avatarImage: {
     height: 140,
     width: 140,
     position: 'absolute',
     alignSelf: 'center',
     right: 132,
-    top: 105
+    top: 105,
+    borderRadius: 70
   },
   userName: {
-    fontSize: 26,
-    marginBottom: 10
+    fontSize: 26
   },
   buttonGroupContainer: {
     height: 50,
@@ -224,7 +285,7 @@ const styles = StyleSheet.create({
     borderLeftColor: 'transparent',
     borderRightWidth: 0,
     borderBottomWidth: 0,
-    backgroundColor: '#fff'
+    backgroundColor: colorCode.white
   },
   buttonGroupContent: {
     width: '90%',
@@ -238,14 +299,14 @@ const styles = StyleSheet.create({
     borderBottomColor: '#E0E0E0'
   },
   buttonGroupText: {
-    color: '#828282',
+    color: colorCode.anotherLightGray,
     fontSize: 18
   },
   selectedButton: {
-    borderBottomColor: '#4396DC'
+    borderBottomColor: colorCode.blue
   },
   selectedButtonText: {
-    color: '#4396DC'
+    color: colorCode.blue
   },
   productText: {
     alignSelf: 'flex-start',
@@ -253,25 +314,71 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   button: {
-    backgroundColor: '#fff',
+    backgroundColor: colorCode.white,
     height: 27,
     width: 101,
     marginRight: 0
   },
-  addFriendButton: {
-    backgroundColor: '#fff',
-    borderColor: '#4396DC',
-    borderWidth: 1,
-    borderRadius: 25,
-    height: 35,
-    width: 180,
-    marginTop: 10,
-    marginBottom: 10
+  productContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 111,
+    height: 138,
+    marginRight: 10,
+    marginLeft: 10
   },
-  addFriendText: {
-    color: '#4396DC',
-    fontSize: 18
+  productCard: {
+    display: 'flex',
+    width: 111,
+    height: 138,
+    shadowOffset: { width: 0, height: 2 },
+    shadowColor: 'rgba(130, 130, 130, 0.25)',
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingRight: 5,
+    paddingLeft: 5
+  },
+  productImage: {
+    alignSelf: 'center',
+    marginTop: 20,
+    marginBottom: 5,
+    height: 60,
+    width: 60
+  },
+  recommendationImage: {
+    alignSelf: 'center',
+    marginBottom: 5,
+    height: 60,
+    width: 60
+  },
+  name: {
+    alignSelf: 'center',
+    fontSize: 10,
+    textAlign: 'center'
+  },
+  closeIcon: {
+    alignSelf: 'flex-end'
+  },
+  closeModalContainer: {
+    alignItems: 'flex-end',
+    paddingRight: 20,
+    backgroundColor: colorCode.lightBlue,
+    width: '100%',
+    paddingTop: 43
   }
 });
+
+OtherUserProfile.propTypes = {
+  buttons: PropTypes.array,
+  selectedIndex: PropTypes.number,
+  updateIndex: PropTypes.func,
+  myProducts: PropTypes.array,
+  recommendations: PropTypes.array,
+  userProfile: PropTypes.object,
+  onPressCloseModal: PropTypes.func
+};
 
 export default OtherUserProfile;
