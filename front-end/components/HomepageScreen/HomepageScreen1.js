@@ -64,6 +64,8 @@ const HomepageScreen1 = ({
               onChangeText={recordUserInput}
               onSubmitEditing={recordSearchHandle}
               clearIcon={{ color: colorCode.blue, name: 'clear' }}
+              autoCapitalize="none"
+              autoCorrect={false}
             />
           ) : (
             <Button

@@ -8,6 +8,7 @@ import { getRecords } from '../../actions/record';
 import _ from 'lodash';
 import { DATETIME_FORMAT_FROM_BACKEND } from '../../utils/index';
 import moment from 'moment';
+import { setTagFilter } from '../../actions/homepage1';
 
 class HomepageScreen1Container extends Component {
   // Header styling
@@ -48,7 +49,6 @@ class HomepageScreen1Container extends Component {
   };
   state = {
     inputSubmit: false,
-    textValue: '',
     inputTagColor: colorCode.blue
   };
 
@@ -66,6 +66,10 @@ class HomepageScreen1Container extends Component {
   };
 
   recordSearchHandle = text => {
+    // Already submit => bounce back => clear text search
+    if (this.state.inputSubmit) {
+      this.props.setTagFilter('');
+    }
     this.setState(prevState => ({
       inputSubmit: !prevState.inputSubmit
     }));
@@ -76,18 +80,23 @@ class HomepageScreen1Container extends Component {
       eachTag => eachTag.name === text.toLowerCase()
     );
     const inputTagColor = tag ? tag.color : colorCode.blue;
+    this.props.setTagFilter(text);
     this.setState({
-      textValue: text,
       inputTagColor: inputTagColor
     });
   };
 
   render() {
-    const records = _.orderBy(
+    let records = _.orderBy(
       Object.values(this.props.myRecords),
       record => moment(record.date, DATETIME_FORMAT_FROM_BACKEND),
       'desc'
     );
+
+    if (this.state.inputSubmit && this.props.tagFilter.length) {
+      records = records.filter(record => record.tag === this.props.tagFilter);
+    }
+
     if (!records.length) {
       return null;
     }
@@ -106,7 +115,7 @@ class HomepageScreen1Container extends Component {
         recordSearchHandle={this.recordSearchHandle}
         recordUserInput={this.recordUserInput}
         inputSubmit={this.state.inputSubmit}
-        textValue={this.state.textValue}
+        textValue={this.props.tagFilter}
         inputTagColor={this.state.inputTagColor}
         onSwipeLeft={() => this.props.navigation.navigate('homepage2')}
       />
@@ -115,9 +124,10 @@ class HomepageScreen1Container extends Component {
 }
 
 const mapStateToProps = state => ({
-  myRecords: state.record.myRecords
+  myRecords: state.record.myRecords,
+  tagFilter: state.homepage1.tagFilter
 });
 
-export default connect(mapStateToProps, { getRecords })(
+export default connect(mapStateToProps, { getRecords, setTagFilter })(
   HomepageScreen1Container
 );

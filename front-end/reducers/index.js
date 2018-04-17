@@ -5,6 +5,7 @@ import modalReducer from './modalReducer';
 import userInfoReducer from './userInfoReducer';
 import recordReducer from './recordReducer';
 import categoryReducer from './categoryReducer';
+import homepage1Reducer from './homepage1Reducer';
 
 export default combineReducers({
   userInput: userInputReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   modal: modalReducer,
   userInfo: userInfoReducer,
   record: recordReducer,
-  category: categoryReducer
+  category: categoryReducer,
+  homepage1: homepage1Reducer
 });
