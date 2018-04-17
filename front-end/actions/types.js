@@ -27,3 +27,5 @@ export const CURRENT_RECORD_SET = 'CURRENT_RECORD_SET';
 
 export const CATEGORIES_GET = 'CATEGORIES_GET';
 export const CATEGORY_SET = 'CATEGORY_SET';
+
+export const TAG_FILTER_SET = 'TAG_FILTER_SET';

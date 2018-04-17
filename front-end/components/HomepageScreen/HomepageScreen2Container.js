@@ -66,12 +66,20 @@ class HomepageScreen2Container extends Component {
       duration: 500,
       useNativeDriver: true
     }).start();
+
     // Change from object of records to array of record sorted by date
     this.cards = _.orderBy(
       Object.values(this.props.myRecords),
       record => moment(record.date, DATETIME_FORMAT_FROM_BACKEND),
       'desc'
     );
+
+    // Filter according to tagFilter
+    if (this.props.tagFilter.length) {
+      this.cards = this.cards.filter(card => card.tag === this.props.tagFilter);
+    }
+
+    // Add UI data
     this.cards = this.cards.map(card => ({
       ...card,
       gradientBackground: colorCode[`${card.tag}Gradient`],
@@ -159,7 +167,8 @@ class HomepageScreen2Container extends Component {
 
 const mapStateToProps = state => ({
   recordDetailModalVisible: state.modal.recordDetailModalVisible,
-  myRecords: state.record.myRecords
+  myRecords: state.record.myRecords,
+  tagFilter: state.homepage1.tagFilter
 });
 
 export default connect(mapStateToProps, {
