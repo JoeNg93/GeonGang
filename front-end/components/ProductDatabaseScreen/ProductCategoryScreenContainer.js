@@ -60,6 +60,7 @@ class ProductCategoryScreenContainer extends Component {
         titleStyle={styles.title}
         chevronColor={'#C7C7CC'}
         containerStyle={styles.listItem}
+        component={TouchableOpacity}
         onPress={() => this.onPressCategory(categoryId)}
       />
     ));

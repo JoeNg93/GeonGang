@@ -17,10 +17,26 @@ export const getCategories = () =>
           products {
             id
             name
-            imgSrc
+            price
             rating
+            numOfReviews
+            ingredients
+            imgSrc
             category {
               name
+            }
+            brand {
+              name
+            }
+            reviews {
+              id
+              content
+              rating
+              numOfLikes
+              postedAt
+              user {
+                name
+              }
             }
           }
         }

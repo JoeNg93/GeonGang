@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
@@ -6,11 +6,13 @@ import {
   Image,
   TouchableHighlight,
   TouchableOpacity,
-  Modal
-} from "react-native";
-import { Icon, Button, Rating } from "react-native-elements";
-import commonStyles from "../../utils/styles";
-import colorCode from "../../utils/colorCode";
+  Modal,
+  ScrollView
+} from 'react-native';
+import { Icon, Button, Rating } from 'react-native-elements';
+import commonStyles from '../../utils/styles';
+import colorCode from '../../utils/colorCode';
+import { categoryColor } from '../../utils/index';
 
 const hitSlop = { top: 20, bottom: 20, left: 20, right: 20 };
 
@@ -23,9 +25,9 @@ const ProductDetail = ({
   onPressPopupBtn
 }) => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* productImage */}
-      <Image source={product.imgPath} style={styles.productImage} />
+      <Image source={{ uri: product.imgSrc }} style={styles.productImage} />
 
       {/* productOverview */}
       <View style={styles.placeholder}>
@@ -40,10 +42,10 @@ const ProductDetail = ({
             >
               {product.name}
             </Text>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: 'row' }}>
               <View
                 style={{
-                  backgroundColor: colorCode.blue,
+                  backgroundColor: categoryColor[product.category.name],
                   borderRadius: 50,
                   paddingHorizontal: 15,
                   paddingVertical: 1
@@ -51,11 +53,11 @@ const ProductDetail = ({
               >
                 <Text
                   style={[
-                    { color: "white", fontSize: 16 },
+                    { color: 'white', fontSize: 16 },
                     commonStyles.fontMontserratLight
                   ]}
                 >
-                  {product.type}
+                  {product.category.name}
                 </Text>
               </View>
             </View>
@@ -162,7 +164,7 @@ const ProductDetail = ({
           <Text style={commonStyles.fontMontserratMedium}>
             {product.numberOfReviews}
           </Text>
-          {" reviews"}
+          {' reviews'}
         </Text>
         <Text
           style={[
@@ -172,7 +174,7 @@ const ProductDetail = ({
             commonStyles.colorDarkBlue
           ]}
         >
-          {"Price: "}
+          {'Price: '}
           <Text style={commonStyles.fontMontserratMedium}>{product.price}</Text>
         </Text>
       </View>
@@ -183,7 +185,7 @@ const ProductDetail = ({
         onPress={onPressReview}
         style={[styles.productTopReview, styles.placeholder]}
       >
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: 'row' }}>
           <Image
             source={topReview.reviewerImgPath}
             style={styles.profileImage}
@@ -210,7 +212,7 @@ const ProductDetail = ({
         <View style={styles.popupBackground}>
           <View style={styles.popupContainer}>
             <Image
-              source={require("../../assets/images/circle-check.png")}
+              source={require('../../assets/images/circle-check.png')}
               style={styles.popupImage}
             />
             <Text
@@ -225,7 +227,7 @@ const ProductDetail = ({
             <Button
               textStyle={[
                 commonStyles.fontMontserratSemiBold,
-                { fontSize: 14, color: "#ffffff" }
+                { fontSize: 14, color: '#ffffff' }
               ]}
               title="Great !"
               buttonStyle={styles.popupBtnGreat}
@@ -234,14 +236,15 @@ const ProductDetail = ({
           </View>
         </View>
       </Modal>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column"
+    flexDirection: 'column',
+    backgroundColor: colorCode.white
   },
 
   placeholder: {
@@ -251,33 +254,33 @@ const styles = StyleSheet.create({
   // Components
 
   productImage: {
-    resizeMode: "contain",
+    resizeMode: 'contain',
     height: 180,
     width: undefined,
     marginVertical: 30
   },
 
   productOverviewContainer: {
-    flexDirection: "row"
+    flexDirection: 'row'
   },
 
   productOverviewText: {
     flexGrow: 1,
     flexShrink: 1,
-    flexDirection: "column"
+    flexDirection: 'column'
   },
 
   productOverviewBtnAdd: {
-    justifyContent: "center"
+    justifyContent: 'center'
   },
 
   productOverviewRating: {
-    flexDirection: "row",
-    alignItems: "center"
+    flexDirection: 'row',
+    alignItems: 'center'
   },
 
   productIngredients: {
-    flexDirection: "column"
+    flexDirection: 'column'
   },
 
   productIngredientsTitle: {
@@ -291,7 +294,7 @@ const styles = StyleSheet.create({
   },
 
   productReviewTitle: {
-    flexDirection: "row"
+    flexDirection: 'row'
   },
 
   productReviewTitleText: {
@@ -299,75 +302,75 @@ const styles = StyleSheet.create({
   },
 
   productReviewCount: {
-    textAlign: "left",
+    textAlign: 'left',
     flexGrow: 1
   },
 
   productReviewPrice: {
-    textAlign: "right",
+    textAlign: 'right',
     flexGrow: 1
   },
 
   productTopReview: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center"
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
 
   productTopReviewText: {
     flexShrink: 1,
-    flexBasis: "auto",
+    flexBasis: 'auto',
     fontSize: 11,
     marginLeft: 16
   },
 
   profileImage: {
-    resizeMode: "contain",
+    resizeMode: 'contain',
     borderRadius: 28,
     height: 56,
     width: 56,
-    alignSelf: "center"
+    alignSelf: 'center'
   },
 
   popupBackground: {
-    height: "100%",
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.6);"
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.6);'
   },
 
   popupContainer: {
-    backgroundColor: "#FFFFFF",
-    flexDirection: "column",
-    alignItems: "center",
-    height: "auto",
-    width: "80%",
+    backgroundColor: '#FFFFFF',
+    flexDirection: 'column',
+    alignItems: 'center',
+    height: 'auto',
+    width: '80%',
     marginLeft: 10,
     marginRight: 10,
     paddingTop: 30,
     paddingBottom: 30,
     borderRadius: 13,
     shadowOffset: { width: 2, height: 4 },
-    shadowColor: "black",
+    shadowColor: 'black',
     shadowOpacity: 0.25
   },
 
   popupImage: {
-    resizeMode: "contain",
+    resizeMode: 'contain',
     height: 53
   },
 
   popupText: {
     fontSize: 14,
-    textAlign: "center",
+    textAlign: 'center',
     marginHorizontal: 60,
     marginVertical: 24
   },
 
   popupBtnGreat: {
-    backgroundColor: "#4396DC",
+    backgroundColor: '#4396DC',
     borderRadius: 25,
     paddingHorizontal: 30,
     paddingVertical: 6

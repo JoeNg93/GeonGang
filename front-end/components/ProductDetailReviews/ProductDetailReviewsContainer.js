@@ -1,12 +1,54 @@
-import React, { Component } from "react";
-import ProductDetailReviews from "./ProductDetailReviews";
-import Comment from "../common/Comment";
+import React, { Component } from 'react';
+import ProductDetailReviews from './ProductDetailReviews';
+import Comment from '../common/Comment';
+import { TouchableOpacity } from 'react-native';
+import colorCode from '../../utils/colorCode';
+import { Icon } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { closeProductDetailModal } from '../../actions/modals_control';
 
 class ProductDetailReviewsContainer extends Component {
+  // Header styling
+  static navigationOptions = ({ navigation }) => ({
+    headerStyle: {
+      backgroundColor: colorCode.white,
+      // Remove the border bottom line of header
+      borderBottomWidth: 0
+    },
+    // Set "x" icon on the right
+    headerRight: (
+      <TouchableOpacity
+        style={{ marginRight: 10 }}
+        onPress={() =>
+          navigation.state.params &&
+          navigation.state.params.closeProductDetailModal()}
+      >
+        <Icon
+          name="clear"
+          iconStyle={{ color: colorCode.darkBlue }}
+          size={32}
+        />
+      </TouchableOpacity>
+    ),
+    // Set "<" icon on the left
+    headerLeft: (
+      <TouchableOpacity
+        style={{ marginLeft: 10 }}
+        onPress={() => navigation.goBack()}
+      >
+        <Icon
+          name="keyboard-arrow-left"
+          iconStyle={{ color: colorCode.darkBlue }}
+          size={40}
+        />
+      </TouchableOpacity>
+    )
+  });
+
   state = {
-    userProfileImgPath: require("../../assets/images/profile-1.jpg"),
+    userProfileImgPath: require('../../assets/images/profile-1.jpg'),
     userRating: 0,
-    userComment: "",
+    userComment: '',
     commentActive: 0
   };
 
@@ -17,26 +59,32 @@ class ProductDetailReviewsContainer extends Component {
 
   commentEntries = [
     {
-      profileName: "Emma Watson",
-      profileImgPath: require("../../assets/images/profile-1.jpg"),
+      profileName: 'Emma Watson',
+      profileImgPath: require('../../assets/images/profile-1.jpg'),
       rating: 2,
-      postDate: "1 month ago",
+      postDate: '1 month ago',
       text:
         "The texture is very nice and it non sticky, non greasy. Very hydrating and ultras a few for my sensitive skin, I can even apply it around the eye area. It's a must have and 1st part of my skincare routine and after I apply my Mineral 89, I apply my other serums and It compliments every serum and moisturiser I apply, may it be day or night.",
       helpfulCount: 3,
       liked: true
     },
     {
-      profileName: "Hermione Granger",
-      profileImgPath: require("../../assets/images/profile-1.jpg"),
+      profileName: 'Hermione Granger',
+      profileImgPath: require('../../assets/images/profile-1.jpg'),
       rating: 4.5,
-      postDate: "2 millennium ago",
+      postDate: '2 millennium ago',
       text:
-        "I used that product as a magic wand and it works surprisingly well!",
+        'I used that product as a magic wand and it works surprisingly well!',
       helpfulCount: 2018,
       liked: false
     }
   ];
+
+  componentWillMount = () => {
+    this.props.navigation.setParams({
+      closeProductDetailModal: this.props.closeProductDetailModal
+    });
+  };
 
   commentHelpfulHandle = index => {
     this.setState({ commentActive: index });
@@ -72,4 +120,6 @@ class ProductDetailReviewsContainer extends Component {
   }
 }
 
-export default ProductDetailReviewsContainer;
+export default connect(null, { closeProductDetailModal })(
+  ProductDetailReviewsContainer
+);

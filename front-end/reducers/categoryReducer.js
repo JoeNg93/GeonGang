@@ -19,6 +19,11 @@ export default (state = INITIAL_STATE, { type, payload }) => {
       return { ...state, isFetchingCategories: true };
     }
     case `${CATEGORIES_GET}_${SUCCESS}`: {
+      // let categories = payload.allCategories.map(category => ({
+      //   ...category,
+      //   products: _.keyBy(category.products, 'id'),
+      //   reviews: _.keyBy(category.reviews, 'id')
+      // }));
       return {
         ...state,
         isFetchingCategories: false,
