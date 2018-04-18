@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Badge } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
 import PropTypes from 'prop-types';
+import colorCode from '../../utils/colorCode';
 
 const ProfileComponent = ({
   age,
@@ -116,7 +117,12 @@ const ProfileComponent = ({
           >
             Skin condition
           </Text>
-          <Badge containerStyle={{ backgroundColor: '#4396DC', width: 95 }}>
+          <Badge
+            containerStyle={{
+              backgroundColor: colorCode[`${skinCondition}Tag`],
+              width: 95
+            }}
+          >
             <Text
               style={[styles.skinCondition, commonStyles.fontMontserratLight]}
             >
