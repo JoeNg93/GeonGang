@@ -32,10 +32,17 @@ const RecordCard = ({
   favoriteHandle,
   fadeOutAnim,
   translateXAnim,
-  onPressOpenRecordDetailModal
+  onPressRecordCard
 }) => {
   return nonInteractive === true ? (
-    <RecordCardComponent gradientBackground={gradientBackground} item={item} />
+    <TouchableWithoutFeedback onPress={onPressRecordCard}>
+      <View>
+        <RecordCardComponent
+          gradientBackground={gradientBackground}
+          item={item}
+        />
+      </View>
+    </TouchableWithoutFeedback>
   ) : (
     <Animated.View
       style={{
@@ -83,7 +90,7 @@ const RecordCard = ({
       {item.emptyCard === true ? (
         <EmptyCard gradientBackground={gradientBackground} />
       ) : (
-        <TouchableWithoutFeedback onPress={onPressOpenRecordDetailModal}>
+        <TouchableWithoutFeedback onPress={onPressRecordCard}>
           <View>
             <RecordCardComponent
               gradientBackground={gradientBackground}
@@ -203,7 +210,7 @@ RecordCard.propTypes = {
   emptyCard: PropTypes.bool,
   deleteHandle: PropTypes.func,
   favoriteHandle: PropTypes.func,
-  onPressOpenRecordDetailModal: PropTypes.func
+  onPressRecordCard: PropTypes.func
 };
 
 RecordCard.defaultProps = {
@@ -214,7 +221,7 @@ RecordCard.defaultProps = {
   emptyCard: false,
   deleteHandle: () => {},
   favoriteHandle: () => {},
-  onPressOpenRecordDetailModal: () => {}
+  onPressRecordCard: () => {}
 };
 
 export default RecordCard;

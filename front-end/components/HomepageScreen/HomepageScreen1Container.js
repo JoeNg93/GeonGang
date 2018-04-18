@@ -118,6 +118,7 @@ class HomepageScreen1Container extends Component {
         textValue={this.props.tagFilter}
         inputTagColor={this.state.inputTagColor}
         onSwipeLeft={() => this.props.navigation.navigate('homepage2')}
+        onPressRecordCard={() => this.props.navigation.navigate('homepage2')}
       />
     );
   }

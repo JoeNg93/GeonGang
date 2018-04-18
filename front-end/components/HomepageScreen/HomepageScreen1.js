@@ -17,7 +17,8 @@ const HomepageScreen1 = ({
   inputSubmit,
   textValue,
   inputTagColor,
-  onSwipeLeft
+  onSwipeLeft,
+  onPressRecordCard
 }) => {
   return (
     <GestureRecognizer style={{ flex: 1 }} onSwipeLeft={onSwipeLeft}>
@@ -105,6 +106,7 @@ const HomepageScreen1 = ({
             gradientBackground={gradientBackground}
             nonInteractive={nonInteractive}
             item={item}
+            onPressRecordCard={onPressRecordCard}
           />
           {/*<EmptyCard gradientBackground={gradientBackground} />*/}
         </View>

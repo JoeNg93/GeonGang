@@ -29,7 +29,7 @@ const renderItem = ({
       deleteHandle={deleteHandle}
       fadeOutAnim={item.fadeOutAnim}
       translateXAnim={translateXAnim}
-      onPressOpenRecordDetailModal={onPressOpenRecordDetailModal}
+      onPressRecordCard={onPressOpenRecordDetailModal}
     />
   );
 };
