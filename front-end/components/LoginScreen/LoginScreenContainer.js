@@ -3,9 +3,11 @@ import LoginScreen from './LoginScreen';
 import { connect } from 'react-redux';
 import { signIn, setEmail, setPassword } from '../../actions/auth';
 import { Alert } from 'react-native';
+import { getMyProfile } from '../../actions/user_info';
 
 class LoginScreenContainer extends Component {
   onPressSignin = async () => {
+    // TODO: Turn back when ready to connect with database
     // const { email, password } = this.props;
     // const response = await this.props.signIn({ email, password });
     // if (response.status !== 200) {
@@ -14,6 +16,7 @@ class LoginScreenContainer extends Component {
     // }
     // Alert.alert('Success', 'Login successfully');
 
+    this.props.getMyProfile();
     this.props.navigation.navigate('scanningContainer');
   };
 
@@ -35,6 +38,9 @@ const mapStateToProps = state => ({
   password: state.auth.password
 });
 
-export default connect(mapStateToProps, { signIn, setEmail, setPassword })(
-  LoginScreenContainer
-);
+export default connect(mapStateToProps, {
+  signIn,
+  setEmail,
+  setPassword,
+  getMyProfile
+})(LoginScreenContainer);
