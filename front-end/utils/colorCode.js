@@ -3,7 +3,6 @@ export default {
   lightBlue: '#C8EAFF',
   blue: '#4396DC',
   white: '#FFFFFF',
-  lightGray: '#BDBDBD',
   gray: '#828282',
   red: '#EB5757',
   moderateTag: '#4396DC',
@@ -19,6 +18,7 @@ export default {
   lightgray: '#8F8F8F',
   lightLightGray: '#8A8A8F',
   anotherLightGray: '#828282',
+  veryLightGray: '#BDBDBD',
   extremeLightGray: '#E3E3E3',
   black: '#303030'
 };
