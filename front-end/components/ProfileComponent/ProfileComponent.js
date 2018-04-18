@@ -141,29 +141,31 @@ const styles = StyleSheet.create({
   rows: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     width: '100%',
     paddingBottom: 20
   },
   rows1: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     width: '100%',
     paddingBottom: 20
   },
   columns: {
     display: 'flex',
     flexDirection: 'column',
-    marginRight: 93
+    width: 150
   },
   columns1: {
     display: 'flex',
     flexDirection: 'column',
-    marginRight: 170
+    width: 150
   },
   columns2: {
     display: 'flex',
     flexDirection: 'column',
-    marginRight: 82
+    width: 150
   },
   columnHeading: {
     fontSize: 18,
