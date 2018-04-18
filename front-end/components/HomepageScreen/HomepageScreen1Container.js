@@ -125,7 +125,7 @@ class HomepageScreen1Container extends Component {
 
 const mapStateToProps = state => ({
   myRecords: state.record.myRecords,
-  tagFilter: state.homepage1.tagFilter
+  tagFilter: state.ui.homepage1Screen.tagFilter
 });
 
 export default connect(mapStateToProps, { getRecords, setTagFilter })(

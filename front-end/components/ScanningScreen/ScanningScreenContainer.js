@@ -62,7 +62,7 @@ class ScanningScreenContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  startScanningAnimation: state.scanningScreen.startScanningAnimation
+  startScanningAnimation: state.ui.scanningScreen.startScanningAnimation
 });
 
 ScanningScreenContainer.propTypes = {

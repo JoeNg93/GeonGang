@@ -6,8 +6,7 @@ import userInfoReducer from './userInfoReducer';
 import recordReducer from './recordReducer';
 import categoryReducer from './categoryReducer';
 import productReducer from './productReducer';
-import homepage1Reducer from './homepage1Reducer';
-import scanningScreenReducer from './scanningScreenReducer';
+import UIControlReducer from './UIControlReducer';
 
 export default combineReducers({
   userInput: userInputReducer,
@@ -17,6 +16,5 @@ export default combineReducers({
   record: recordReducer,
   category: categoryReducer,
   product: productReducer,
-  homepage1: homepage1Reducer,
-  scanningScreen: scanningScreenReducer
+  ui: UIControlReducer
 });
