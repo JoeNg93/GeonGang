@@ -7,6 +7,7 @@ import HeaderWithLogo from '../common/HeaderWithLogo';
 import RecordCard from '../common/RecordCard';
 import EmptyCard from '../common/EmptyCard';
 import GestureRecognizer from 'react-native-swipe-gestures';
+import _ from 'lodash';
 
 const HomepageScreen1 = ({
   gradientBackground,
@@ -102,12 +103,14 @@ const HomepageScreen1 = ({
           </Text>
         </View>
         <View style={[styles.recordCardContainer]}>
-          <RecordCard
-            gradientBackground={gradientBackground}
-            nonInteractive={nonInteractive}
-            item={item}
-            onPressRecordCard={onPressRecordCard}
-          />
+          {!_.isEmpty(item) && (
+            <RecordCard
+              gradientBackground={gradientBackground}
+              nonInteractive={nonInteractive}
+              item={item}
+              onPressRecordCard={onPressRecordCard}
+            />
+          )}
           {/*<EmptyCard gradientBackground={gradientBackground} />*/}
         </View>
       </View>
