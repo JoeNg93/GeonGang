@@ -71,8 +71,8 @@ const Comment = ({
               <Button
                 containerViewStyle={styles.communityReviewBottomBtnCont}
                 buttonStyle={styles.communityReviewBottomBtn}
-                color={colorCode.lightGray}
-                icon={{ name: "favorite-border", color: colorCode.lightGray }}
+                color={colorCode.veryLightGray}
+                icon={{ name: "favorite-border", color: colorCode.veryLightGray }}
                 title={"Helpful (" + helpfulCount + ")"}
                 textStyle={styles.communityReviewBottomBtnTxt}
                 onPress={onPressHelpful}
@@ -91,8 +91,8 @@ const Comment = ({
             <Button
               containerViewStyle={styles.communityReviewBottomBtnCont}
               buttonStyle={styles.communityReviewBottomBtn}
-              color={colorCode.lightGray}
-              icon={{ name: "warning", color: colorCode.lightGray }}
+              color={colorCode.veryLightGray}
+              icon={{ name: "warning", color: colorCode.veryLightGray }}
               title="Report"
               textStyle={styles.communityReviewBottomBtnTxt}
               onPress={onPressReport}

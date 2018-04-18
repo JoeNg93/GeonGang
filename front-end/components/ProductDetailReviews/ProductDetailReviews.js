@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
 
   userReviewTextbox: {
     borderRadius: 6,
-    borderColor: colorCode.lightGray,
+    borderColor: colorCode.veryLightGray,
     borderWidth: 1,
     paddingHorizontal: 10,
     paddingVertical: 5,
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   },
 
   btnSubmit: {
-    backgroundColor: '#4396DC',
+    backgroundColor: colorCode.blue,
     borderRadius: 25,
     alignSelf: 'flex-end',
     paddingHorizontal: 24,

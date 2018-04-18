@@ -72,7 +72,7 @@ const ProductDetail = ({
               <View>
                 <Icon
                   name="add"
-                  color="#4396DC"
+                  color={colorCode.blue}
                   size={30}
                   containerStyle={{
                     margin: 0,
