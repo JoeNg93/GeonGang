@@ -24,7 +24,7 @@ const ProductDetailReviews = ({
 }) => {
   return (
     <View style={styles.container}>
-      <ScrollView horizontal={false} bounces={false}>
+      <ScrollView horizontal={false} bounces={true}>
         {/* globalReview */}
         <Text
           style={[
