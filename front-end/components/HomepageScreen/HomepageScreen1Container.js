@@ -93,23 +93,26 @@ class HomepageScreen1Container extends Component {
       'desc'
     );
 
+    // If user submit search filter
     if (this.state.inputSubmit && this.props.tagFilter.length) {
       records = records.filter(record => record.tag === this.props.tagFilter);
     }
 
-    if (!records.length) {
-      return null;
-    }
-
-    const gradientBackground = colorCode[`${records[0].tag}Gradient`];
-    const scoreTagColor = colorCode[`${records[0].tag}Tag`];
-    const lightVersion = true;
-    const displayRow = false;
-    const record = { ...records[0], scoreTagColor, lightVersion, displayRow };
+    const record = records.length
+      ? {
+          ...records[0],
+          gradientBackground: colorCode[`${records[0].tag}Gradient`],
+          scoreTagColor: colorCode[`${records[0].tag}Tag`],
+          lightVersion: true,
+          displayRow: false
+        }
+      : {};
 
     return (
       <HomepageScreen1
-        gradientBackground={gradientBackground}
+        gradientBackground={
+          record.gradientBackground || colorCode.moderateGradient
+        }
         item={record}
         nonInteractive={true}
         recordSearchHandle={this.recordSearchHandle}
