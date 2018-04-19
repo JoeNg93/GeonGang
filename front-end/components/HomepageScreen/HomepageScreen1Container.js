@@ -10,6 +10,7 @@ import { DATETIME_FORMAT_FROM_BACKEND } from '../../utils/index';
 import moment from 'moment';
 import { setTagFilter } from '../../actions/homepage1';
 import LoaderContainer from '../common/LoaderContainer';
+import { getMyProfile } from '../../actions/user_info';
 
 class HomepageScreen1Container extends Component {
   // Header styling
@@ -62,8 +63,10 @@ class HomepageScreen1Container extends Component {
   ];
 
   componentWillMount = () => {
-    // this.props.getRecords();
-    this.props.getRecords().then(response => console.log(response.data));
+    if (_.isEmpty(this.props.myProfile)) {
+      this.props.getMyProfile();
+    }
+    this.props.getRecords();
   };
 
   recordSearchHandle = text => {
@@ -136,10 +139,13 @@ class HomepageScreen1Container extends Component {
 
 const mapStateToProps = state => ({
   myRecords: state.record.myRecords,
+  myProfile: state.userInfo.myProfile,
   isFetchingMyRecord: state.record.isFetchingMyRecord,
   tagFilter: state.ui.homepage1Screen.tagFilter
 });
 
-export default connect(mapStateToProps, { getRecords, setTagFilter })(
-  HomepageScreen1Container
-);
+export default connect(mapStateToProps, {
+  getRecords,
+  setTagFilter,
+  getMyProfile
+})(HomepageScreen1Container);
