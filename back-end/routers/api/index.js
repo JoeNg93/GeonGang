@@ -91,7 +91,7 @@ router.use(
 
 // ADD PRODUCT TO FAVORITE ROUTE
 router.post(
-  '/product-added',
+  '/favorite-product',
   jwtMiddleware,
   errHandlerMiddleware,
   requireInputs('product_id'),
