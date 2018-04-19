@@ -39,5 +39,26 @@ export const postData = ({
   }
 };
 
+export const deleteData = ({
+  actionType,
+  urlPath,
+  successCallback
+}) => async dispatch => {
+  dispatch({ type: `${actionType}_${PENDING}` });
+  try {
+    const response = await axios.delete(`${envConfig.baseUrl}/${urlPath}`, {
+      headers: await getAuthHeader()
+    });
+    dispatch({ type: `${actionType}_${SUCCESS}` });
+    if (typeof successCallback === 'function') {
+      successCallback(dispatch);
+    }
+    return response;
+  } catch (err) {
+    dispatch({ type: `${actionType}_${FAIL}`, payload: err.response.data });
+    return err.response;
+  }
+};
+
 export const queryGraphql = ({ actionType, queryStr }) =>
   postData({ actionType, urlPath: 'api/graphql', data: { query: queryStr } });
