@@ -9,6 +9,7 @@ import _ from 'lodash';
 import { DATETIME_FORMAT_FROM_BACKEND } from '../../utils/index';
 import moment from 'moment';
 import { setTagFilter } from '../../actions/homepage1';
+import LoaderContainer from '../common/LoaderContainer';
 
 class HomepageScreen1Container extends Component {
   // Header styling
@@ -87,8 +88,14 @@ class HomepageScreen1Container extends Component {
   };
 
   render() {
+    const { myRecords, isFetchingMyRecord } = this.props;
+
+    if (_.isEmpty(myRecords) || isFetchingMyRecord) {
+      return <LoaderContainer />;
+    }
+
     let records = _.orderBy(
-      Object.values(this.props.myRecords),
+      Object.values(myRecords),
       record => moment(record.date, DATETIME_FORMAT_FROM_BACKEND),
       'desc'
     );
@@ -129,6 +136,7 @@ class HomepageScreen1Container extends Component {
 
 const mapStateToProps = state => ({
   myRecords: state.record.myRecords,
+  isFetchingMyRecord: state.record.isFetchingMyRecord,
   tagFilter: state.ui.homepage1Screen.tagFilter
 });
 
