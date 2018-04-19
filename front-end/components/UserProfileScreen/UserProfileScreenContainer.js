@@ -6,6 +6,7 @@ import { Icon } from 'react-native-elements';
 import { getMyProfile } from '../../actions/user_info';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import LoaderContainer from '../common/LoaderContainer';
 
 class UserProfileScreenContainer extends Component {
   // Header styling
@@ -87,10 +88,10 @@ class UserProfileScreenContainer extends Component {
 
   render() {
     const buttons = ['Profile', 'Friends', 'Reviews'];
-    const { myProfile } = this.props;
+    const { myProfile, isFetchingMyProfile } = this.props;
 
-    if (_.isEmpty(myProfile)) {
-      return null;
+    if (_.isEmpty(myProfile) || isFetchingMyProfile) {
+      return <LoaderContainer />;
     }
 
     return (
@@ -109,6 +110,7 @@ class UserProfileScreenContainer extends Component {
 
 const mapStateToProps = state => ({
   myProfile: state.userInfo.myProfile,
+  isFetchingMyProfile: state.userInfo.isFetchingMyProfile,
   otherUserProfileModalVisible: state.modal.otherUserProfileModalVisible
 });
 

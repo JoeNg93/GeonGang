@@ -16,6 +16,7 @@ import Component3 from './components/Temp/Component3';
 import UserProfileScreenContainer from './components/UserProfileScreen/UserProfileScreenContainer';
 import ProductDatabaseScreenContainer from './components/ProductDatabaseScreen/ProductDatabaseScreenContainer';
 import ProductCategoryScreenContainer from './components/ProductDatabaseScreen/ProductCategoryScreenContainer';
+import LoaderContainer from './components/common/LoaderContainer';
 
 const MainNavigator = StackNavigator(
   {
@@ -117,11 +118,7 @@ export default class App extends Component {
         </Provider>
       );
     } else {
-      return (
-        <View style={styles.container}>
-          <Text>Loading...</Text>
-        </View>
-      );
+      return <LoaderContainer />;
     }
   }
 }

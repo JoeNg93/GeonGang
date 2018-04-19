@@ -8,6 +8,7 @@ import { getCategories, setCategory } from '../../actions/category';
 import { setCurrentProduct } from '../../actions/product';
 import { openProductDetailModal } from '../../actions/modals_control';
 import _ from 'lodash';
+import LoaderContainer from '../common/LoaderContainer';
 
 class ProductDatabaseScreenContainer extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -84,8 +85,10 @@ class ProductDatabaseScreenContainer extends Component {
   };
 
   render() {
-    if (_.isEmpty(this.props.currentCategory)) {
-      return null;
+    const { currentCategory, isFetchingCategories } = this.props;
+
+    if (_.isEmpty(currentCategory) || isFetchingCategories) {
+      return <LoaderContainer />;
     }
 
     let { products } = this.props.currentCategory;
@@ -132,6 +135,7 @@ class ProductDatabaseScreenContainer extends Component {
 
 const mapStateToProps = state => ({
   categories: state.category.categories,
+  isFetchingCategories: state.category.isFetchingCategories,
   currentCategory: state.category.currentCategory,
   productDetailModalVisible: state.modal.productDetailModalVisible
 });
