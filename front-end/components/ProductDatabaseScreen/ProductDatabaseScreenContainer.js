@@ -10,9 +10,15 @@ import {
   addFavoriteProduct,
   removeFavoriteProduct
 } from '../../actions/product';
-import { openProductDetailModal } from '../../actions/modals_control';
+import {
+  openProductDetailModal,
+  closeAddFavoriteProductModalSuccess,
+  closeRemoveFavoriteProductModalSuccess
+} from '../../actions/modals_control';
 import _ from 'lodash';
 import LoaderContainer from '../common/LoaderContainer';
+import OperationModal from '../common/OperationModal';
+import { View } from 'react-native';
 
 class ProductDatabaseScreenContainer extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -130,19 +136,31 @@ class ProductDatabaseScreenContainer extends Component {
       />
     ));
     return (
-      <ProductDatabaseScreen
-        productComponents={productComponents}
-        buttons={this.buttons}
-        selectedIndex={this.state.selectedIndex}
-        updateIndex={this.updateIndex}
-        currentCategory={this.props.currentCategory}
-        categoryHandle={this.categoryHandle}
-        recordSearchInput={this.recordSearchInput}
-        productSearchHandle={this.productSearchHandle}
-        productDetailModalVisible={this.props.productDetailModalVisible}
-        isAddingFavoriteProduct={this.props.isAddingFavoriteProduct}
-        isRemovingFavoriteProduct={this.props.isRemovingFavoriteProduct}
-      />
+      <View style={{ flex: 1 }}>
+        <ProductDatabaseScreen
+          productComponents={productComponents}
+          buttons={this.buttons}
+          selectedIndex={this.state.selectedIndex}
+          updateIndex={this.updateIndex}
+          currentCategory={this.props.currentCategory}
+          categoryHandle={this.categoryHandle}
+          recordSearchInput={this.recordSearchInput}
+          productSearchHandle={this.productSearchHandle}
+          productDetailModalVisible={this.props.productDetailModalVisible}
+          isAddingFavoriteProduct={this.props.isAddingFavoriteProduct}
+          isRemovingFavoriteProduct={this.props.isRemovingFavoriteProduct}
+        />
+        <OperationModal
+          visible={this.props.addFavoriteProductSuccessModalVisible}
+          content="Product is added to your favorite list!"
+          onPressCloseModal={this.props.closeAddFavoriteProductModalSuccess}
+        />
+        <OperationModal
+          visible={this.props.removeFavoriteProductSuccessModalVisible}
+          content="Product is removed from your favorite list!"
+          onPressCloseModal={this.props.closeRemoveFavoriteProductModalSuccess}
+        />
+      </View>
     );
   }
 }
@@ -154,7 +172,11 @@ const mapStateToProps = state => ({
   isAddingFavoriteProduct: state.product.isAddingFavoriteProduct,
   isRemovingFavoriteProduct: state.product.isRemovingFavoriteProduct,
   currentCategory: state.category.currentCategory,
-  productDetailModalVisible: state.modal.productDetailModalVisible
+  productDetailModalVisible: state.modal.productDetailModalVisible,
+  addFavoriteProductSuccessModalVisible:
+    state.modal.addFavoriteProductSuccessModalVisible,
+  removeFavoriteProductSuccessModalVisible:
+    state.modal.removeFavoriteProductSuccessModalVisible
 });
 
 export default connect(mapStateToProps, {
@@ -163,5 +185,7 @@ export default connect(mapStateToProps, {
   setCurrentProduct,
   openProductDetailModal,
   addFavoriteProduct,
-  removeFavoriteProduct
+  removeFavoriteProduct,
+  closeAddFavoriteProductModalSuccess,
+  closeRemoveFavoriteProductModalSuccess
 })(ProductDatabaseScreenContainer);
