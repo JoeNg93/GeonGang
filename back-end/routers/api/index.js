@@ -132,6 +132,36 @@ router.post(
   }
 );
 
+router.delete(
+  '/favorite-product/:id',
+  jwtMiddleware,
+  errHandlerMiddleware,
+  async (req, res) => {
+    const productId = req.params.id;
+    const userId = req.user.id;
+
+    // Check if product exist
+    const row = await knex
+      .select('*')
+      .from('product_added')
+      .where('user_id', userId)
+      .andWhere('product_id', productId)
+      .first();
+    if (!row) {
+      res.status(404).send({ error: 'Product doest not exist!' });
+      return;
+    }
+
+    // Delete favorite product from db
+    await knex('product_added')
+      .where('user_id', userId)
+      .andWhere('product_id', productId)
+      .del();
+
+    res.status(204).send();
+  }
+);
+
 // POST SCANNING RESULT ROUTE
 router.post(
   '/record',
