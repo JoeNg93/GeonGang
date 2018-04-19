@@ -22,5 +22,6 @@ export const addFavoriteProduct = productId =>
 export const removeFavoriteProduct = productId =>
   deleteData({
     actionType: FAVORITE_PRODUCT_REMOVE,
-    urlPath: `api/favorite-product/${productId}`
+    urlPath: `api/favorite-product/${productId}`,
+    successCallback: getMyProfile()
   });

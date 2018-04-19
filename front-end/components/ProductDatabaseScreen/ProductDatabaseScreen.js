@@ -14,6 +14,7 @@ import Product from '../common/Product';
 import PropTypes from 'prop-types';
 import { categoryColor } from '../../utils/index';
 import ProductDetailAndReviews from '../ProductDetailAndReviews/ProductDetailAndReviews';
+import OperationIndicator from '../common/OperationIndicator';
 
 const ProductDatabaseScreen = ({
   productComponents,
@@ -24,7 +25,9 @@ const ProductDatabaseScreen = ({
   categoryHandle,
   recordSearchInput,
   productSearchHandle,
-  productDetailModalVisible
+  productDetailModalVisible,
+  isAddingFavoriteProduct,
+  isRemovingFavoriteProduct
 }) => {
   return (
     <ScrollView style={styles.container}>
@@ -73,6 +76,9 @@ const ProductDatabaseScreen = ({
       <Modal visible={productDetailModalVisible} animationType="slide">
         <ProductDetailAndReviews />
       </Modal>
+      <OperationIndicator
+        display={isAddingFavoriteProduct || isRemovingFavoriteProduct}
+      />
     </ScrollView>
   );
 };
@@ -158,11 +164,15 @@ Product.propTypes = {
   categoryHandle: PropTypes.func,
   recordSearchInput: PropTypes.func,
   productSearchHandle: PropTypes.func,
-  productDetailModalVisible: PropTypes.bool
+  productDetailModalVisible: PropTypes.bool,
+  isAddingFavoriteProduct: PropTypes.bool,
+  isRemovingFavoriteProduct: PropTypes.bool
 };
 
 Product.defaultProps = {
-  productDetailModalVisible: false
+  productDetailModalVisible: false,
+  isAddingFavoriteProduct: false,
+  isRemovingFavoriteProduct: false
 };
 
 export default ProductDatabaseScreen;

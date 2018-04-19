@@ -13,7 +13,7 @@ export const postRecord = ({
     actionType: RECORD_POST,
     urlPath: 'api/record',
     data: { overallScore, tag, moisture, dirt, uv, pigmentation },
-    successCallback: getRecords
+    successCallback: getRecords()
   });
 
 export const getRecords = () =>

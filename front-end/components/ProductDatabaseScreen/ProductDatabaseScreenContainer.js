@@ -5,7 +5,11 @@ import { Icon } from 'react-native-elements';
 import colorCode from '../../utils/colorCode';
 import { connect } from 'react-redux';
 import { getCategories, setCategory } from '../../actions/category';
-import { setCurrentProduct } from '../../actions/product';
+import {
+  setCurrentProduct,
+  addFavoriteProduct,
+  removeFavoriteProduct
+} from '../../actions/product';
 import { openProductDetailModal } from '../../actions/modals_control';
 import _ from 'lodash';
 import LoaderContainer from '../common/LoaderContainer';
@@ -61,10 +65,13 @@ class ProductDatabaseScreenContainer extends Component {
     this.props.setCategory(Object.values(this.props.categories)[0]);
   };
 
-  productAddHandle = index => {
-    this.setState({ currentActive: index });
-    this.productEntries[index].addedState = !this.productEntries[index]
-      .addedState;
+  productAddHandle = productId => {
+    if (this.props.idOfFavoriteProducts.includes(productId)) {
+      // Already added, remove it from favorite
+      this.props.removeFavoriteProduct(productId);
+      return;
+    }
+    this.props.addFavoriteProduct(productId);
   };
 
   updateIndex = selectedIndex => {
@@ -74,9 +81,11 @@ class ProductDatabaseScreenContainer extends Component {
   categoryHandle = () => {
     this.props.navigation.navigate('productCategory');
   };
+
   recordSearchInput = text => {
     this.setState({ productSearchTerm: text });
   };
+
   productSearchHandle = () => {};
 
   onPressSetCurrentProduct = async productInfo => {
@@ -85,7 +94,11 @@ class ProductDatabaseScreenContainer extends Component {
   };
 
   render() {
-    const { currentCategory, isFetchingCategories } = this.props;
+    const {
+      currentCategory,
+      isFetchingCategories,
+      idOfFavoriteProducts
+    } = this.props;
 
     if (_.isEmpty(currentCategory) || isFetchingCategories) {
       return <LoaderContainer />;
@@ -104,7 +117,6 @@ class ProductDatabaseScreenContainer extends Component {
             .indexOf(this.state.productSearchTerm.toLowerCase()) !== -1
       );
     }
-
     const productComponents = products.map(productInfo => (
       <Product
         key={productInfo.id}
@@ -112,8 +124,8 @@ class ProductDatabaseScreenContainer extends Component {
         productImgPath={productInfo.imgSrc}
         category={productInfo.category}
         rating={productInfo.rating}
-        addedState={false}
-        productAddHandle={this.productAddHandle.bind(this, productInfo.id)}
+        addedState={idOfFavoriteProducts.includes(productInfo.id)}
+        productAddHandle={() => this.productAddHandle(productInfo.id)}
         onPressProduct={() => this.onPressSetCurrentProduct(productInfo)}
       />
     ));
@@ -128,6 +140,8 @@ class ProductDatabaseScreenContainer extends Component {
         recordSearchInput={this.recordSearchInput}
         productSearchHandle={this.productSearchHandle}
         productDetailModalVisible={this.props.productDetailModalVisible}
+        isAddingFavoriteProduct={this.props.isAddingFavoriteProduct}
+        isRemovingFavoriteProduct={this.props.isRemovingFavoriteProduct}
       />
     );
   }
@@ -136,6 +150,9 @@ class ProductDatabaseScreenContainer extends Component {
 const mapStateToProps = state => ({
   categories: state.category.categories,
   isFetchingCategories: state.category.isFetchingCategories,
+  idOfFavoriteProducts: _.map(state.userInfo.myProfile.favoriteProducts, 'id'),
+  isAddingFavoriteProduct: state.product.isAddingFavoriteProduct,
+  isRemovingFavoriteProduct: state.product.isRemovingFavoriteProduct,
   currentCategory: state.category.currentCategory,
   productDetailModalVisible: state.modal.productDetailModalVisible
 });
@@ -144,5 +161,7 @@ export default connect(mapStateToProps, {
   getCategories,
   setCategory,
   setCurrentProduct,
-  openProductDetailModal
+  openProductDetailModal,
+  addFavoriteProduct,
+  removeFavoriteProduct
 })(ProductDatabaseScreenContainer);
