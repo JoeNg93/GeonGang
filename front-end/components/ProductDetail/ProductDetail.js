@@ -17,12 +17,11 @@ import { categoryColor } from '../../utils/index';
 const hitSlop = { top: 20, bottom: 20, left: 20, right: 20 };
 
 const ProductDetail = ({
-  state,
+  addedState,
   product,
   topReview,
   onPressAddProduct,
-  onPressReview,
-  onPressPopupBtn
+  onPressReview
 }) => {
   return (
     <ScrollView style={styles.container}>
@@ -63,9 +62,9 @@ const ProductDetail = ({
             </View>
           </View>
 
-          {state.addedState === false ? (
+          {addedState === false ? (
             <TouchableOpacity
-              onPress={onPressAddProduct}
+              onPress={() => onPressAddProduct(product.id)}
               hitSlop={hitSlop}
               style={styles.productOverviewBtnAdd}
             >
@@ -87,7 +86,7 @@ const ProductDetail = ({
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
-              onPress={onPressAddProduct}
+              onPress={() => onPressAddProduct(product.id)}
               hitSlop={hitSlop}
               style={styles.productOverviewBtnAdd}
             >
@@ -206,36 +205,6 @@ const ProductDetail = ({
           />
         </View>
       </TouchableHighlight>
-
-      {/* Popup */}
-      <Modal animationType="fade" transparent visible={state.popupVisible}>
-        <View style={styles.popupBackground}>
-          <View style={styles.popupContainer}>
-            <Image
-              source={require('../../assets/images/circle-check.png')}
-              style={styles.popupImage}
-            />
-            <Text
-              style={[
-                styles.popupText,
-                commonStyles.fontMontserratLight,
-                commonStyles.colorDarkBlue
-              ]}
-            >
-              This item has been added to your product list !
-            </Text>
-            <Button
-              textStyle={[
-                commonStyles.fontMontserratSemiBold,
-                { fontSize: 14, color: '#ffffff' }
-              ]}
-              title="Great !"
-              buttonStyle={styles.popupBtnGreat}
-              onPress={onPressPopupBtn}
-            />
-          </View>
-        </View>
-      </Modal>
     </ScrollView>
   );
 };
