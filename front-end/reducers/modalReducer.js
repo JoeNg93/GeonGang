@@ -9,7 +9,9 @@ import {
   FAVORITE_PRODUCT_ADD,
   FAVORITE_PRODUCT_REMOVE,
   ADD_FAVORITE_PRODUCT_SUCCESS_MODAL_CLOSE,
-  REMOVE_FAVORITE_PRODUCT_SUCCESS_MODAL_CLOSE
+  REMOVE_FAVORITE_PRODUCT_SUCCESS_MODAL_CLOSE,
+  REVIEW_POST,
+  POST_REVIEW_SUCCESS_MODAL_CLOSE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -17,7 +19,8 @@ const INITIAL_STATE = {
   productDetailModalVisible: false,
   otherUserProfileModalVisible: false,
   addFavoriteProductSuccessModalVisible: false,
-  removeFavoriteProductSuccessModalVisible: false
+  removeFavoriteProductSuccessModalVisible: false,
+  postReviewSuccessModalVisible: false
 };
 
 export default function(state = INITIAL_STATE, { type }) {
@@ -51,6 +54,12 @@ export default function(state = INITIAL_STATE, { type }) {
     }
     case REMOVE_FAVORITE_PRODUCT_SUCCESS_MODAL_CLOSE: {
       return { ...state, removeFavoriteProductSuccessModalVisible: false };
+    }
+    case REVIEW_POST: {
+      return { ...state, postReviewSuccessModalVisible: true };
+    }
+    case POST_REVIEW_SUCCESS_MODAL_CLOSE: {
+      return { ...state, postReviewSuccessModalVisible: false };
     }
     default: {
       return state;

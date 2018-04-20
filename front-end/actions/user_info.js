@@ -7,6 +7,7 @@ export const getMyProfile = () =>
     queryStr: `
       query {
         myProfile {
+          userId
           name
           gender
           age

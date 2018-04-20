@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
 import ProductDetailReviews from './ProductDetailReviews';
 import Comment from '../common/Comment';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import colorCode from '../../utils/colorCode';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { closeProductDetailModal } from '../../actions/modals_control';
+import {
+  closeProductDetailModal,
+  closePostReviewSuccessModal
+} from '../../actions/modals_control';
+import {
+  markReviewHelpful,
+  postReview,
+  unmarkReviewHelpful
+} from '../../actions/review';
+import OperationModal from '../common/OperationModal';
+import moment from 'moment';
+import _ from 'lodash';
+import { DATETIME_FORMAT_FROM_BACKEND } from '../../utils/index';
 
 class ProductDetailReviewsContainer extends Component {
   // Header styling
@@ -48,37 +60,8 @@ class ProductDetailReviewsContainer extends Component {
   state = {
     userProfileImgPath: require('../../assets/images/profile-1.jpg'),
     userRating: 0,
-    userComment: '',
-    commentActive: 0
+    userComment: ''
   };
-
-  commentGlobal = {
-    globalRating: 4.4,
-    numberOfComments: 18
-  };
-
-  commentEntries = [
-    {
-      profileName: 'Emma Watson',
-      profileImgPath: require('../../assets/images/profile-1.jpg'),
-      rating: 2,
-      postDate: '1 month ago',
-      text:
-        "The texture is very nice and it non sticky, non greasy. Very hydrating and ultras a few for my sensitive skin, I can even apply it around the eye area. It's a must have and 1st part of my skincare routine and after I apply my Mineral 89, I apply my other serums and It compliments every serum and moisturiser I apply, may it be day or night.",
-      helpfulCount: 3,
-      liked: true
-    },
-    {
-      profileName: 'Hermione Granger',
-      profileImgPath: require('../../assets/images/profile-1.jpg'),
-      rating: 4.5,
-      postDate: '2 millennium ago',
-      text:
-        'I used that product as a magic wand and it works surprisingly well!',
-      helpfulCount: 2018,
-      liked: false
-    }
-  ];
 
   componentWillMount = () => {
     this.props.navigation.setParams({
@@ -86,40 +69,83 @@ class ProductDetailReviewsContainer extends Component {
     });
   };
 
-  commentHelpfulHandle = index => {
-    this.setState({ commentActive: index });
-    this.commentEntries[index].liked = !this.commentEntries[index].liked;
+  onPressHelpful = reviewId => {
+    const {
+      helpfulReviews,
+      markReviewHelpful,
+      unmarkReviewHelpful
+    } = this.props;
+
+    if (helpfulReviews.includes(reviewId)) {
+      // Already pressed helpful, attempt to unmark review as helpful
+      unmarkReviewHelpful(reviewId);
+    } else {
+      markReviewHelpful(reviewId);
+    }
+  };
+
+  onUserCommentSubmit = () => {
+    const { userId, userName, postReview } = this.props;
+    const { userRating, userComment } = this.state;
+    postReview({ userId, userName, content: userComment, rating: userRating });
+    // Clear text input
+    this.setState({ userRating: 0, userComment: '' });
   };
 
   render() {
-    commentComponents = this.commentEntries.map((commentInfo, index) => (
+    const { currentProduct, helpfulReviews } = this.props;
+
+    const commentComponents = _.orderBy(
+      currentProduct.reviews,
+      review => moment(review.postedAt, DATETIME_FORMAT_FROM_BACKEND),
+      'desc'
+    ).map((review, index) => (
       <Comment
         key={index}
-        profileName={commentInfo.profileName}
-        profileImgPath={commentInfo.profileImgPath}
-        rating={commentInfo.rating}
-        postDate={commentInfo.postDate}
-        text={commentInfo.text}
-        helpfulCount={commentInfo.helpfulCount}
-        liked={commentInfo.liked}
-        onPressHelpful={this.commentHelpfulHandle.bind(this, index)}
+        profileName={review.user.name}
+        profileImgPath={require('../../assets/images/profile-1.jpg')}
+        rating={review.rating}
+        postDate={review.postedAt}
+        text={review.content}
+        helpfulCount={review.numOfLikes}
+        liked={helpfulReviews.includes(review.id)}
+        onPressHelpful={() => this.onPressHelpful(review.id)}
         onPressReport={() => {}}
       />
     ));
     return (
-      <ProductDetailReviews
-        globalRating={this.commentGlobal.globalRating}
-        numberOfComments={this.commentGlobal.numberOfComments}
-        state={this.state}
-        onUserRating={userRating => this.setState({ userRating })}
-        onUserCommentWriting={userComment => this.setState({ userComment })}
-        onUserCommentSubmit={() => {}}
-        commentComponents={commentComponents}
-      />
+      <View style={{ flex: 1 }}>
+        <ProductDetailReviews
+          globalRating={currentProduct.rating}
+          numberOfComments={currentProduct.reviews.length}
+          state={this.state}
+          onUserRating={userRating => this.setState({ userRating })}
+          onUserCommentWriting={userComment => this.setState({ userComment })}
+          onUserCommentSubmit={this.onUserCommentSubmit}
+          commentComponents={commentComponents}
+        />
+        <OperationModal
+          visible={this.props.postReviewSuccessModalVisible}
+          content="Thanks for giving your review!"
+          onPressCloseModal={this.props.closePostReviewSuccessModal}
+        />
+      </View>
     );
   }
 }
 
-export default connect(null, { closeProductDetailModal })(
-  ProductDetailReviewsContainer
-);
+const mapStateToProps = state => ({
+  currentProduct: state.product.currentProduct,
+  userId: state.userInfo.myProfile.userId,
+  userName: state.userInfo.myProfile.name,
+  helpfulReviews: state.review.helpfulReviews,
+  postReviewSuccessModalVisible: state.modal.postReviewSuccessModalVisible
+});
+
+export default connect(mapStateToProps, {
+  closeProductDetailModal,
+  markReviewHelpful,
+  postReview,
+  unmarkReviewHelpful,
+  closePostReviewSuccessModal
+})(ProductDetailReviewsContainer);

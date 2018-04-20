@@ -36,6 +36,7 @@ export const getCategories = () =>
               postedAt
               user {
                 name
+                userId
               }
             }
           }

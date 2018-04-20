@@ -1,5 +1,5 @@
 export const DATETIME_FORMAT_FROM_BACKEND =
-  'ddd MMM DD YYYY HH:mm:ss GMTZ (UTC)';
+  'ddd MMM DD YYYY HH:mm:ss G[M]TZ (UTC)';
 
 export const categoryColor = {
   Moisturizers: '#4396DC',

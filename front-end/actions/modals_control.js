@@ -6,7 +6,8 @@ import {
   OTHER_USER_PROFILE_MODAL_CLOSE,
   OTHER_USER_PROFILE_MODAL_OPEN,
   ADD_FAVORITE_PRODUCT_SUCCESS_MODAL_CLOSE,
-  REMOVE_FAVORITE_PRODUCT_SUCCESS_MODAL_CLOSE
+  REMOVE_FAVORITE_PRODUCT_SUCCESS_MODAL_CLOSE,
+  POST_REVIEW_SUCCESS_MODAL_CLOSE
 } from './types';
 
 export const openRecordDetailModal = () => ({ type: RECORD_DETAIL_MODAL_OPEN });
@@ -34,4 +35,8 @@ export const closeAddFavoriteProductModalSuccess = () => ({
 });
 export const closeRemoveFavoriteProductModalSuccess = () => ({
   type: REMOVE_FAVORITE_PRODUCT_SUCCESS_MODAL_CLOSE
+});
+
+export const closePostReviewSuccessModal = () => ({
+  type: POST_REVIEW_SUCCESS_MODAL_CLOSE
 });

@@ -92,6 +92,8 @@ const ProductDetailReviews = ({
                 style={[{ fontSize: 12 }, commonStyles.fontMontserratLight]}
                 value={state.userComment}
                 onChangeText={onUserCommentWriting}
+                autoCorrect={false}
+                autoCapitalize="none"
               />
             </View>
             <Button

@@ -186,7 +186,7 @@ const ProductDetail = ({
       >
         <View style={{ flexDirection: 'row' }}>
           <Image
-            source={topReview.reviewerImgPath}
+            source={require('../../assets/images/profile-1.jpg')}
             style={styles.profileImage}
           />
           <Text
@@ -196,7 +196,7 @@ const ProductDetail = ({
               commonStyles.colorDarkBlue
             ]}
           >
-            {topReview.comment}
+            {topReview.content}
           </Text>
           <Icon
             name="keyboard-arrow-right"
