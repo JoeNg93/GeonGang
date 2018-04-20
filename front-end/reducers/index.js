@@ -7,6 +7,7 @@ import recordReducer from './recordReducer';
 import categoryReducer from './categoryReducer';
 import productReducer from './productReducer';
 import UIControlReducer from './UIControlReducer';
+import reviewReducer from './reviewReducer';
 
 export default combineReducers({
   userInput: userInputReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
   record: recordReducer,
   category: categoryReducer,
   product: productReducer,
-  ui: UIControlReducer
+  ui: UIControlReducer,
+  review: reviewReducer
 });

@@ -1,9 +1,11 @@
-import React from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
-import { Icon, Button, Rating, Divider } from "react-native-elements";
-import colorCode from "../../utils/colorCode";
-import commonStyles from "../../utils/styles";
-import PropTypes from "prop-types";
+import React from 'react';
+import { StyleSheet, View, Text, Image } from 'react-native';
+import { Icon, Button, Rating, Divider } from 'react-native-elements';
+import colorCode from '../../utils/colorCode';
+import commonStyles from '../../utils/styles';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import { DATETIME_FORMAT_FROM_BACKEND } from '../../utils/index';
 
 const Comment = ({
   profileName,
@@ -20,7 +22,7 @@ const Comment = ({
     <View>
       <Divider
         style={{
-          backgroundColor: "#DFDFDF",
+          backgroundColor: '#DFDFDF',
           height: 1,
           marginHorizontal: 36
         }}
@@ -45,7 +47,7 @@ const Comment = ({
                 commonStyles.colorGray
               ]}
             >
-              {postDate}
+              {moment(postDate, DATETIME_FORMAT_FROM_BACKEND).fromNow()}
             </Text>
           </View>
           <Rating
@@ -72,8 +74,11 @@ const Comment = ({
                 containerViewStyle={styles.communityReviewBottomBtnCont}
                 buttonStyle={styles.communityReviewBottomBtn}
                 color={colorCode.veryLightGray}
-                icon={{ name: "favorite-border", color: colorCode.veryLightGray }}
-                title={"Helpful (" + helpfulCount + ")"}
+                icon={{
+                  name: 'favorite-border',
+                  color: colorCode.veryLightGray
+                }}
+                title={'Helpful (' + helpfulCount + ')'}
                 textStyle={styles.communityReviewBottomBtnTxt}
                 onPress={onPressHelpful}
               />
@@ -82,8 +87,8 @@ const Comment = ({
                 containerViewStyle={styles.communityReviewBottomBtnCont}
                 buttonStyle={styles.communityReviewBottomBtn}
                 color={colorCode.red}
-                icon={{ name: "favorite", color: colorCode.red }}
-                title={"Helpful (" + helpfulCount + ")"}
+                icon={{ name: 'favorite', color: colorCode.red }}
+                title={'Helpful (' + helpfulCount + ')'}
                 textStyle={styles.communityReviewBottomBtnTxt}
                 onPress={onPressHelpful}
               />
@@ -92,7 +97,7 @@ const Comment = ({
               containerViewStyle={styles.communityReviewBottomBtnCont}
               buttonStyle={styles.communityReviewBottomBtn}
               color={colorCode.veryLightGray}
-              icon={{ name: "warning", color: colorCode.veryLightGray }}
+              icon={{ name: 'warning', color: colorCode.veryLightGray }}
               title="Report"
               textStyle={styles.communityReviewBottomBtnTxt}
               onPress={onPressReport}
@@ -110,14 +115,14 @@ const styles = StyleSheet.create({
   },
 
   communityReview: {
-    backgroundColor: "transparent",
-    flexDirection: "row",
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
     paddingTop: 20,
     paddingBottom: 5
   },
 
   communityReviewImage: {
-    resizeMode: "contain",
+    resizeMode: 'contain',
     borderRadius: 28,
     height: 56,
     width: 56
@@ -125,24 +130,24 @@ const styles = StyleSheet.create({
 
   communityReviewContents: {
     flex: 1,
-    flexDirection: "column",
+    flexDirection: 'column',
     marginLeft: 12
   },
 
   communityReviewTitle: {
-    flexDirection: "row",
-    alignItems: "baseline"
+    flexDirection: 'row',
+    alignItems: 'baseline'
   },
 
   communityReviewTitleName: {
     flexGrow: 1,
-    textAlign: "left",
+    textAlign: 'left',
     fontSize: 14
   },
 
   communityReviewTitleDate: {
     flexGrow: 1,
-    textAlign: "right",
+    textAlign: 'right',
     fontSize: 12
   },
 
@@ -151,9 +156,9 @@ const styles = StyleSheet.create({
   },
 
   communityReviewBottom: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "baseline"
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'baseline'
   },
 
   communityReviewBottomBtnCont: {
@@ -164,7 +169,7 @@ const styles = StyleSheet.create({
   },
 
   communityReviewBottomBtn: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     paddingVertical: 8,
     paddingHorizontal: 10
   },
@@ -185,9 +190,9 @@ Comment.propTypes = {
 };
 
 Comment.defaultProps = {
-  profileImgPath: require("../../assets/images/unknown-gender.png"),
+  profileImgPath: require('../../assets/images/unknown-gender.png'),
   helpfulCount: 0,
-  text: "",
+  text: '',
   liked: false
 };
 
