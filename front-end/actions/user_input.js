@@ -7,6 +7,7 @@ import {
   USER_INPUTS_POST
 } from './types';
 import { postData } from '../utils/api';
+import { getMyProfile } from './user_info';
 
 export const setAge = age => ({ type: AGE_SET, payload: age });
 
@@ -42,5 +43,6 @@ export const postUserInputs = ({
       climate,
       skin_color: skinColor.toLowerCase(),
       skin_type: skinType
-    }
+    },
+    successCallback: getMyProfile()
   });

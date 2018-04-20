@@ -33,7 +33,6 @@ class UserInputScreensContainer extends Component {
     }
     if (this.state.currentActiveItemIndex === 4) {
       // Finish input, attempt to save user input to db
-      console.log('Post data!!');
       const { age, gender, skinType, skinColor, climate } = this.props;
       const response = await this.props.postUserInputs({
         name: 'Joe',
