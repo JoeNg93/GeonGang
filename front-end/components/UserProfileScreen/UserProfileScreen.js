@@ -83,7 +83,10 @@ const UserProfileScreen = ({
   otherUserProfileModalVisible
 }) => {
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={{ backgroundColor: colorCode.lightBlue }}
+      contentContainerStyle={styles.container}
+    >
       <View style={styles.header}>
         <Image
           style={styles.avatarImage}
@@ -125,11 +128,7 @@ const UserProfileScreen = ({
           innerBorderStyle={{ width: -1, color: 'transparent' }}
         />
       </View>
-      <ScrollView
-        style={{ width: '100%' }}
-        contentContainerStyle={{ display: 'flex', alignItems: 'center' }}
-        horizontal={false}
-      >
+      <View style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
         <View style={styles.buttonGroupContent}>
           {renderScreen(selectedIndex)}
         </View>
@@ -215,11 +214,11 @@ const UserProfileScreen = ({
             paddingLeft: 75
           }}
         />
-      </ScrollView>
+      </View>
       <Modal visible={otherUserProfileModalVisible} animationType="slide">
         <OtherUserProfileContainer />
       </Modal>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -228,7 +227,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    height: '100%',
     backgroundColor: colorCode.white
   },
   header: {
