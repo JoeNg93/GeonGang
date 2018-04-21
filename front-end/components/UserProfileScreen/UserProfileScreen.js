@@ -73,6 +73,9 @@ const renderRecommendationProduct = ({ item, index }) => {
   );
 };
 
+const headerHeight = 100;
+const avatarSize = 140;
+
 const UserProfileScreen = ({
   buttons,
   selectedIndex,
@@ -231,11 +234,10 @@ const styles = StyleSheet.create({
   },
   header: {
     display: 'flex',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'flex-end',
-    flexDirection: 'row',
-    width: 414,
-    height: 180,
+    width: '100%',
+    height: headerHeight,
     backgroundColor: colorCode.lightBlue
   },
   headerButtonContainer: {
@@ -246,7 +248,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
-    width: 140,
+    width: avatarSize,
     height: 55,
     marginBottom: 25
   },
@@ -257,12 +259,11 @@ const styles = StyleSheet.create({
     backgroundColor: colorCode.blue
   },
   avatarImage: {
-    height: 140,
-    width: 140,
+    height: avatarSize,
+    width: avatarSize,
     position: 'absolute',
     alignSelf: 'center',
-    right: 132,
-    top: 105,
+    top: headerHeight - avatarSize / 2,
     borderRadius: 70
   },
   userName: {
