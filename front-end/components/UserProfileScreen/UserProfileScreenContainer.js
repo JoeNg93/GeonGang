@@ -44,14 +44,14 @@ class UserProfileScreenContainer extends Component {
     )
   });
 
-  componentWillMount = async () => {
-    const response = await this.props.getMyProfile();
-    console.log(response.status);
-    console.log(response.data);
-  };
-
   state = {
     selectedIndex: 0
+  };
+
+  componentWillMount = () => {
+    if (_.isEmpty(this.props.myProfile)) {
+      this.props.getMyProfile();
+    }
   };
 
   updateIndex = selectedIndex => {
@@ -88,9 +88,9 @@ class UserProfileScreenContainer extends Component {
 
   render() {
     const buttons = ['Profile', 'Friends', 'Reviews'];
-    const { myProfile, isFetchingMyProfile } = this.props;
+    const { myProfile } = this.props;
 
-    if (_.isEmpty(myProfile) || isFetchingMyProfile) {
+    if (_.isEmpty(myProfile)) {
       return <LoaderContainer />;
     }
 
@@ -110,7 +110,6 @@ class UserProfileScreenContainer extends Component {
 
 const mapStateToProps = state => ({
   myProfile: state.userInfo.myProfile,
-  isFetchingMyProfile: state.userInfo.isFetchingMyProfile,
   otherUserProfileModalVisible: state.modal.otherUserProfileModalVisible
 });
 
