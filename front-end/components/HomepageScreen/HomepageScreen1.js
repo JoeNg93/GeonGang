@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flexDirection: 'row',
     paddingLeft: 40,
+    paddingTop: 40,
     backgroundColor: colorCode.white,
     flex: 1
   },
