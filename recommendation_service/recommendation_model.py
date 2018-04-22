@@ -5,9 +5,22 @@ from sklearn.naive_bayes import GaussianNB
 
 
 class RecommendationModel(object):
-    def __init__(self, data_file_path='', model_file_path=''):
+    """ML Model for recommendation service
+
+    For case model doesnt exist
+    1. Create object, specify dataset file
+    2. Train the model
+    3. Save the model after train
+
+    For case model already exist
+    1. Load the model
+    2. Predict or add new data
+    3. Train the model if add new data
+    4. Save the model after train
+    """
+
+    def __init__(self, data_file_path):
         self.data_file_path = data_file_path
-        self.model_file_path = model_file_path
         self.encoder = {}
         self.model = None
 
@@ -27,11 +40,10 @@ class RecommendationModel(object):
     def load_model(model_file_path):
         with open(model_file_path, 'rb') as f:
             model = dill.load(f)
-            model.model_file_path = model_file_path
             return model
 
-    def save_model(self):
-        with open(self.model_file_path, 'wb') as f:
+    def save_model(self, model_file_path):
+        with open(model_file_path, 'wb') as f:
             dill.dump(self, f)
 
     def transform_to_val(self, age, climate, skin_type):
@@ -51,4 +63,3 @@ class RecommendationModel(object):
 
         self.model = GaussianNB()
         self.model.fit(features, target)
-        self.save_model()
