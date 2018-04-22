@@ -65,7 +65,8 @@ const MainNavigator = StackNavigator(
             style: {
               height: 56,
               paddingTop: 6,
-              paddingBottom: 3
+              paddingBottom: 3,
+              backgroundColor: colorCode.white
             }
           }
         }
