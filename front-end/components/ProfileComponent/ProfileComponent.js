@@ -145,7 +145,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     paddingLeft: 20,
-    paddingTop: 15
+    paddingTop: 15,
+    paddingBottom: 8
   },
   rows: {
     display: 'flex',

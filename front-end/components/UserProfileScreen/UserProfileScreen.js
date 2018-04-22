@@ -140,7 +140,8 @@ const UserProfileScreen = ({
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
-            width: '90%'
+            width: '90%',
+            alignItems: 'center'
           }}
         >
           <Text
@@ -155,7 +156,7 @@ const UserProfileScreen = ({
           <Button
             buttonStyle={styles.button}
             textStyle={{ color: colorCode.anotherLightGray, fontSize: 11 }}
-            containerViewStyle={{ marginRight: 0 }}
+            containerViewStyle={{ marginRight: 0, paddingRight: 0 }}
             title={'SEE ALL'}
             iconRight={{
               name: 'arrow-right',
@@ -172,14 +173,15 @@ const UserProfileScreen = ({
           itemWidth={111}
           activeSlideAlignment={'start'}
           inactiveSlideScale={1}
-          containerCustomStyle={{ height: 160, width: '100%', paddingLeft: 75 }}
+          containerCustomStyle={styles.productCarousel}
         />
         <View
           style={{
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
-            width: '90%'
+            width: '90%',
+            alignItems: 'center'
           }}
         >
           <Text
@@ -194,7 +196,7 @@ const UserProfileScreen = ({
           <Button
             buttonStyle={styles.button}
             textStyle={{ color: colorCode.anotherLightGray, fontSize: 11 }}
-            containerViewStyle={{ marginRight: 0 }}
+            containerViewStyle={{ marginRight: 0, paddingRight: 0 }}
             title={'SEE ALL'}
             iconRight={{
               name: 'arrow-right',
@@ -211,11 +213,7 @@ const UserProfileScreen = ({
           itemWidth={111}
           activeSlideAlignment={'start'}
           inactiveSlideScale={1}
-          containerCustomStyle={{
-            height: 160,
-            width: '100%',
-            paddingLeft: 75
-          }}
+          containerCustomStyle={styles.productCarousel}
         />
       </View>
       <Modal visible={otherUserProfileModalVisible} animationType="slide">
@@ -230,7 +228,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    backgroundColor: colorCode.white
+    backgroundColor: colorCode.white,
+    paddingBottom: 20
   },
   header: {
     display: 'flex',
@@ -282,8 +281,8 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 'auto',
     borderBottomWidth: 1,
-    borderBottomColor: '#BDBDBD',
-    marginBottom: 20
+    borderBottomColor: '#E0E0E0',
+    marginBottom: 20,
   },
   buttonGroupButtons: {
     borderBottomWidth: 2,
@@ -300,22 +299,22 @@ const styles = StyleSheet.create({
     color: colorCode.blue
   },
   productText: {
-    alignSelf: 'flex-start',
     paddingLeft: 20,
     fontSize: 20
   },
   button: {
     backgroundColor: colorCode.white,
-    height: 27,
-    width: 101,
     marginRight: 0
+  },
+  productCarousel: {
+    width: '100%',
+    paddingLeft: 85,
+    marginBottom: 32
   },
   productContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 111,
-    height: 138,
     marginRight: 10,
     marginLeft: 10
   },
@@ -323,10 +322,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     width: 111,
     height: 138,
+    borderRadius: 3,
     shadowOffset: { width: 0, height: 2 },
-    shadowColor: 'rgba(130, 130, 130, 0.25)',
-    shadowOpacity: 1,
-    shadowRadius: 2,
+    shadowColor: 'rgb(130, 130, 130)',
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
     paddingTop: 5,
     paddingBottom: 5,
     paddingRight: 5,
@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
   },
   productImage: {
     alignSelf: 'center',
-    marginTop: 20,
+    marginTop: 10,
     marginBottom: 5,
     height: 60,
     width: 60
