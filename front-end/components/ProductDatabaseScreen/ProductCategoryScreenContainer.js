@@ -10,10 +10,15 @@ import { setCategory } from '../../actions/category';
 class ProductCategoryScreenContainer extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: 'Category list',
+    headerTitleStyle:  {
+      color: colorCode.darkBlue,
+      fontSize: 18
+    },
     headerStyle: {
       backgroundColor: colorCode.white,
       // Remove the border bottom line of header
-      borderBottomWidth: 0
+      borderBottomWidth: 0,
+      paddingTop: 32
     },
     tabBarLabel: 'Products',
     tabBarIcon: ({ tintColor }) => (
@@ -65,9 +70,12 @@ class ProductCategoryScreenContainer extends Component {
       />
     ));
     return (
-      <List containerStyle={styles.listContainer}>
-        {categoryListComponents}
-      </List>
+      <View style={{backgroundColor: colorCode.white, flex: 1,
+        width: '100%'}}>
+        <List containerStyle={styles.listContainer}>
+          {categoryListComponents}
+        </List>
+      </View>
     );
   }
 }
@@ -76,8 +84,8 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     width: '100%',
-    marginTop: 50,
-    borderColor: colorCode.extremeLightGray
+    borderColor: colorCode.extremeLightGray,
+    backgroundColor: colorCode.white
   },
   listItem: {
     borderBottomColor: colorCode.extremeLightGray,

@@ -18,7 +18,8 @@ class HomepageScreen1Container extends Component {
     headerStyle: {
       backgroundColor: colorCode.white,
       // Remove the border bottom line of header
-      borderBottomWidth: 0
+      borderBottomWidth: 0,
+      paddingTop: 32
     },
     tabBarLabel: 'Home',
     tabBarIcon: ({ tintColor }) => (
