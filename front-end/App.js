@@ -4,8 +4,10 @@ import { Provider } from 'react-redux';
 import { Font, Asset } from 'expo';
 import store from './store';
 import { TabNavigator, StackNavigator } from 'react-navigation';
+import { FluidNavigator } from 'react-navigation-fluid-transitions';
 import commonStyles from './utils/styles';
 import colorCode from './utils/colorCode';
+import GetStartedScreenContainer from './components/GetStartedScreen/GetStartedScreenContainer';
 import LoginScreenContainer from './components/LoginScreen/LoginScreenContainer';
 import UserInputScreensContainer from './components/UserInputScreens/UserInputScreensContainer';
 import ScanningProcessScreensContainer from './components/ScanningProcessScreens/ScanningProcessScreensContainer';
@@ -19,9 +21,14 @@ import StatisticsScreenContainer from './components/StatisticsScreen/StatisticsS
 
 const MainNavigator = StackNavigator(
   {
-    // loginContainer: { screen: LoginScreenContainer },
-    // scanningContainer: { screen: ScanningProcessScreensContainer },
-    // userInputContainer: { screen: UserInputScreensContainer },
+    loginContainer: {
+      screen: FluidNavigator({
+        getStartedScreen: { screen: GetStartedScreenContainer },
+        loginScreen: { screen: LoginScreenContainer },
+      })
+    },
+    scanningContainer: { screen: ScanningProcessScreensContainer },
+    userInputContainer: { screen: UserInputScreensContainer },
     mainContainer: {
       screen: TabNavigator(
         {

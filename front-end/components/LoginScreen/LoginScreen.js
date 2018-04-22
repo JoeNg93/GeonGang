@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
 import { FormInput, Icon, Button } from 'react-native-elements';
+import { Transition } from 'react-navigation-fluid-transitions';
 import commonStyles from '../../utils/styles';
 import colorCode from '../../utils/colorCode';
 import PropTypes from 'prop-types';
@@ -15,76 +16,86 @@ const LoginScreen = ({
   return (
     <View style={[style.pageContainer]}>
       <View style={[style.logoContainer]}>
+        <Transition shared="logo">
+          <Image
+            style={[style.logoImage]}
+            source={require('../../assets/images/logo.png')}
+            resizeMode='contain'
+          />
+        </Transition>
+      </View>
+      <Transition appear='right'>
+        <View style={[style.loginContainer]}>
+          <View style={[style.loginPlace]}>
+            <FormInput
+              containerStyle={[style.loginField]}
+              inputStyle={[commonStyles.fontMontserratLight, style.loginText]}
+              placeholder={'email address'}
+              value={email}
+              placeholderTextColor={[colorCode.lightgray]}
+              onChangeText={onChangeEmail}
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+            <FormInput
+              containerStyle={[style.loginField]}
+              inputStyle={[commonStyles.fontMontserratLight, style.loginText]}
+              placeholder={'password'}
+              value={password}
+              secureTextEntry={true}
+              placeholderTextColor={[colorCode.lightgray]}
+              onChangeText={onChangePassword}
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+            <Text style={[commonStyles.fontMontserratLight, style.socialText]}>
+              or login using social media
+            </Text>
+          </View>
+          <View style={[style.socialGroup]}>
+            <Icon
+              type="font-awesome"
+              name="facebook-square"
+              size={34}
+              color="#29487D"
+              iconStyle={[style.socialIcon]}
+            />
+            <Icon
+              type="font-awesome"
+              name="google-plus-square"
+              size={34}
+              color="#FC2B42"
+              iconStyle={[style.socialIcon]}
+            />
+            <Icon
+              type="font-awesome"
+              name="twitter-square"
+              size={34}
+              color="#55ACEE"
+              iconStyle={[style.socialIcon]}
+            />
+          </View>
+        </View>
+      </Transition>
+      <Transition shared='background'>
         <Image
-          style={[style.logoImage]}
-          source={require('../../assets/images/logo.png')}
+          source={require('../../assets/images/background.png')}
+          style={style.bottomBackgroundImage}
         />
-      </View>
-      <View style={[style.loginContainer]}>
-        <View style={[style.loginPlace]}>
-          <FormInput
-            containerStyle={[style.loginField]}
-            inputStyle={[commonStyles.fontMontserratLight, style.loginText]}
-            placeholder={'email address'}
-            value={email}
-            placeholderTextColor={[colorCode.lightgray]}
-            onChangeText={onChangeEmail}
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
-          <FormInput
-            containerStyle={[style.loginField]}
-            inputStyle={[commonStyles.fontMontserratLight, style.loginText]}
-            placeholder={'password'}
-            value={password}
-            secureTextEntry={true}
-            placeholderTextColor={[colorCode.lightgray]}
-            onChangeText={onChangePassword}
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
-          <Text style={[commonStyles.fontMontserratLight, style.socialText]}>
-            or login using social media
-          </Text>
-        </View>
-        <View style={[style.socialGroup]}>
-          <Icon
-            type="font-awesome"
-            name="facebook-square"
-            size={34}
-            color="#29487D"
-            iconStyle={[style.socialIcon]}
-          />
-          <Icon
-            type="font-awesome"
-            name="google-plus-square"
-            size={34}
-            color="#FC2B42"
-            iconStyle={[style.socialIcon]}
-          />
-          <Icon
-            type="font-awesome"
-            name="twitter-square"
-            size={34}
-            color="#55ACEE"
-            iconStyle={[style.socialIcon]}
+      </Transition>
+      <Transition appear='horizontal'>
+        <View style={style.buttonContainer}>
+          <Button
+            title="Login"
+            fontFamily="montserrat-regular"
+            fontSize={20}
+            backgroundColor={colorCode.darkBlue}
+            borderRadius={25}
+            containerViewStyle={[style.loginButton]}
+            onPress={onPressSignin}
           />
         </View>
-      </View>
-
-      <Image
-        source={require('../../assets/images/background.png')}
-        style={style.bottomBackgroundImage}
-      />
-      <Button
-        title="Login"
-        fontFamily="montserrat-regular"
-        fontSize={20}
-        backgroundColor={colorCode.darkBlue}
-        borderRadius={25}
-        containerViewStyle={[style.loginButton]}
-        onPress={onPressSignin}
-      />
+      </Transition>
     </View>
   );
 };
@@ -92,7 +103,8 @@ const LoginScreen = ({
 const style = StyleSheet.create({
   pageContainer: {
     flex: 1,
-    backgroundColor: colorCode.white
+    backgroundColor: colorCode.white,
+    alignItems: 'center'
   },
   logoContainer: {
     marginTop: 60,
@@ -102,17 +114,16 @@ const style = StyleSheet.create({
     width: 170,
     height: 144
   },
-  loginContainer: {
+  loginPlace: {
     marginTop: 13,
-    marginLeft: 51,
-    marginRight: 49
   },
   loginField: {
     marginTop: 36,
     marginLeft: -2,
-    marginRight: -2
+    marginRight: -2,
   },
   loginText: {
+    width: 320,
     color: '#303030',
     fontSize: 16,
     marginLeft: 2
@@ -134,13 +145,16 @@ const style = StyleSheet.create({
     zIndex: -1,
     bottom: 0,
     height: 236,
-    width: 414
+    width: '100%'
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },
   loginButton: {
-    position: 'absolute',
-    bottom: 77,
-    alignSelf: 'center',
-    width: 175
+    width: 175,
+    marginBottom: 77
   }
 });
 
