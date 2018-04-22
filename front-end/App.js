@@ -56,10 +56,11 @@ const MainNavigator = StackNavigator(
           tabBarOptions: {
             // Color when focus (color of each tab)
             activeTintColor: colorCode.darkBlue,
+            inactiveTintColor: colorCode.lightLightGray,
             // Style for each label
             labelStyle: [
               commonStyles.fontMontserratLight,
-              { fontSize: 11, color: colorCode.lightLightGray }
+              { fontSize: 11 }
             ],
             // Tab bar style
             style: {
