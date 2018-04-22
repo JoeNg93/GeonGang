@@ -22,7 +22,7 @@ const HomepageScreen1 = ({
   onPressRecordCard
 }) => {
   return (
-    <GestureRecognizer style={{ flex: 1 }} onSwipeLeft={onSwipeLeft}>
+    <GestureRecognizer style={{ flex: 1, backgroundColor: colorCode.white }} onSwipeLeft={onSwipeLeft}>
       <View style={styles.mainContainer}>
         <View style={styles.headerSearchContainer}>
           <Image
@@ -133,8 +133,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingLeft: 40,
     paddingTop: 40,
-    backgroundColor: colorCode.white,
-    paddingTop: 40
   },
   divider: {
     marginTop: 16,
@@ -175,7 +173,6 @@ const styles = StyleSheet.create({
     color: colorCode.blue
   },
   iconContainer: {
-    backgroundColor: colorCode.white,
     alignItems: 'flex-end',
     flex: 1,
     paddingRight: 28,
