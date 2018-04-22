@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { SearchBar, Button } from 'react-native-elements';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { SearchBar, Button, Icon } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
 import colorCode from '../../utils/colorCode';
 import HeaderWithLogo from '../common/HeaderWithLogo';
@@ -114,6 +114,16 @@ const HomepageScreen1 = ({
           {/*<EmptyCard gradientBackground={gradientBackground} />*/}
         </View>
       </View>
+      <TouchableOpacity onPress={onSwipeLeft} style={styles.iconContainer}>
+        <View>
+          <Icon
+            name="arrow-right"
+            type="feather"
+            color={colorCode.darkBlue}
+            size={32}
+          />
+        </View>
+      </TouchableOpacity>
     </GestureRecognizer>
   );
 };
@@ -124,7 +134,7 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     paddingTop: 40,
     backgroundColor: colorCode.white,
-    flex: 1
+    paddingTop: 40
   },
   divider: {
     marginTop: 16,
@@ -163,6 +173,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingLeft: 35,
     color: colorCode.blue
+  },
+  iconContainer: {
+    backgroundColor: colorCode.white,
+    alignItems: 'flex-end',
+    flex: 1,
+    paddingRight: 28,
+    paddingTop: 32
   }
 });
 
