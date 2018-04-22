@@ -11,12 +11,11 @@ import UserInputScreensContainer from './components/UserInputScreens/UserInputSc
 import ScanningProcessScreensContainer from './components/ScanningProcessScreens/ScanningProcessScreensContainer';
 import HomePageScreen1Container from './components/HomepageScreen/HomepageScreen1Container';
 import HomePageScreen2Container from './components/HomepageScreen/HomepageScreen2Container';
-import Component1 from './components/Temp/Component1';
-import Component3 from './components/Temp/Component3';
 import UserProfileScreenContainer from './components/UserProfileScreen/UserProfileScreenContainer';
 import ProductDatabaseScreenContainer from './components/ProductDatabaseScreen/ProductDatabaseScreenContainer';
 import ProductCategoryScreenContainer from './components/ProductDatabaseScreen/ProductCategoryScreenContainer';
 import LoaderContainer from './components/common/LoaderContainer';
+import StatisticsScreenContainer from './components/StatisticsScreen/StatisticsScreenContainer';
 
 const MainNavigator = StackNavigator(
   {
@@ -32,7 +31,9 @@ const MainNavigator = StackNavigator(
               homepage2: { screen: HomePageScreen2Container }
             })
           },
-          trackingContainer: { screen: StackNavigator({ screen: Component1 }) },
+          trackingContainer: {
+            screen: StackNavigator({ screen: StatisticsScreenContainer })
+          },
           profileContainer: {
             screen: StackNavigator({ screen: UserProfileScreenContainer })
           },

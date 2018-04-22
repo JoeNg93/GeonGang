@@ -9,14 +9,17 @@ const OverallScore = ({
   scoreTag,
   scoreTagColor,
   lightVersion,
-  displayRow
+  displayRow,
+  fontSize,
+  statisticsScreen
 }) => {
   return (
     <View
       style={[
         displayRow === true
           ? { flexDirection: 'row', alignItems: 'flex-end' }
-          : { flexDirection: 'column' }
+          : { flexDirection: 'column' },
+        statisticsScreen === true && { justifyContent: 'space-between' }
       ]}
     >
       <View>
@@ -71,7 +74,8 @@ const OverallScore = ({
                   marginLeft: 23,
                   marginBottom: 15
                 }
-              : { marginTop: 17 }
+              : { marginTop: 17 },
+            statisticsScreen === true && { marginLeft: 0, marginBottom: 0 }
           ]}
         >
           <Text
@@ -79,7 +83,8 @@ const OverallScore = ({
               commonStyles.fontMontserratLight,
               lightVersion === true
                 ? { color: scoreTagColor, fontSize: 16 }
-                : { color: 'white', fontSize: 14 }
+                : { color: 'white', fontSize: 14 },
+              fontSize ? { fontSize: 12 } : {}
             ]}
           >
             {scoreTag}
@@ -94,13 +99,6 @@ const styles = StyleSheet.create({
   overallScoreContainer: {
     flexDirection: 'row',
     alignItems: 'flex-end'
-  },
-  overallScore: {
-    fontSize: 50
-  },
-  overallBand: {
-    fontSize: 26,
-    marginBottom: 10
   },
   badgeContainer: {
     paddingLeft: 20,
