@@ -19,29 +19,45 @@ const OverallScore = ({
           : { flexDirection: 'column' }
       ]}
     >
-      <View style={[styles.overallScoreContainer]}>
-        <Text
-          style={[
-            commonStyles.fontMontserratRegular,
-            lightVersion === true
-              ? { color: 'white' }
-              : commonStyles.colorDarkBlue,
-            styles.overallScore
-          ]}
-        >
-          {score}
-        </Text>
-        <Text
-          style={[
-            commonStyles.fontMontserratLight,
-            lightVersion === true
-              ? { color: 'white' }
-              : commonStyles.colorDarkBlue,
-            styles.overallBand
-          ]}
-        >
-          /100
-        </Text>
+      <View>
+        <View style={[styles.overallScoreContainer]}>
+          <Text
+            style={[
+              commonStyles.fontMontserratRegular,
+              lightVersion === true
+                ? { color: 'white' }
+                : commonStyles.colorDarkBlue,
+              fontSize ? { fontSize: fontSize } : { fontSize: 48 }
+            ]}
+          >
+            {score.toFixed(1)}
+          </Text>
+          <Text
+            style={[
+              commonStyles.fontMontserratLight,
+              lightVersion === true
+                ? { color: 'white' }
+                : commonStyles.colorDarkBlue,
+              {},
+              fontSize
+                ? { fontSize: fontSize / 2, marginBottom: fontSize / 5 }
+                : { fontSize: 26, marginBottom: 10 }
+            ]}
+          >
+            /100
+          </Text>
+        </View>
+        {statisticsScreen === true && (
+          <Text
+            style={[
+              commonStyles.fontMontserratLight,
+              commonStyles.colorDarkBlue,
+              { fontSize: 16 }
+            ]}
+          >
+            Average Score
+          </Text>
+        )}
       </View>
       <View style={{ flexDirection: 'row' }}>
         <Badge

@@ -26,7 +26,7 @@ const SkinConditonResult = ({
               styles.resultNumber
             ]}
           >
-            {moistureScore}%
+            {moistureScore.toFixed(1)}%
           </Text>
           <Text
             style={[
@@ -53,7 +53,7 @@ const SkinConditonResult = ({
               styles.resultNumber
             ]}
           >
-            {uvScore}%
+            {uvScore.toFixed(1)}%
           </Text>
           <Text
             style={[
@@ -80,7 +80,7 @@ const SkinConditonResult = ({
               styles.resultNumber
             ]}
           >
-            {dirtScore}%
+            {dirtScore.toFixed(1)}%
           </Text>
           <Text
             style={[
@@ -107,7 +107,7 @@ const SkinConditonResult = ({
               styles.resultNumber
             ]}
           >
-            {pigmentScore}%
+            {pigmentScore.toFixed(1)}%
           </Text>
           <Text
             style={[
