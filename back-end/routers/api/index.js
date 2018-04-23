@@ -5,6 +5,8 @@ const showdown = require('showdown');
 const router = express.Router();
 const graphqlHTTP = require('express-graphql');
 const knex = require('../../utils/knex_config');
+const axios = require('axios');
+const _ = require('lodash');
 const { buildSchema } = require('graphql');
 const { userSchema, User } = require('../../models/user');
 const { brandSchema, Brand } = require('../../models/brand');
@@ -247,6 +249,63 @@ router.post(
     res
       .status(201)
       .send({ data: { myProfile: toCamelCaseKey(rowInUserInfo) } });
+  }
+);
+
+// GET RECOMMENDED PRODUCTS
+router.get(
+  '/recommended-products',
+  jwtMiddleware,
+  errHandlerMiddleware,
+  async (req, res) => {
+    const { age, climate, skin_type } = req.query;
+    const response = await axios.post(
+      `http://recommendation:${process.env
+        .RECOMMENDATION_SERVICE_PORT}/api/get-tag`,
+      {
+        age,
+        climate,
+        skin_type
+      }
+    );
+    const { tag } = response.data;
+    if (!tag) {
+      res.send({ data: { recommendedProducts: [] } });
+    }
+    // Get all products
+    let products = await Product.getAllProducts();
+    // Get tag as array
+    const individualTag = tag.split('-');
+
+    // Sort by the number of tag matched
+    products = products.map(product => ({
+      ...product,
+      numOfMatches: _.intersection(product.tag.split('-'), individualTag).length
+    }));
+    products = _.sortBy(products, 'numOfMatches').reverse();
+
+    // Only take 4 best from 4 unique categories
+    // TODO: Use normal "for" loop for efficiency
+    const CAT_TONERS_ID = 2;
+    const CAT_CLEANSERS_ID = 5;
+    const CAT_SUNSCREEN_ID = 6;
+    const CAT_MOISTURIZERS_ID = 7;
+    products = products.reduce(
+      (agg, curr) =>
+        agg.length < 4 &&
+        !agg.map(product => product.categoryId).includes(curr.categoryId) &&
+        [
+          CAT_TONERS_ID,
+          CAT_CLEANSERS_ID,
+          CAT_SUNSCREEN_ID,
+          CAT_MOISTURIZERS_ID
+        ].includes(curr.categoryId)
+          ? [...agg, curr]
+          : agg,
+      []
+    );
+
+    res.send(products);
   }
 );
 
