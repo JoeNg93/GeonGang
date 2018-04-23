@@ -16,30 +16,6 @@ import {
 import LoaderContainer from '../common/LoaderContainer';
 
 class RecommendationScreenContainer extends Component {
-  productEntries = [
-    {
-      id: 17,
-      name: 'Tidal Brightening Enzyme Water Cream',
-      imgSrc: require('../../assets/images/product-1.jpg'),
-      category: { name: 'Moisturizers', color: '#4396DC' },
-      rating: 3.4
-    },
-    {
-      id: 5,
-      name: 'Vitamin C Serum',
-      imgSrc: require('../../assets/images/product-2.jpg'),
-      category: { name: 'Treatments (Face)', color: '#4CD964' },
-      rating: 4.4
-    },
-    {
-      id: 12,
-      name: 'Ultra Light Cleansing Oil',
-      imgSrc: require('../../assets/images/product-3.jpg'),
-      category: { name: 'Cleansers', color: '#345995' },
-      rating: 4.0
-    }
-  ];
-
   categoryNameIDMap = {
     2: { name: 'Toners' },
     5: { name: 'Cleansers' },
