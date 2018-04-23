@@ -277,6 +277,9 @@ router.get(
     // Get tag as array
     const individualTag = tag.split('-');
 
+    // Randomize the position of products so that sort will not always be the same
+    products = _.shuffle(products);
+
     // Sort by the number of tag matched
     products = products.map(product => ({
       ...product,
@@ -305,7 +308,7 @@ router.get(
       []
     );
 
-    res.send(products);
+    res.send({ data: { recommendedProducts: products } });
   }
 );
 
