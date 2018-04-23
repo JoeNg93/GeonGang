@@ -34,6 +34,7 @@ class RecommendationModel(object):
     def predict(self, age, climate, skin_type):
         age_val, climate_val, skin_type_val = self.transform_to_val(
             age=age, skin_type=skin_type, climate=climate)
+        # Can raise ValueError if one of the argument has not ever existed in the dataset
         return self.model.predict([[age_val, climate_val, skin_type_val]])[0]
 
     @staticmethod
