@@ -184,26 +184,43 @@ const ProductDetail = ({
         onPress={onPressReview}
         style={[styles.productTopReview, styles.placeholder]}
       >
-        <View style={{ flexDirection: 'row' }}>
-          <Image
-            source={require('../../assets/images/profile-1.jpg')}
-            style={styles.profileImage}
-          />
-          <Text
-            style={[
-              styles.productTopReviewText,
-              commonStyles.fontMontserratLight,
-              commonStyles.colorDarkBlue
-            ]}
+        {topReview ? (
+          <View style={{ flexDirection: 'row' }}>
+            <Image
+              source={require('../../assets/images/profile-1.jpg')}
+              style={styles.profileImage}
+            />
+            <Text
+              style={[
+                styles.productTopReviewText,
+                commonStyles.fontMontserratLight,
+                commonStyles.colorDarkBlue
+              ]}
+            >
+              {topReview.content.substr(0, 120) + '...'}
+            </Text>
+            <Icon
+              name="keyboard-arrow-right"
+              size={38}
+              color={colorCode.darkBlue}
+            />
+          </View>
+        ) : (
+          <View
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
           >
-            {topReview.content.substr(0, 120) + '...'}
-          </Text>
-          <Icon
-            name="keyboard-arrow-right"
-            size={38}
-            color={colorCode.darkBlue}
-          />
-        </View>
+            <Text
+              style={[
+                styles.productTopReviewText,
+                commonStyles.fontMontserratLight,
+                commonStyles.colorDarkBlue,
+                { textAlign: 'center', fontSize: 13 }
+              ]}
+            >
+              No reviews yet. Press here to write your own review
+            </Text>
+          </View>
+        )}
       </TouchableHighlight>
     </ScrollView>
   );
