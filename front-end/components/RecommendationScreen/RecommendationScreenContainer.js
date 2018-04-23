@@ -7,7 +7,7 @@ import {
   removeFavoriteProduct
 } from '../../actions/product';
 import _ from 'lodash';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import OperationModal from '../common/OperationModal';
 import {
   closeAddFavoriteProductModalSuccess,
@@ -62,7 +62,7 @@ class RecommendationScreenContainer extends Component {
       )
     );
     return (
-      <View style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
         <RecommendationScreen productComponents={productComponents} />
         <OperationModal
           visible={this.props.addFavoriteProductSuccessModalVisible}
@@ -74,7 +74,7 @@ class RecommendationScreenContainer extends Component {
           content="Product is removed from your favorite list!"
           onPressCloseModal={this.props.closeRemoveFavoriteProductModalSuccess}
         />
-      </View>
+      </ScrollView>
     );
   }
 }
