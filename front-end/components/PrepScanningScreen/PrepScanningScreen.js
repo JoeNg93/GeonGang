@@ -18,7 +18,7 @@ const PrepScanningScreen = ({
     <ScrollView style={styles.container} scrollEnabled={false}>
       <Header
         headerText="Analyzing skin"
-        descriptionText="Here are some scanning instructions, write something there so that our users know how to use the sensor"
+        descriptionText="Press the start button and then gently move the sensor around your face."
       />
       <View style={styles.buttonArea}>
         <Animated.View style={[styles.circle1, rippleAnimatedValue1]} />

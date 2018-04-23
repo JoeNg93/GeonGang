@@ -68,7 +68,7 @@ class ProductDatabaseScreenContainer extends Component {
 
   componentWillMount = async () => {
     await this.props.getCategories();
-    this.props.setCategory(Object.values(this.props.categories)[0]);
+    this.props.setCategory(Object.values(this.props.categories)[4]);
   };
 
   productAddHandle = productId => {

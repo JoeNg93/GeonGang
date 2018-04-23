@@ -161,9 +161,9 @@ const ProductDetail = ({
           ]}
         >
           <Text style={commonStyles.fontMontserratMedium}>
-            {product.numberOfReviews}
+            {product.reviews.length}
           </Text>
-          {' reviews'}
+          {' Reviews'}
         </Text>
         <Text
           style={[
@@ -196,7 +196,7 @@ const ProductDetail = ({
               commonStyles.colorDarkBlue
             ]}
           >
-            {topReview.content}
+            {topReview.content.substr(0, 120) + '...'}
           </Text>
           <Icon
             name="keyboard-arrow-right"

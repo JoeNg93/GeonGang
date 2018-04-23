@@ -46,8 +46,7 @@ const FriendsComponent = ({
                 rounded
                 medium
                 source={{
-                  uri:
-                    'https://s-media-cache-ak0.pinimg.com/736x/0e/29/d0/0e29d056cd2d93964dfe00741d4d8df4.jpg'
+                  uri: 'https://avatarfiles.alphacoders.com/855/85557.png'
                 }}
               />
             }
@@ -104,8 +103,7 @@ const FriendsComponent = ({
                       rounded
                       medium
                       source={{
-                        uri:
-                          'https://s-media-cache-ak0.pinimg.com/736x/0e/29/d0/0e29d056cd2d93964dfe00741d4d8df4.jpg'
+                        uri: 'https://avatarfiles.alphacoders.com/855/85557.png'
                       }}
                     />
                   }

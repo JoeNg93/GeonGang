@@ -17,7 +17,7 @@ class SkinTypeScreenContainer extends Component {
     },
     {
       title: 'Dry Skin',
-      description: 'Dehyrated or rough patches, flakiness and tighness',
+      description: 'Dehydrated or rough patches, flaky and tight',
       imgSrc: require('../../assets/images/dry_skin.png'),
       value: 'dry'
     },
@@ -29,13 +29,13 @@ class SkinTypeScreenContainer extends Component {
     },
     {
       title: 'Combination Skin',
-      description: 'Oil in the T zone with areas of dryness',
+      description: 'Oil in the "T" zone with areas of dryness',
       imgSrc: require('../../assets/images/combination_skin.png'),
       value: 'combination'
     },
     {
       title: 'Sensitive Skin',
-      description: 'Usually dry and itchy, with redness and prone to acnes',
+      description: 'Usually dry and itchy, with redness and prone to acne',
       imgSrc: require('../../assets/images/sensitive_skin.png'),
       value: 'sensitive'
     }
