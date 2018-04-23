@@ -95,7 +95,7 @@ const UserProfileScreen = ({
           style={styles.avatarImage}
           source={{
             uri:
-              'https://s-media-cache-ak0.pinimg.com/736x/0e/29/d0/0e29d056cd2d93964dfe00741d4d8df4.jpg'
+              'http://3.bp.blogspot.com/-HalmhpOW7cU/Vk1p5Q7_jeI/AAAAAAAAE7k/mLaDIv1oOVw/s1600/CuteAvatar1.png'
           }}
         />
       </View>

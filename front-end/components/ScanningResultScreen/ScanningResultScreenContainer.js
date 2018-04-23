@@ -18,7 +18,7 @@ class ScanningResultScreenContainer extends Component {
     uvScore: 88,
     pigmentScore: 20,
     recommendText:
-      'Your skin is thisty, tired with lots of dirts and oil. We recommend cleaning your face and moisturizing before go to bed.'
+      'Your skin is dry, tired with a lot of dirt and oil. We recommend cleaning your face and moisturizing before going to bed.'
   };
 
   MIN_POSITIVE_SCORE = 50;
@@ -77,7 +77,7 @@ class ScanningResultScreenContainer extends Component {
       case 'bad':
         return 'Your skin is just bad.';
       case 'moderate':
-        return 'Your skin is thisty, tired with lots of dirts and oil. We recommend cleaning your face and moisturizing before go to bed.';
+        return 'Your skin is dry, tired and has a lot of dirt and oil. We recommend cleaning your face and moisturizing before going to bed.';
       case 'good':
         return 'Your skin is healthy and has improved so far. Keep up with the good work and continue to wash your face.';
     }
