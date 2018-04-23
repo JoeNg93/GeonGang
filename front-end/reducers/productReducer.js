@@ -7,13 +7,16 @@ import {
   PENDING,
   REVIEW_POST,
   MARK_REVIEW_HELPFUL,
-  UNMARK_REVIEW_HELPFUL
+  UNMARK_REVIEW_HELPFUL,
+  RECOMMENDED_PRODUCTS_GET
 } from '../actions/types';
 
 const INITIAL_STATE = {
   currentProduct: {},
   isAddingFavoriteProduct: false,
-  isRemovingFavoriteProduct: false
+  isRemovingFavoriteProduct: false,
+  currentRecommendedProducts: [],
+  isFetchingCurrentRecommendedProducts: false
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -73,6 +76,19 @@ export default (state = INITIAL_STATE, { type, payload }) => {
                 : review
           )
         }
+      };
+    }
+    case `${RECOMMENDED_PRODUCTS_GET}_${PENDING}`: {
+      return { ...state, isFetchingCurrentRecommendedProducts: true };
+    }
+    case `${RECOMMENDED_PRODUCTS_GET}_${FAIL}`: {
+      return { ...state, isFetchingCurrentRecommendedProducts: false };
+    }
+    case `${RECOMMENDED_PRODUCTS_GET}_${SUCCESS}`: {
+      return {
+        ...state,
+        currentRecommendedProducts: payload.recommendedProducts,
+        isFetchingCurrentRecommendedProducts: false
       };
     }
     default: {

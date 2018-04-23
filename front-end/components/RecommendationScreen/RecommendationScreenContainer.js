@@ -13,6 +13,7 @@ import {
   closeAddFavoriteProductModalSuccess,
   closeRemoveFavoriteProductModalSuccess
 } from '../../actions/modals_control';
+import LoaderContainer from '../common/LoaderContainer';
 
 class RecommendationScreenContainer extends Component {
   productEntries = [
@@ -39,6 +40,13 @@ class RecommendationScreenContainer extends Component {
     }
   ];
 
+  categoryNameIDMap = {
+    2: { name: 'Toners' },
+    5: { name: 'Cleansers' },
+    6: { name: 'Sunscreen' },
+    7: { name: 'Moisturizers' }
+  };
+
   productAddHandle = productId => {
     const {
       idOfFavoriteProducts,
@@ -54,19 +62,29 @@ class RecommendationScreenContainer extends Component {
   };
 
   render() {
-    const { idOfFavoriteProducts } = this.props;
+    const {
+      idOfFavoriteProducts,
+      currentRecommendedProducts,
+      isFetchingCurrentRecommendedProducts
+    } = this.props;
 
-    const productComponents = this.productEntries.map((productInfo, index) => (
-      <Product
-        key={productInfo.id}
-        productName={productInfo.name}
-        productImgPath={productInfo.imgSrc}
-        category={productInfo.category}
-        rating={productInfo.rating}
-        addedState={idOfFavoriteProducts.includes(productInfo.id)}
-        productAddHandle={() => this.productAddHandle(productInfo.id)}
-      />
-    ));
+    if (isFetchingCurrentRecommendedProducts) {
+      return <LoaderContainer />;
+    }
+
+    const productComponents = currentRecommendedProducts.map(
+      (productInfo, index) => (
+        <Product
+          key={productInfo.id}
+          productName={productInfo.name}
+          productImgPath={productInfo.imgSrc}
+          category={this.categoryNameIDMap[productInfo.categoryId]}
+          rating={productInfo.rating}
+          addedState={idOfFavoriteProducts.includes(productInfo.id)}
+          productAddHandle={() => this.productAddHandle(productInfo.id)}
+        />
+      )
+    );
     return (
       <View style={{ flex: 1 }}>
         <RecommendationScreen productComponents={productComponents} />
@@ -90,7 +108,10 @@ const mapStateToProps = state => ({
   addFavoriteProductSuccessModalVisible:
     state.modal.addFavoriteProductSuccessModalVisible,
   removeFavoriteProductSuccessModalVisible:
-    state.modal.removeFavoriteProductSuccessModalVisible
+    state.modal.removeFavoriteProductSuccessModalVisible,
+  currentRecommendedProducts: state.product.currentRecommendedProducts,
+  isFetchingCurrentRecommendedProducts:
+    state.product.isFetchingCurrentRecommendedProducts
 });
 
 export default connect(mapStateToProps, {

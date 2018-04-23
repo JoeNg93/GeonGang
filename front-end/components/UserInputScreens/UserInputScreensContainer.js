@@ -10,6 +10,7 @@ import RecommendationScreenContainer from '../RecommendationScreen/Recommendatio
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { postUserInputs } from '../../actions/user_input';
+import { getRecommendedProducts } from '../../actions/product';
 
 class UserInputScreensContainer extends Component {
   data = [
@@ -34,7 +35,7 @@ class UserInputScreensContainer extends Component {
     if (this.state.currentActiveItemIndex === 4) {
       // Finish input, attempt to save user input to db
       const { age, gender, skinType, skinColor, climate } = this.props;
-      const response = await this.props.postUserInputs({
+      this.props.postUserInputs({
         name: 'Joe',
         age,
         gender,
@@ -42,8 +43,12 @@ class UserInputScreensContainer extends Component {
         skinColor,
         climate
       });
-      console.log(response.status);
-      console.log(response.data);
+      // TODO: Dont hard-code climate if need real data
+      this.props.getRecommendedProducts({
+        age,
+        climate: 'Dfc',
+        skinType
+      });
     }
     const newIndex = this.state.currentActiveItemIndex + 1;
     this.setState({ currentActiveItemIndex: newIndex });
@@ -86,6 +91,7 @@ const mapStateToProps = state => ({
   climate: state.userInput.climate
 });
 
-export default connect(mapStateToProps, { postUserInputs })(
-  UserInputScreensContainer
-);
+export default connect(mapStateToProps, {
+  postUserInputs,
+  getRecommendedProducts
+})(UserInputScreensContainer);

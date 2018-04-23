@@ -3,11 +3,16 @@ import { getAuthHeader } from './auth';
 import axios from 'axios';
 import envConfig from './env_config';
 
-export const getData = ({ actionType, urlPath }) => async dispatch => {
+export const getData = ({
+  actionType,
+  urlPath,
+  queryParams
+}) => async dispatch => {
   dispatch({ type: `${actionType}_${PENDING}` });
   try {
     const response = await axios.get(`${envConfig.baseUrl}/${urlPath}`, {
-      headers: await getAuthHeader()
+      headers: await getAuthHeader(),
+      params: queryParams || {}
     });
     dispatch({ type: `${actionType}_${SUCCESS}`, payload: response.data.data });
     return response;
