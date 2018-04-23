@@ -1,9 +1,10 @@
 import {
   CURRENT_PRODUCT_SET,
   FAVORITE_PRODUCT_ADD,
-  FAVORITE_PRODUCT_REMOVE
+  FAVORITE_PRODUCT_REMOVE,
+  RECOMMENDED_PRODUCTS_GET
 } from './types';
-import { postData, deleteData } from '../utils/api';
+import { postData, deleteData, getData } from '../utils/api';
 import { getMyProfile } from './user_info';
 
 export const setCurrentProduct = product => ({
@@ -24,4 +25,11 @@ export const removeFavoriteProduct = productId =>
     actionType: FAVORITE_PRODUCT_REMOVE,
     urlPath: `api/favorite-product/${productId}`,
     successCallback: getMyProfile()
+  });
+
+export const getRecommendedProducts = ({ age, climate, skinType }) =>
+  getData({
+    actionType: RECOMMENDED_PRODUCTS_GET,
+    urlPath: 'api/recommended-products',
+    queryParams: { age, climate, skin_type: skinType }
   });
