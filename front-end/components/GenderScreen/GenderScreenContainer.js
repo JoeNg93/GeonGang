@@ -5,7 +5,6 @@ import { setGender } from '../../actions/user_input';
 
 class GenderScreenContainer extends Component {
   render() {
-    console.log(this.props.gender);
     return (
       <GenderScreen
         gender={this.props.gender}

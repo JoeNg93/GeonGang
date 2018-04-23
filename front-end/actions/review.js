@@ -18,7 +18,6 @@ export const unmarkReviewHelpful = reviewId => ({
 // This one is fake, it's suppose to do the real API POSt to back-end
 export const postReview = ({ content, rating, userId, userName }) => {
   const postedAt = moment().format(DATETIME_FORMAT_FROM_BACKEND);
-  console.log(postedAt);
   const numOfLikes = 0;
   const id = 100;
   return {
