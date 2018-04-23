@@ -291,10 +291,10 @@ const styles = StyleSheet.create({
   },
 
   productTopReviewText: {
-    flexShrink: 1,
-    flexBasis: 'auto',
+    width: 216,
     fontSize: 11,
-    marginLeft: 16
+    marginLeft: 16,
+    marginRight: 16
   },
 
   profileImage: {

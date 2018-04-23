@@ -15,8 +15,8 @@ const ProfileComponent = ({
 }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.rows1}>
-        <View style={styles.columns1}>
+      <View style={styles.rows}>
+        <View style={[styles.columns, styles.columnLeft]}>
           <Text
             style={[styles.columnHeading, commonStyles.fontMontserratLight]}
           >
@@ -32,7 +32,7 @@ const ProfileComponent = ({
             {age}
           </Text>
         </View>
-        <View style={styles.columns1}>
+        <View style={[styles.columns, styles.columnRight]}>
           <Text
             style={[styles.columnHeading, commonStyles.fontMontserratLight]}
           >
@@ -49,8 +49,8 @@ const ProfileComponent = ({
           </Text>
         </View>
       </View>
-      <View style={styles.rows1}>
-        <View style={styles.columns2}>
+      <View style={styles.rows}>
+        <View style={[styles.columns, styles.columnLeft]}>
           <Text
             style={[styles.columnHeading, commonStyles.fontMontserratLight]}
           >
@@ -77,7 +77,7 @@ const ProfileComponent = ({
             />
           </View>
         </View>
-        <View style={styles.columns2}>
+        <View style={[styles.columns, styles.columnRight]}>
           <Text
             style={[styles.columnHeading, commonStyles.fontMontserratLight]}
           >
@@ -95,7 +95,7 @@ const ProfileComponent = ({
         </View>
       </View>
       <View style={styles.rows}>
-        <View style={styles.columns}>
+        <View style={[styles.columns, styles.columnLeft]}>
           <Text
             style={[styles.columnHeading, commonStyles.fontMontserratLight]}
           >
@@ -111,24 +111,27 @@ const ProfileComponent = ({
             {climate}
           </Text>
         </View>
-        <View style={styles.columns}>
+        <View style={[styles.columns, styles.columnRight]}>
           <Text
             style={[styles.columnHeading, commonStyles.fontMontserratLight]}
           >
             Skin condition
           </Text>
-          <Badge
-            containerStyle={{
-              backgroundColor: colorCode[`${skinCondition}Tag`],
-              width: 95
-            }}
-          >
-            <Text
-              style={[styles.skinCondition, commonStyles.fontMontserratLight]}
+          <View style={{flexDirection: 'row'}}>
+            <Badge
+              containerStyle={{
+                backgroundColor: colorCode[`${skinCondition}Tag`],
+                paddingLeft: 20,
+                paddingRight: 20
+              }}
             >
-              {skinCondition}
-            </Text>
-          </Badge>
+              <Text
+                style={[styles.skinConditionText, commonStyles.fontMontserratLight]}
+              >
+                {skinCondition}
+              </Text>
+            </Badge>
+          </View>
         </View>
       </View>
     </View>
@@ -142,16 +145,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     paddingLeft: 20,
-    paddingTop: 15
+    paddingTop: 15,
+    paddingBottom: 8
   },
   rows: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingBottom: 20
-  },
-  rows1: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -161,27 +158,22 @@ const styles = StyleSheet.create({
   columns: {
     display: 'flex',
     flexDirection: 'column',
-    width: 150
   },
-  columns1: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: 150
+  columnLeft: {
+    flex: 3
   },
-  columns2: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: 150
+  columnRight: {
+    flex: 2
   },
   columnHeading: {
-    fontSize: 18,
+    fontSize: 16,
     color: '#828282',
     lineHeight: 26
   },
   columnValue: {
-    fontSize: 20
+    fontSize: 18
   },
-  skinCondition: {
+  skinConditionText: {
     fontSize: 14,
     color: '#fff'
   }

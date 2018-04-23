@@ -56,16 +56,18 @@ const MainNavigator = StackNavigator(
           tabBarOptions: {
             // Color when focus (color of each tab)
             activeTintColor: colorCode.darkBlue,
+            inactiveTintColor: colorCode.lightLightGray,
             // Style for each label
             labelStyle: [
               commonStyles.fontMontserratLight,
-              { fontSize: 11, color: colorCode.lightLightGray }
+              { fontSize: 11 }
             ],
             // Tab bar style
             style: {
               height: 56,
               paddingTop: 6,
-              paddingBottom: 3
+              paddingBottom: 3,
+              backgroundColor: colorCode.white
             }
           }
         }
@@ -112,6 +114,7 @@ export default class App extends Component {
     await Asset.loadAsync(require('./assets/images/logo.png'));
     await Asset.loadAsync(require('./assets/images/background.png'));
     await Asset.loadAsync(require('./assets/images/otherUser.png'));
+    await Asset.loadAsync(require('./assets/images/graph.png'));
 
     this.setState({ assetLoaded: true });
   };

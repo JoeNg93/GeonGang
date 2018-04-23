@@ -5,7 +5,12 @@ import { Icon } from 'react-native-elements';
 
 class StatisticsScreenContainer extends Component {
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: 'Tracking',
+    headerStyle: {
+      backgroundColor: colorCode.white,
+      // Remove the border bottom line of header
+      borderBottomWidth: 0,
+      height: 0
+    },
     tabBarLabel: 'Tracking',
     tabBarIcon: ({ tintColor }) => (
       <Icon name="graph" type="simple-line-icon" color={tintColor} />

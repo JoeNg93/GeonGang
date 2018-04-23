@@ -9,6 +9,7 @@ import {
   Icon
 } from 'react-native-elements';
 import commonStyles from '../../utils/styles';
+import colorCode from "../../utils/colorCode";
 
 const FriendsComponent = ({
   numOfFriends,
@@ -22,16 +23,19 @@ const FriendsComponent = ({
   return (
     <View style={styles.container}>
       <SearchBar
+        round
         icon={{
-          type: 'simple-line-icon',
-          name: 'magnifier',
-          color: '#4396DC',
-          style: styles.icon
+          name: 'search',
+          color: colorCode.blue,
+          style: styles.searchIcon
         }}
         placeholder="Search for friends here..."
         containerStyle={styles.searchBarContainer}
-        inputStyle={styles.input}
-        placeholderTextColor={'#828282'}
+        inputStyle={[commonStyles.fontMontserratLight, styles.searchInput]}
+        placeholderTextColor={colorCode.anotherLightGray}
+        clearIcon={{ color: colorCode.anotherLightGray, name: 'clear' }}
+        autoCapitalize="none"
+        autoCorrect={false}
         value={currentFriendSearchTerm}
         onChangeText={onChangeSearchBar}
       />
@@ -140,24 +144,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderTopWidth: 0,
     borderBottomWidth: 0,
-    width: '87%',
-    height: 65,
-    alignItems: 'center'
+    marginTop: 5,
+    marginBottom: 21,
+    width: '90%'
   },
-  icon: {
-    width: 30,
-    height: 30,
-    top: 14,
+  searchIcon: {
+    fontSize: 24,
+    top: 11,
     left: 20
   },
-  input: {
-    backgroundColor: '#fff',
+  searchInput: {
+    backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: '#4396DC',
-    width: '100%',
-    height: 45,
-    borderRadius: 100,
+    borderColor: colorCode.blue,
+    color: colorCode.blue,
     margin: 0,
+    width: '100%',
+    height: 46,
+    borderRadius: 100,
     paddingLeft: 50,
     fontSize: 16
   },

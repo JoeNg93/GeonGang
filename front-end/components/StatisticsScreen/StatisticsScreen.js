@@ -63,6 +63,11 @@ const StatisticsScreen = ({
             fontSize={28}
             statisticsScreen={true}
           />
+          <Image
+            style={[styles.graphImage]}
+            source={require('../../assets/images/graph.png')}
+            resizeMode='contain'
+          />
         </View>
       </View>
       <View style={styles.skinConditionContainer}>
@@ -174,7 +179,7 @@ const styles = StyleSheet.create({
   },
   buttonGroupContainer: {
     width: '100%',
-    marginTop: 26,
+    marginTop: 16,
     borderWidth: 0,
     backgroundColor: 'transparent',
     marginLeft: 0,
@@ -218,9 +223,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 8,
     paddingTop: 18,
-    paddingLeft: 44,
-    paddingRight: 44,
+    paddingLeft: 40,
+    paddingRight: 40,
     borderRadius: 10
+  },
+  graphImage: {
+    width: 285,
+    height: 164,
+    marginTop: 24,
   },
   skinConditionContainer: {
     flex: 1,
@@ -230,7 +240,7 @@ const styles = StyleSheet.create({
     paddingLeft: 38,
     paddingRight: 38,
     position: 'relative',
-    top: 144
+    top: 130
   },
   conditionItem: {
     width: 160,

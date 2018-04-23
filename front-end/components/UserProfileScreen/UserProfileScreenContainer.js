@@ -14,7 +14,9 @@ class UserProfileScreenContainer extends Component {
     headerStyle: {
       backgroundColor: colorCode.lightBlue,
       // Remove the border bottom line of header
-      borderBottomWidth: 0
+      borderBottomWidth: 0,
+      height: 64,
+      paddingTop: 0
     },
     tabBarLabel: 'Profile',
     tabBarIcon: ({ tintColor }) => (
@@ -28,7 +30,7 @@ class UserProfileScreenContainer extends Component {
             name="bell"
             type="material-community"
             color={colorCode.white}
-            size={22}
+            size={28}
             iconStyle={styles.bellButton}
           />
         </TouchableOpacity>
@@ -37,7 +39,7 @@ class UserProfileScreenContainer extends Component {
             name="settings"
             type="material-community"
             color={colorCode.white}
-            size={22}
+            size={28}
           />
         </TouchableOpacity>
       </View>

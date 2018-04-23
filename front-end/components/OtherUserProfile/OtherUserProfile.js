@@ -79,6 +79,9 @@ const renderRecommendationProduct = ({ item, index }) => {
   );
 };
 
+const headerHeight = 100;
+const avatarSize = 140;
+
 const OtherUserProfile = ({
   buttons,
   selectedIndex,
@@ -89,7 +92,7 @@ const OtherUserProfile = ({
   onPressCloseModal
 }) => {
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.closeModalContainer}>
         <TouchableOpacity onPress={onPressCloseModal}>
           <Icon name="clear" color={colorCode.white} size={30} />
@@ -136,11 +139,7 @@ const OtherUserProfile = ({
           innerBorderStyle={{ width: -1, color: 'transparent' }}
         />
       </View>
-      <ScrollView
-        style={{ width: '100%' }}
-        contentContainerStyle={{ display: 'flex', alignItems: 'center' }}
-        horizontal={false}
-      >
+      <View style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
         <View style={styles.buttonGroupContent}>
           {renderScreen(selectedIndex)}
         </View>
@@ -181,7 +180,7 @@ const OtherUserProfile = ({
           itemWidth={111}
           activeSlideAlignment={'start'}
           inactiveSlideScale={1}
-          containerCustomStyle={{ height: 160, width: '100%', paddingLeft: 75 }}
+          containerCustomStyle={styles.productCarousel}
         />
         <View
           style={{
@@ -220,14 +219,10 @@ const OtherUserProfile = ({
           itemWidth={111}
           activeSlideAlignment={'start'}
           inactiveSlideScale={1}
-          containerCustomStyle={{
-            height: 160,
-            width: '100%',
-            paddingLeft: 75
-          }}
+          containerCustomStyle={styles.productCarousel}
         />
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -236,44 +231,44 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    height: '100%',
-    backgroundColor: colorCode.white
+    backgroundColor: colorCode.white,
+    paddingBottom: 20
   },
   header: {
     display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
     flexDirection: 'row',
-    width: 414,
-    height: 180,
+    width: '100%',
+    height: headerHeight,
     backgroundColor: colorCode.lightBlue
   },
   headerButtonContainer: {
     marginLeft: 0,
     marginRight: 0
   },
+  avatarImage: {
+    height: avatarSize,
+    width: avatarSize,
+    position: 'absolute',
+    alignSelf: 'center',
+    top: headerHeight - avatarSize / 2,
+    borderRadius: 70
+  },
   editAvatarIconContainer: {
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
-    width: 140,
+    width: avatarSize,
     height: 55,
-    marginBottom: 25
+    marginBottom: 25,
+    opacity: 0
   },
   editAvatarButton: {
     borderRadius: 50,
     height: 27,
     width: 27,
     backgroundColor: colorCode.blue
-  },
-  avatarImage: {
-    height: 140,
-    width: 140,
-    position: 'absolute',
-    alignSelf: 'center',
-    right: 132,
-    top: 105,
-    borderRadius: 70
   },
   userName: {
     fontSize: 26
@@ -291,7 +286,7 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 'auto',
     borderBottomWidth: 1,
-    borderBottomColor: '#BDBDBD',
+    borderBottomColor: '#E0E0E0',
     marginBottom: 20
   },
   buttonGroupButtons: {
@@ -309,22 +304,22 @@ const styles = StyleSheet.create({
     color: colorCode.blue
   },
   productText: {
-    alignSelf: 'flex-start',
     paddingLeft: 20,
     fontSize: 20
   },
   button: {
     backgroundColor: colorCode.white,
-    height: 27,
-    width: 101,
     marginRight: 0
+  },
+  productCarousel: {
+    width: '100%',
+    paddingLeft: 85,
+    marginBottom: 32
   },
   productContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 111,
-    height: 138,
     marginRight: 10,
     marginLeft: 10
   },
@@ -332,10 +327,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     width: 111,
     height: 138,
+    borderRadius: 3,
     shadowOffset: { width: 0, height: 2 },
-    shadowColor: 'rgba(130, 130, 130, 0.25)',
-    shadowOpacity: 1,
-    shadowRadius: 2,
+    shadowColor: 'rgb(130, 130, 130)',
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
     paddingTop: 5,
     paddingBottom: 5,
     paddingRight: 5,
@@ -343,7 +339,7 @@ const styles = StyleSheet.create({
   },
   productImage: {
     alignSelf: 'center',
-    marginTop: 20,
+    marginTop: 10,
     marginBottom: 5,
     height: 60,
     width: 60

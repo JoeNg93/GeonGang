@@ -23,10 +23,15 @@ import { View } from 'react-native';
 class ProductDatabaseScreenContainer extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: 'Product list',
+    headerTitleStyle:  {
+      color: colorCode.darkBlue,
+      fontSize: 18
+    },
     headerStyle: {
       backgroundColor: colorCode.white,
       // Remove the border bottom line of header
-      borderBottomWidth: 0
+      borderBottomWidth: 0,
+      paddingTop: 32
     },
     tabBarLabel: 'Products',
     tabBarIcon: ({ tintColor }) => (

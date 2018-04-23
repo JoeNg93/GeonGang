@@ -16,10 +16,15 @@ class HomepageScreen2Container extends Component {
     headerStyle: {
       backgroundColor: colorCode.white,
       // Remove the border bottom line of header
-      borderBottomWidth: 0
+      borderBottomWidth: 0,
+      paddingTop: 32
     },
     headerTitle:
       (navigation.state.params && navigation.state.params.currentMonth) || null,
+    headerTitleStyle:  {
+      color: colorCode.darkBlue,
+      fontSize: 18
+    },
     tabBarLabel: 'Home',
     tabBarIcon: ({ tintColor }) => (
       <Icon name="home" type="simple-line-icon" color={tintColor} />
