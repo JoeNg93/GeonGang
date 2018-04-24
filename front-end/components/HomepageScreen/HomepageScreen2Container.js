@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { openRecordDetailModal } from '../../actions/modals_control';
 import { DATETIME_FORMAT_FROM_BACKEND } from '../../utils/index';
 import _ from 'lodash';
-import { setCurrentRecord } from '../../actions/record';
+import { setCurrentRecord, deleteRecord } from '../../actions/record';
 
 class HomepageScreen2Container extends Component {
   // Header styling
@@ -56,7 +56,7 @@ class HomepageScreen2Container extends Component {
   state = {
     currentIndex: 0,
     translateXAnim: new Animated.Value(100),
-    currentCardMonth: 'May'
+    currentCardMonth: 'April'
   };
 
   componentWillMount() {
@@ -102,6 +102,7 @@ class HomepageScreen2Container extends Component {
         DATETIME_FORMAT_FROM_BACKEND
       ).format('MMMM')
     });
+    // TODO: Find a proper way to change the top nav bar also
   }
 
   favoriteHandle = () => {
@@ -111,13 +112,14 @@ class HomepageScreen2Container extends Component {
     ].starAdded;
   };
 
-  deleteHandle = () => {
+  deleteHandle = recordId => {
     Animated.timing(this.cards[this.state.currentIndex].fadeOutAnim, {
       toValue: 0,
       duration: 500,
       useNativeDriver: true
     }).start(() => {
       this.cards.splice(this.state.currentIndex, 1);
+      // FIXME: Animation now a little bit laggy, find a proper way to animate it smoothly
       if (this.state.currentIndex === 0) {
         this.setState({
           translateXAnim: new Animated.Value(100)
@@ -131,7 +133,7 @@ class HomepageScreen2Container extends Component {
         toValue: 0,
         duration: 500,
         useNativeDriver: true
-      }).start();
+      }).start(() => this.props.deleteRecord(recordId));
     });
   };
 
@@ -178,5 +180,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   openRecordDetailModal,
-  setCurrentRecord
+  setCurrentRecord,
+  deleteRecord
 })(HomepageScreen2Container);

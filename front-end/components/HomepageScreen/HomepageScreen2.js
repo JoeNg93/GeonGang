@@ -26,7 +26,7 @@ const renderItem = ({
       gradientBackground={item.gradientBackground}
       item={item}
       favoriteHandle={favoriteHandle}
-      deleteHandle={deleteHandle}
+      deleteHandle={() => deleteHandle(item.id)}
       fadeOutAnim={item.fadeOutAnim}
       translateXAnim={translateXAnim}
       onPressRecordCard={onPressOpenRecordDetailModal}
