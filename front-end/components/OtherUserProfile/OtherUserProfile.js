@@ -312,15 +312,13 @@ const styles = StyleSheet.create({
   },
   productCarousel: {
     width: '100%',
-    paddingLeft: 85,
+    paddingLeft: 75,
     marginBottom: 32
   },
   productContainer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 10,
-    marginLeft: 10
+    justifyContent: 'center'
   },
   productCard: {
     display: 'flex',
@@ -334,7 +332,9 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     paddingRight: 5,
-    paddingLeft: 5
+    paddingLeft: 5,
+    marginLeft: 10,
+    marginRight: 10
   },
   productImage: {
     alignSelf: 'center',
