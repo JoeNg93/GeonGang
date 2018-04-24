@@ -24,7 +24,7 @@ const MainNavigator = StackNavigator(
     loginContainer: {
       screen: FluidNavigator({
         getStartedScreen: { screen: GetStartedScreenContainer },
-        loginScreen: { screen: LoginScreenContainer },
+        loginScreen: { screen: LoginScreenContainer }
       })
     },
     scanningContainer: { screen: ScanningProcessScreensContainer },
@@ -58,10 +58,7 @@ const MainNavigator = StackNavigator(
             activeTintColor: colorCode.darkBlue,
             inactiveTintColor: colorCode.lightLightGray,
             // Style for each label
-            labelStyle: [
-              commonStyles.fontMontserratLight,
-              { fontSize: 11 }
-            ],
+            labelStyle: [commonStyles.fontMontserratLight, { fontSize: 11 }],
             // Tab bar style
             style: {
               height: 56,
