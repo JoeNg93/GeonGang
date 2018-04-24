@@ -21,7 +21,7 @@ class ScanningResultScreenContainer extends Component {
       'Your skin is dry, tired with a lot of dirt and oil. We recommend cleaning your face and moisturizing before going to bed.'
   };
 
-  MIN_POSITIVE_SCORE = 50;
+  MIN_POSITIVE_SCORE = 70;
   MAX_POSITIVE_SCORE = 100;
   MIN_NEGATIVE_SCORE = 0;
   MAX_NEGATIVE_SCORE = 50;
