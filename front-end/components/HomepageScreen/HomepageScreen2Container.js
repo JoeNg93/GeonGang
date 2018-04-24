@@ -21,7 +21,7 @@ class HomepageScreen2Container extends Component {
     },
     headerTitle:
       (navigation.state.params && navigation.state.params.currentMonth) || null,
-    headerTitleStyle:  {
+    headerTitleStyle: {
       color: colorCode.darkBlue,
       fontSize: 18
     },

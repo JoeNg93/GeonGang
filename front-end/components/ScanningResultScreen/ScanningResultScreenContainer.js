@@ -29,23 +29,16 @@ class ScanningResultScreenContainer extends Component {
   randomizeScanningResult = () => {
     const moistureScore = _.random(
       this.MIN_POSITIVE_SCORE,
-      this.MAX_POSITIVE_SCORE,
-      true
+      this.MAX_POSITIVE_SCORE
     );
-    const uvScore = _.random(
-      this.MIN_POSITIVE_SCORE,
-      this.MAX_POSITIVE_SCORE,
-      true
-    );
+    const uvScore = _.random(this.MIN_POSITIVE_SCORE, this.MAX_POSITIVE_SCORE);
     const dirtScore = _.random(
       this.MIN_NEGATIVE_SCORE,
-      this.MAX_NEGATIVE_SCORE,
-      true
+      this.MAX_NEGATIVE_SCORE
     );
     const pigmentScore = _.random(
       this.MIN_NEGATIVE_SCORE,
-      this.MAX_NEGATIVE_SCORE,
-      true
+      this.MAX_NEGATIVE_SCORE
     );
     const overallScore =
       (moistureScore + uvScore - dirtScore - pigmentScore) / 2;
