@@ -1,5 +1,10 @@
-import { RECORD_POST, RECORDS_GET, CURRENT_RECORD_SET } from './types';
-import { postData, queryGraphql } from '../utils/api';
+import {
+  RECORD_POST,
+  RECORDS_GET,
+  CURRENT_RECORD_SET,
+  RECORD_REMOVE
+} from './types';
+import { postData, queryGraphql, deleteData } from '../utils/api';
 
 export const postRecord = ({
   overallScore,
@@ -48,3 +53,10 @@ export const setCurrentRecord = record => ({
   type: CURRENT_RECORD_SET,
   payload: record
 });
+
+export const deleteRecord = recordId =>
+  deleteData({
+    actionType: RECORD_REMOVE,
+    urlPath: `api/records/${recordId}`,
+    successCallback: getRecords()
+  });
