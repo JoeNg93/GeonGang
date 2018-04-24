@@ -36,7 +36,7 @@ class UserInputScreensContainer extends Component {
       // Finish input, attempt to save user input to db
       const { age, gender, skinType, skinColor, climate } = this.props;
       this.props.postUserInputs({
-        name: 'Joe',
+        name: 'Joe Nguyen',
         age,
         gender,
         skinType,
