@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import StatisticsScreen from './StatisticsScreen';
 import colorCode from '../../utils/colorCode';
 import { Icon } from 'react-native-elements';
+import LoaderContainer from '../common/LoaderContainer';
 
 class StatisticsScreenContainer extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -22,8 +23,10 @@ class StatisticsScreenContainer extends Component {
     dateRange: {
       startDate: '15. Apr',
       endDate: '22. Apr'
-    }
+    },
+    isLoading: true
   };
+
   overallScore = {
     score: 67.8,
     scoreTag: 'moderate',
@@ -40,11 +43,19 @@ class StatisticsScreenContainer extends Component {
 
   buttons = ['Weekly', 'Monthly'];
 
+  componentDidMount = () => {
+    setTimeout(() => this.setState({ isLoading: false }), 1500);
+  };
+
   updateIndex = selectedIndex => {
     this.setState({ selectedIndex });
   };
 
   render() {
+    if (this.state.isLoading) {
+      return <LoaderContainer />;
+    }
+
     return (
       <StatisticsScreen
         buttons={this.buttons}

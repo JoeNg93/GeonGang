@@ -66,7 +66,7 @@ const StatisticsScreen = ({
           <Image
             style={[styles.graphImage]}
             source={require('../../assets/images/graph.png')}
-            resizeMode='contain'
+            resizeMode="contain"
           />
         </View>
       </View>
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
   graphImage: {
     width: 285,
     height: 164,
-    marginTop: 24,
+    marginTop: 24
   },
   skinConditionContainer: {
     flex: 1,
