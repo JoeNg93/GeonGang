@@ -73,11 +73,11 @@ class ScanningResultScreenContainer extends Component {
   getRecommendedText = scoreTag => {
     switch (scoreTag) {
       case 'cautious':
-        return 'Your skin is something you really need to worry about.';
+        return 'Uh oh! Your skin is not feeling well today! Please go through your day and see what is different from other days to help make your skin better tomorrow!';
       case 'bad':
-        return 'Your skin is just bad.';
+        return 'Your skin has seen better days than this! Good skin only needs to be cleaned, hydrated and protected.';
       case 'moderate':
-        return 'Your skin is dry, tired and has a lot of dirt and oil. We recommend cleaning your face and moisturizing before going to bed.';
+        return 'Your skin is dried, tired with a lot of dirt and oil. We recommend cleaning your face and moisturizing before going to bed.';
       case 'good':
         return 'Your skin is healthy and has improved so far. Keep up with the good work and continue to wash your face.';
     }
