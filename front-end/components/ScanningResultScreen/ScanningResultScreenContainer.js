@@ -3,28 +3,43 @@ import colorCode from '../../utils/colorCode';
 import ScanningResultScreen from './ScanningResultScreen';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { postRecord } from '../../actions/record';
+import { connect } from 'react-redux';
 
 class ScanningResultScreenContainer extends Component {
-  overallScore = {
-    score: 67.8,
-    scoreTag: 'moderate',
-    scoreTagColor: colorCode.moderateTag,
-    lightVersion: false,
-    displayRow: true
-  };
-  skinConditionResult = {
-    moistureScore: 45,
-    dirtScore: 62,
-    uvScore: 88,
-    pigmentScore: 20,
-    recommendText:
-      'Your skin is dry, tired with a lot of dirt and oil. We recommend cleaning your face and moisturizing before going to bed.'
-  };
-
   MIN_POSITIVE_SCORE = 70;
   MAX_POSITIVE_SCORE = 100;
   MIN_NEGATIVE_SCORE = 0;
   MAX_NEGATIVE_SCORE = 50;
+
+  componentWillMount = () => {
+    const {
+      moistureScore,
+      uvScore,
+      dirtScore,
+      pigmentScore,
+      overallScore
+    } = this.randomizeScanningResult();
+    this.moistureScore = moistureScore;
+    this.uvScore = uvScore;
+    this.dirtScore = dirtScore;
+    this.pigmentScore = pigmentScore;
+    this.overallScore = overallScore;
+    this.scoreTag = this.getScoreTag(this.overallScore);
+    this.recommendedText = this.getRecommendedText(this.scoreTag);
+
+    // This component will mount even before pressing the scan button
+    // FIXME: Make it wait until the scanning is done to get real scores if connect to real device
+    this.props.postRecord({
+      overallScore: this.overallScore,
+      tag: this.scoreTag,
+      moisture: this.moistureScore,
+      dirt: this.dirtScore,
+      uv: this.uvScore,
+      pigmentation: this.pigmentScore,
+      recommendedText: this.recommendedText
+    });
+  };
 
   randomizeScanningResult = () => {
     const moistureScore = _.random(
@@ -77,28 +92,18 @@ class ScanningResultScreenContainer extends Component {
   };
 
   render() {
-    const {
-      moistureScore,
-      uvScore,
-      dirtScore,
-      pigmentScore,
-      overallScore
-    } = this.randomizeScanningResult();
-    const scoreTag = this.getScoreTag(overallScore);
-    const recommendedText = this.getRecommendedText(scoreTag);
-
     return (
       <ScanningResultScreen
-        score={overallScore}
-        scoreTag={scoreTag}
-        scoreTagColor={colorCode[`${scoreTag}Tag`]}
+        score={this.overallScore}
+        scoreTag={this.scoreTag}
+        scoreTagColor={colorCode[`${this.scoreTag}Tag`]}
         lightVersion={false}
         displayRow={true}
-        moistureScore={moistureScore}
-        dirtScore={dirtScore}
-        uvScore={uvScore}
-        pigmentScore={pigmentScore}
-        recommendText={recommendedText}
+        moistureScore={this.moistureScore}
+        dirtScore={this.dirtScore}
+        uvScore={this.uvScore}
+        pigmentScore={this.pigmentScore}
+        recommendText={this.recommendedText}
         onPressNextStep={this.props.onPressNextStep}
       />
     );
@@ -113,4 +118,4 @@ ScanningResultScreenContainer.defaultProps = {
   onPressNextStep: () => {}
 };
 
-export default ScanningResultScreenContainer;
+export default connect(null, { postRecord })(ScanningResultScreenContainer);

@@ -14,15 +14,14 @@ export const postRecord = ({
     actionType: RECORD_POST,
     urlPath: 'api/records',
     data: {
-      overallScore,
+      overall_score: overallScore,
+      recommended_text: recommendedText,
       tag,
       moisture,
       dirt,
       uv,
-      pigmentation,
-      recommended_text: recommendedText
-    },
-    successCallback: getRecords()
+      pigmentation
+    }
   });
 
 export const getRecords = () =>
