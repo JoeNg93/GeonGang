@@ -23,7 +23,7 @@ import { View } from 'react-native';
 class ProductDatabaseScreenContainer extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: 'Product list',
-    headerTitleStyle:  {
+    headerTitleStyle: {
       color: colorCode.darkBlue,
       fontSize: 18
     },
@@ -73,7 +73,7 @@ class ProductDatabaseScreenContainer extends Component {
 
   componentWillMount = async () => {
     await this.props.getCategories();
-    this.props.setCategory(Object.values(this.props.categories)[4]);
+    this.props.setCategory(Object.values(this.props.categories)[6]);
   };
 
   productAddHandle = productId => {

@@ -77,9 +77,9 @@ class ScanningResultScreenContainer extends Component {
       case 'bad':
         return 'Your skin has seen better days than this! Good skin only needs to be cleaned, hydrated and protected.';
       case 'moderate':
-        return 'Your skin is dried, tired with a lot of dirt and oil. We recommend cleaning your face and moisturizing before going to bed.';
+        return 'Your skin is dry, tired with a lot of dirt and oil. We recommend cleaning your face and moisturizing before going to bed.';
       case 'good':
-        return 'Your skin is healthy and has improved so far. Keep up with the good work and continue to wash your face.';
+        return 'Your skin is healthy and has improved so far. Keep up the good work and continue to wash your face.';
     }
   };
 

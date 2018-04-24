@@ -10,7 +10,7 @@ const RecommendationScreen = ({ productComponents }) => {
       <Header
         headerText={'Our recommendation'}
         descriptionText={
-          'This is our product recommendation based on your skin conditions and your profile input. Add them to your list !'
+          'These are our product recommendations based on your skin conditions and profile input. Add them to your list !'
         }
       />
       <View style={styles.productSection}>{productComponents}</View>

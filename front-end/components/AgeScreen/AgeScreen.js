@@ -9,7 +9,7 @@ const AgeScreen = ({ age, onAgeChange }) => {
     <View>
       <Header
         headerText="About you"
-        descriptionText="We need to get some information about you to produce better recommendation result. You can skip any questions at any time."
+        descriptionText="We need to get some information about you to produce better recommendations. You can skip questions at any time."
       />
       <View style={styles.container}>
         <Image
