@@ -312,4 +312,35 @@ router.get(
   }
 );
 
+// DELETE A RECORD
+router.delete(
+  '/records/:id',
+  jwtMiddleware,
+  errHandlerMiddleware,
+  async (req, res) => {
+    const recordId = req.params.id;
+    const userId = req.user.id;
+
+    // Check if product exist
+    const row = await knex
+      .select('*')
+      .from('record')
+      .where('user_id', userId)
+      .andWhere('id', recordId)
+      .first();
+    if (!row) {
+      res.status(404).send({ error: 'Record doest not exist/belong to user' });
+      return;
+    }
+
+    // Delete favorite product from db
+    await knex('record')
+      .where('user_id', userId)
+      .andWhere('id', recordId)
+      .del();
+
+    res.status(204).send();
+  }
+);
+
 module.exports = router;
