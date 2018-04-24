@@ -7,12 +7,21 @@ export const postRecord = ({
   moisture,
   dirt,
   uv,
-  pigmentation
+  pigmentation,
+  recommendedText
 }) =>
   postData({
     actionType: RECORD_POST,
-    urlPath: 'api/record',
-    data: { overallScore, tag, moisture, dirt, uv, pigmentation },
+    urlPath: 'api/records',
+    data: {
+      overallScore,
+      tag,
+      moisture,
+      dirt,
+      uv,
+      pigmentation,
+      recommended_text: recommendedText
+    },
     successCallback: getRecords()
   });
 

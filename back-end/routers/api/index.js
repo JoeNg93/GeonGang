@@ -93,7 +93,7 @@ router.use(
 
 // ADD PRODUCT TO FAVORITE ROUTE
 router.post(
-  '/favorite-product',
+  '/favorite-products',
   jwtMiddleware,
   errHandlerMiddleware,
   requireInputs('product_id'),
@@ -135,7 +135,7 @@ router.post(
 );
 
 router.delete(
-  '/favorite-product/:id',
+  '/favorite-products/:id',
   jwtMiddleware,
   errHandlerMiddleware,
   async (req, res) => {
@@ -166,7 +166,7 @@ router.delete(
 
 // POST SCANNING RESULT ROUTE
 router.post(
-  '/record',
+  '/records',
   jwtMiddleware,
   errHandlerMiddleware,
   requireInputs(

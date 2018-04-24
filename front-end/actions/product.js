@@ -15,7 +15,7 @@ export const setCurrentProduct = product => ({
 export const addFavoriteProduct = productId =>
   postData({
     actionType: FAVORITE_PRODUCT_ADD,
-    urlPath: 'api/favorite-product',
+    urlPath: 'api/favorite-products',
     data: { product_id: productId },
     successCallback: getMyProfile()
   });
@@ -23,7 +23,7 @@ export const addFavoriteProduct = productId =>
 export const removeFavoriteProduct = productId =>
   deleteData({
     actionType: FAVORITE_PRODUCT_REMOVE,
-    urlPath: `api/favorite-product/${productId}`,
+    urlPath: `api/favorite-products/${productId}`,
     successCallback: getMyProfile()
   });
 
