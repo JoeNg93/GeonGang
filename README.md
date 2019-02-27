@@ -5,11 +5,14 @@ compatible sensor that reads the data of the skin then analyze and make the verd
 appearance of the skin. 
 
 
+## Tools and libraries
 
-![Technology Stack](screenshots/techstack.png)
+![Technology Stack](screenshots/technologyStack.png)
 
 
-![Architechture](screenshots/architechture.png)
+## Architechture
+
+![Architechture](screenshots/techArchitechture.png)
 
 
 ## Demo
